@@ -1,0 +1,261 @@
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Outfit", sans-serif;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e5e7eb;
+    border-radius: 10px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #374151;
+}
+
+/* ── Accordion submenu (grid trick) ── */
+.submenu-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.submenu-wrapper.open {
+    grid-template-rows: 1fr;
+}
+
+.submenu-inner {
+    overflow: hidden;
+}
+
+/* ── Active nav item ── */
+.nav-link.active {
+    background: linear-gradient(135deg, #fef2f2, #fff7ed);
+    color: #dc2626;
+}
+
+.dark .nav-link.active {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+}
+
+.nav-link.active .nav-dot {
+    background: #ef4444;
+}
+
+/* ── Chevron rotate ── */
+.chevron-icon {
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-parent.open .chevron-icon {
+    transform: rotate(180deg);
+}
+
+/* ── Theme toggle track ── */
+.toggle-track {
+    width: 40px;
+    height: 22px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.25s;
+}
+
+.dark .toggle-track {
+    background: #ef4444;
+}
+
+.toggle-thumb {
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark .toggle-thumb {
+    transform: translateX(18px);
+}
+
+/* ── Profile dropdown ── */
+.dropdown-menu {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 0.2s,
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-menu.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+/* ── Stat card accent bar ── */
+.accent-bar {
+    height: 3px;
+    border-radius: 999px;
+}
+
+/* ── Pulse dot ── */
+@keyframes pulse-dot {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.pulse-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── Card entrance ── */
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-in {
+    animation: slide-up 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.delay-1 {
+    animation-delay: 0.05s;
+}
+
+.delay-2 {
+    animation-delay: 0.1s;
+}
+
+.delay-3 {
+    animation-delay: 0.15s;
+}
+
+.delay-4 {
+    animation-delay: 0.2s;
+}
+
+.delay-5 {
+    animation-delay: 0.25s;
+}
+
+.delay-6 {
+    animation-delay: 0.3s;
+}
+
+/* ════════════════════════════
+ SIDEBAR COLLAPSE (icon-only)
+════════════════════════════ */
+#sidebar {
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#sidebar.collapsed {
+    width: 80px; /* Aumentado de 68px a 80px para que los nuevos iconos grandes quepan bien */
+}
+
+/* Ocultar textos / labels / chevrones / submenús */
+#sidebar.collapsed .nav-item-text,
+#sidebar.collapsed .nav-chevron-wrap,
+#sidebar.collapsed .sb-section-label,
+#sidebar.collapsed .sb-brand-text,
+#sidebar.collapsed .sb-footer-text {
+    display: none;
+}
+
+#sidebar.collapsed .submenu-wrapper {
+    display: none;
+}
+
+/* Centrar iconos */
+#sidebar.collapsed .nav-link,
+#sidebar.collapsed .nav-parent,
+#sidebar.collapsed .sb-footer-link {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#sidebar.collapsed nav {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#sidebar.collapsed .sb-footer-inner {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#sidebar.collapsed .sb-brand-wrap {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Tooltips al hover en modo colapsado */
+#sidebar.collapsed [data-tip] {
+    position: relative;
+}
+
+#sidebar.collapsed [data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1f2937;
+    color: #f9fafb;
+    font-size: 14px; /* Tooltip más grande */
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    pointer-events: none;
+}
+
+#sidebar.collapsed [data-tip]:hover::before {
+    content: "";
+    position: absolute;
+    left: calc(100% + 6px);
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent; /* Triángulo más grande */
+    border-right-color: #1f2937;
+    z-index: 999;
+    pointer-events: none;
+}
+
+/* Main area transition */
+#main-area {
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
