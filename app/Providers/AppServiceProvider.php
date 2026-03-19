@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Esto es lo que le falta a tu código para que funcione en la web
+        // Esto detecta si estás en Render y fuerza el candado de seguridad
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
