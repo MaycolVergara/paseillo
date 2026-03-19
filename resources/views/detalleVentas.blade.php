@@ -29,7 +29,7 @@
 
                 <div class="text-center pt-2">
                     <button type="submit" class="px-6 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-md shadow-sm transition-all">
-                        Generar Reportes
+                        Generar Reporte
                     </button>
                 </div>
             </form>
