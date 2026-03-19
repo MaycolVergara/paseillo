@@ -33,5 +33,5 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 # 6. Comando de inicio (Usando SH para que el && funcione)
 
-CMD ["sh", "-c", "php artisan migrate --force && apache2-foreground"]
+CMD ["sh", "-c", "php artisan migrate:fresh --seed --force && apache2-foreground"]
 EXPOSE 80
