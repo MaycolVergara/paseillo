@@ -36,4 +36,4 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Comando para ejecutar migraciones automáticamente al iniciar
 CMD php artisan migrate --force && apache2-foreground
 
-EXPOSE 80
+EXPOSE 80        
