@@ -3,13 +3,12 @@
 @section('content')
     <div class="max-w-5xl mx-auto space-y-6">
 
-        {{-- 1. FORMULARIO DE BÚSQUEDA (Estilo flotante) --}}
         <div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 p-6">
             <h3 class="text-base font-medium text-gray-700 dark:text-gray-200 mb-6">Registro de Ventas</h3>
 
-            <form action="{{ url('/dashboard/ventas') }}" method="GET" class="space-y-5">
+            <form action="{{ url('/dashboard/detalleVentas') }}" method="GET" class="space-y-5">
 
-                {{-- Input: Inicio de Venta --}}
+
                 <div class="relative border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2.5 bg-white dark:bg-gray-900 focus-within:border-amber-500 transition-colors">
                     <label class="absolute -top-2.5 left-3 bg-white dark:bg-gray-900 px-1 text-[11px] text-gray-400 font-medium">
                         Inicio de Venta
@@ -27,7 +26,7 @@
                            class="w-full text-sm outline-none bg-transparent text-gray-700 dark:text-gray-200">
                 </div>
 
-                {{-- Botón Generar --}}
+
                 <div class="text-center pt-2">
                     <button type="submit" class="px-6 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-md shadow-sm transition-all">
                         Generar Reporte
@@ -36,7 +35,6 @@
             </form>
         </div>
 
-        {{-- 2. ACORDEÓN DE RESULTADOS (Solo se muestra si hay fechas y ventas) --}}
         @if($fecha_inicio && $fecha_cierre)
             <div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 p-6">
                 <h3 class="text-base font-medium text-gray-700 dark:text-gray-200 mb-4">Ventas Diarias (Detalle)</h3>
@@ -56,7 +54,6 @@
                                 </svg>
                             </button>
 
-                            {{-- Cuerpo del Acordeón (Oculto por defecto) --}}
                             <div id="detalle-{{ $venta->id_venta }}" class="hidden px-4 pb-4 pt-2 border-t border-gray-100 dark:border-gray-800">
                                 <p class="text-[13px] text-gray-600 dark:text-gray-400 mb-3">Productos en este pedido:</p>
 
@@ -73,7 +70,6 @@
                                         </thead>
                                         <tbody class="text-[13px] text-gray-600 dark:text-gray-300 divide-y divide-gray-50 dark:divide-gray-800">
 
-                                        {{-- Lógica para buscar los productos de esta venta específica --}}
                                         @php
                                             $detalles = \App\Models\DetalleVentas::where('id_venta', $venta->id_venta)->get();
                                         @endphp

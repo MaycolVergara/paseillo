@@ -145,7 +145,7 @@ class MesasPedidosClientesController extends Controller
             }
         }
 
-        return redirect('/dashboard')->with('success', 'Venta finalizada y mesa liberada');
+        return redirect('/dashboard/mesasView')->with('success', 'Venta finalizada y mesa liberada');
     }
 
     public function eliminarDetalle($id_detalle)

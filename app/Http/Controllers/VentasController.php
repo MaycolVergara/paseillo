@@ -33,6 +33,9 @@ class VentasController extends Controller
         }
         // Eliminamos el "else" para que no busque automáticamente las ventas de hoy
 
-        return view('ventas', compact('ventas', 'totalDia', 'fecha_inicio', 'fecha_cierre'));
+        return view('/detalleVentas',
+            compact('ventas',
+                'totalDia', 'fecha_inicio',
+                'fecha_cierre'));
     }
 }

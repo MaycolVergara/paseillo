@@ -17,11 +17,19 @@
     </div>
 
     <nav class="flex-1 overflow-y-auto px-4 py-5 space-y-1">
-        @include('partials.menus.inicio')
-        @include('partials.menus.redireccion_mesa')
-        @include('partials.menus.registros')
-        @include('partials.menus.categorias')
-        @include('partials.menus.ventas')
+        @if(Auth::user()->rol==1)
+            @include('partials.menus.inicio')
+            @include('partials.menus.redireccion_mesa')
+            @include('partials.menus.registros')
+            @include('partials.menus.categorias')
+            @include('partials.menus.ventas')
+        @endif
+        @if(Auth::user()->rol==2)
+            @include('partials.menus.inicio')
+            @include('partials.menus.redireccion_mesa')
+
+        @endif
+
     </nav>
 
 

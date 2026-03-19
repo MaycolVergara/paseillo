@@ -78,7 +78,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::post('/productoRegistro', [ProductosController::class, 'insertarProductos']);
         Route::get('/productos/{id_producto}/editar', [ProductosController::class, 'viewEdit'])->name('productos.edit');
         Route::put('/productos/{id_producto}/actualizar', [ProductosController::class, 'update'])->name('productos.update');
-        Route::get('/productos/{id_producto}/eliminar', [ProductosController::class, 'delete']);
+        Route::delete('/productos/{id_producto}/eliminar', [ProductosController::class, 'delete']);
 
         // Gestion de Categorias
         Route::get('/categoriasRegistro', [CategoriaController::class, 'index']);
@@ -97,6 +97,6 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::delete('/usuariosRegistro/{id_usuario}', [UsuariosController::class, 'delete']);
 
         // Reportes y Ventas
-        Route::get('/ventas', [VentasController::class, 'index']);
+        Route::get('/detalleVentas', [VentasController::class, 'index']);
     });
 });

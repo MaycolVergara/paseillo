@@ -36,7 +36,6 @@
                         <span class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 shrink-0"></span> Categoria
                     </a>
                 </div>
-
                 <!--MESAS-->
                 <div class="ml-5 pl-4 mt-1.5 mb-1 border-l-2 border-dashed border-gray-200 dark:border-gray-700 space-y-1">
                     <a href="{{ url('/dashboard/mesasRegistros')}}"

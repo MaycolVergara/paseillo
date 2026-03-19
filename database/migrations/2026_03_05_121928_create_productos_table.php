@@ -18,9 +18,11 @@ return new class extends Migration {
             $table->string('imagen_producto', 100)->nullable();
             $table->unsignedInteger('id_categoria')->nullable(); //
             $table->foreign('id_categoria')->references('id_categoria')->on('categorias'); //
+            $table->softDeletes();
             $table->timestamps();
         });
     }
+
     public function down(): void
     {
         Schema::dropIfExists('productos');

@@ -174,7 +174,7 @@
                 ¿Tienes otra pregunta? Escríbenos directamente.
             </p>
             <a
-                href="https://wa.me/51000000000?text=Hola%20Paseillo%2C%20tengo%20una%20pregunta"
+                href="#"
                 target="_blank"
                 class="bg-brand hover:bg-brand-dark font-condensed font-800 inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm uppercase tracking-widest text-white shadow-[0_6px_24px_rgba(227,6,19,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(227,6,19,0.45)]"
             >

@@ -103,12 +103,26 @@
     </div>
 
     <div
-        class="animate-in delay-2 bg-white dark:bg-gray-900 rounded-3xl shadow-card border border-gray-100 dark:border-gray-800 overflow-hidden">
+        class="animate-in delay-2 bg-white dark:bg-gray-900
+         rounded-3xl shadow-card border border-gray-100
+         dark:border-gray-800 s">
 
-        <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
-            <h3 class="text-lg font-black text-gray-800 dark:text-gray-100">Registro de Producto</h3>
-            <span
-                class="px-3 py-1 bg-emerald-100 text-emerald-600 text-[10px] font-bold rounded-full uppercase tracking-wider">Mesa {{ $id }}</span>
+        <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800 grid grid-cols-3 items-center">
+
+            <h3 class="text-lg font-black text-gray-800 dark:text-gray-100 whitespace-nowrap">
+                Registro de Producto
+            </h3>
+
+            <div class="flex justify-center">
+        <span
+            class="px-4 py-1 bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 text-3xl font-black rounded-full uppercase tracking-wider shadow-sm">
+            Mesa {{ $id }}
+        </span>
+            </div>
+
+            {{-- 3. Espaciador invisible (Para mantener el equilibrio del centro) --}}
+            <div class="hidden md:block"></div>
+
         </div>
 
         <div class="overflow-x-auto">
@@ -181,53 +195,64 @@
         </div>
 
         <div
-            class="px-6 py-5 bg-gray-50/50 dark:bg-gray-800/30 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
+            class="px-6 py-5 bg-gray-50/50 dark:bg-gray-800/30 border-t border-gray-100 dark:border-gray-800 flex flex-col lg:flex-row items-center justify-between gap-6">
+
+            {{-- Lado Izquierdo: Total --}}
             <div class="flex items-center gap-2">
                 <span class="text-xl font-bold text-gray-800 dark:text-gray-200">Total:</span>
                 <span class="text-2xl font-black text-gray-900 dark:text-white italic">
-                    S/ {{ number_format($totalGeneral ?? 0, 2) }}
-                </span>
+            S/ {{ number_format($totalGeneral ?? 0, 2) }}
+        </span>
             </div>
 
-            <div class="flex items-center gap-3 w-full md:w-auto">
-                {{-- Le agregamos target="_blank" para que no te cierre la pantalla de la mesa --}}
+            {{-- Lado Derecho: Acciones en una sola línea --}}
+            <div class="flex flex-col md:flex-row items-end gap-4 w-full lg:w-auto">
+
+                {{-- 1. Botón Emitir Boleta --}}
                 <a href="{{ url('/dashboard/emitirBoleta/' . $id) }}" target="_blank"
-                   class="flex-1 md:flex-none px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-amber-500/20 transition-all active:scale-95 text-center flex items-center justify-center">
-                    Emitir Boleta De Venta
+                   class="w-full md:w-auto px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-amber-500/20 transition-all active:scale-95 text-center flex items-center justify-center whitespace-nowrap h-[46px]">
+                    Emitir Boleta
                 </a>
-                {{-- Formulario para Finalizar Venta --}}
-                <form action="{{ url('/dashboard/finalizarVenta/' . $id) }}" method="POST" class="flex-1 md:flex-none">
+
+                {{-- Formulario que agrupa Pago y Finalizar --}}
+                <form action="{{ url('/dashboard/finalizarVenta/' . $id) }}" method="POST"
+                      class="flex flex-col md:flex-row items-end gap-4 w-full md:w-auto">
                     @csrf
-                    {{-- Selector de Método de Pago --}}
-                    <div class="mb-4">
-                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Método
+
+                    {{-- 2. Selector de Método de Pago --}}
+                    <div class="w-full md:w-48">
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5 ml-1">Método
                             de Pago</label>
                         <div class="relative">
                             <select name="metodo_pago" required
-                                    class="w-full appearance-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 rounded-xl px-4 py-3 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all cursor-pointer font-medium text-sm">
+                                    class="w-full appearance-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 rounded-xl px-4 py-2.5 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all cursor-pointer font-bold text-sm h-[46px]">
                                 <option value="Efectivo" selected>💵 Efectivo</option>
                                 <option value="Yape">📱 Yape / Plin</option>
                                 <option value="Tarjeta">💳 Tarjeta (POS)</option>
                             </select>
-                            {{-- Flechita personalizada --}}
                             <div
-                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M19 9l-7 7-7-7"></path>
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"
+                                     viewBox="0 0 24 24">
+                                    <path d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </div>
                         </div>
                     </div>
 
-                    {{-- Agregamos un mensaje de confirmación por si el mozo hace clic por error --}}
-                    <button type="submit"
-                            onclick="return confirm('¿Seguro que deseas cobrar esta cuenta y liberar la mesa?')"
-                            class="w-full px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95">
-                        Finalizar Venta
-                    </button>
+                    {{-- 3. Botón Finalizar Venta (Solo Admin) --}}
+                    @if(Auth::user()->rol == 1)
+                        <button type="submit"
+                                onclick="return confirm('¿Seguro que deseas cobrar esta cuenta y liberar la mesa?')"
+                                class="w-full md:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95 whitespace-nowrap h-[46px]">
+                            Finalizar Venta
+                        </button>
+                    @endif
                 </form>
             </div>
         </div>
+
+
+    </div>
     </div>
 @endsection

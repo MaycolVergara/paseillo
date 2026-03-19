@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -16,7 +17,7 @@ class AuthController extends Controller
         ]);
 
         // 1. Buscamos al usuario por su nombre
-        $usuario = \App\Models\User::where('user', $request->user)->first();
+        $usuario = User::where('user', $request->user)->first();
 
         // 2. ¿Existe el usuario?
         if ($usuario) {
@@ -28,9 +29,12 @@ class AuthController extends Controller
                 $request->session()->regenerate();
 
                 // 5. Redirección por ROL
-                return $usuario->rol == 1
-                    ? redirect()->intended('/dashboard')
-                    : redirect()->intended('/dashboard/mesasView');
+                if ($usuario->rol_id == 1) {
+                    return redirect()->intended('/dashboard');
+                } else {
+
+                    return redirect()->intended('/dashboard/mesasView');
+                }
             }
         }
 

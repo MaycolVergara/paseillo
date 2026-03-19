@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Productos extends Model
 {
+    use SoftDeletes;
+
     // 1. Le decimos el nombre exacto de la tabla
     protected $table = 'productos';
 
@@ -22,5 +26,7 @@ class Productos extends Model
         'descripcion_producto',
         'fecha_entrega',
         'id_categoria'
+
     ];
+
 }

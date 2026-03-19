@@ -188,7 +188,7 @@
             </h2>
         </div>
         <a
-            href="https://wa.me/51000000000?text=Hola%20Paseillo%2C%20quiero%20ordenar"
+            href="#"
             target="_blank"
             class="font-condensed font-800 inline-flex flex-shrink-0 items-center gap-3 rounded-2xl bg-[#25D366] px-10 py-5 text-base uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(37,211,102,0.4)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#1ebe5c] hover:shadow-[0_16px_40px_rgba(37,211,102,0.5)]"
         >
