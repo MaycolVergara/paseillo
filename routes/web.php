@@ -2,28 +2,23 @@
 
 use App\Http\Controllers\AuthController;
 
-// 1. Dasboard
-use App\Http\Controllers\CategoriaController;
+// 1. Dashboard (Nombres actualizados a Inglés)
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MesasConfigController;
-use App\Http\Controllers\MesasPedidosClientesController;
-use App\Http\Controllers\MesasViewsController;
-use App\Http\Controllers\ProductosController;
-use App\Http\Controllers\UsuariosController;
-use App\Http\Controllers\VentasController;
+use App\Http\Controllers\TableConfigController;
+use App\Http\Controllers\TableCustomerOrderController;
+use App\Http\Controllers\TableViewController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SaleController;
 
-// END
-
-// 2. WEB PUBLICA (CLIENTES)
+// 2. WEB PUBLICA (CLIENTES) - INTACTO
 use App\Http\Controllers\webControllers\WebController;
 use App\Http\Controllers\webControllers\cartaPaseilloCompletaContoller;
-//END
 
 use App\Http\Middleware\SoloAdmin;
 use Illuminate\Support\Facades\Route;
 
-
-//CONTRLADROESW
 // ==========================================================
 // WEB PUBLICA (CLIENTES)
 // ==========================================================
@@ -32,9 +27,8 @@ Route::group([], function () {
     Route::get('/cartaPaseilloCompleta', [cartaPaseilloCompletaContoller::class, 'cartaPaseilloCompleta']);
 });
 
-
 // ==========================================================
-//AUTENTICACION (LOGIN Y LOGOUT)
+// AUTENTICACION (LOGIN Y LOGOUT)
 // ==========================================================
 Route::get('/login', function () {
     return view('auth.login');
@@ -42,7 +36,6 @@ Route::get('/login', function () {
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 
 // ==========================================================
 // PANEL DE ADMINISTRACION Y VENTAS (DASHBOARD)
@@ -52,17 +45,15 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     // ------------------------------------------------------
     // ACCESO GENERAL (Mozos y Administrador)
     // ------------------------------------------------------
-    Route::get('/mesasView', [MesasViewsController::class, 'index']);
+    Route::get('/tableView', [TableViewController::class, 'index']);
 
     // Gestion de Pedidos y Boletas
-    Route::get('/detallePedidoMesasCliente', [MesasPedidosClientesController::class, 'index']);
-    Route::get('/detallePedidoMesasCliente/{id}', [MesasPedidosClientesController::class, 'index']);
-    Route::post('/guardarPedido/{id}', [MesasPedidosClientesController::class, 'guardarPedido']);
-    Route::delete('/eliminarDetalle/{id_detalle}', [MesasPedidosClientesController::class, 'eliminarDetalle']);
+    Route::get('/tableOrderDetails/{id}', [TableCustomerOrderController::class, 'index']);
+    Route::post('/saveOrder/{table_id}', [TableCustomerOrderController::class, 'saveOrder']);
+    Route::delete('/deleteDetail/{detail_id}', [TableCustomerOrderController::class, 'deleteDetail']);
 
-    Route::get('/emitirBoleta/{id_mesa}', [MesasPedidosClientesController::class, 'generarBoleta']);
-    Route::post('/finalizarVenta/{id_mesa}', [MesasPedidosClientesController::class, 'finalizarVenta']);
-
+    Route::get('/issueReceipt/{table_id}', [TableCustomerOrderController::class, 'generateReceipt']);
+    Route::post('/finalizeSale/{table_id}', [TableCustomerOrderController::class, 'finalizeSale']);
 
     // ------------------------------------------------------
     // ACCESO RESTRINGIDO (Solo Administrador)
@@ -73,30 +64,30 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         // Gestion de Productos
-        Route::get('/productosListado', [ProductosController::class, 'index']);
-        Route::get('/productoRegistro', [ProductosController::class, 'insertarProductosView']);
-        Route::post('/productoRegistro', [ProductosController::class, 'insertarProductos']);
-        Route::get('/productos/{id_producto}/editar', [ProductosController::class, 'viewEdit'])->name('productos.edit');
-        Route::put('/productos/{id_producto}/actualizar', [ProductosController::class, 'update'])->name('productos.update');
-        Route::delete('/productos/{id_producto}/eliminar', [ProductosController::class, 'delete']);
+        Route::get('/productList', [ProductController::class, 'index']);
+        Route::get('/productRegistration', [ProductController::class, 'insertProductView']);
+        Route::post('/productRegistration', [ProductController::class, 'insertProduct']);
+        Route::get('/products/{id}/edit', [ProductController::class, 'viewEdit'])->name('products.edit');
+        Route::put('/products/{id}/update', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('/products/{id}/delete', [ProductController::class, 'delete']);
 
         // Gestion de Categorias
-        Route::get('/categoriasRegistro', [CategoriaController::class, 'index']);
-        Route::post('/categoriasRegistro', [CategoriaController::class, 'create']);
-        Route::put('/categoriasRegistro/{id}/actualizar', [CategoriaController::class, 'update']);
-        Route::delete('/categoriasRegistro/{id}', [CategoriaController::class, 'delete']);
+        Route::get('/categoryRegistration', [CategoryController::class, 'index']);
+        Route::post('/categoryRegistration', [CategoryController::class, 'create']);
+        Route::put('/categoryRegistration/{id}/update', [CategoryController::class, 'update']);
+        Route::delete('/categoryRegistration/{id}', [CategoryController::class, 'delete']);
 
         // Configuracion de Mesas
-        Route::get('/mesasRegistros', [MesasConfigController::class, 'index']);
-        Route::post('/mesasRegistros/insertar', [MesasConfigController::class, 'store']);
+        Route::get('/tableRegistration', [TableConfigController::class, 'index']);
+        Route::post('/tableRegistration/insert', [TableConfigController::class, 'store']);
 
         // Gestion de Usuarios
-        Route::get('/usuariosRegistro', [UsuariosController::class, 'index']);
-        Route::post('/usuariosRegistro', [UsuariosController::class, 'createUsuario']);
-        Route::put('/usuariosRegistro/{id_usuario}/actualizar', [UsuariosController::class, 'update']);
-        Route::delete('/usuariosRegistro/{id_usuario}', [UsuariosController::class, 'delete']);
+        Route::get('/userRegistration', [UserController::class, 'index']);
+        Route::post('/userRegistration', [UserController::class, 'createUser']);
+        Route::put('/userRegistration/{id}/update', [UserController::class, 'update']);
+        Route::delete('/userRegistration/{id}', [UserController::class, 'delete']);
 
         // Reportes y Ventas
-        Route::get('/detalleVentas', [VentasController::class, 'index']);
+        Route::get('/saleDetails', [SaleController::class, 'index']);
     });
 });

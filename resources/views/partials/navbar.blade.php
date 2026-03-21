@@ -2,6 +2,7 @@
     class="sticky top-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm">
     <div class="flex items-center h-[62px] px-6 gap-4">
         <div class="flex items-center gap-3">
+            {{-- Mantenemos el JS original: toggleSidebar() --}}
             <button onclick="toggleSidebar()" title="Colapsar menú"
                     class="flex items-center justify-center w-8 h-8 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-500 transition-all duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -19,6 +20,7 @@
 
         <div class="flex-1"></div>
 
+        {{-- Mantenemos el JS original: toggleTheme() --}}
         <div
             class="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg px-2 py-1.5 cursor-pointer select-none"
             onclick="toggleTheme()" title="Cambiar tema">
@@ -52,7 +54,8 @@
             <button
                 class="flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 cursor-pointer select-none"
                 onclick="toggleDropdown()">
-                @if(Auth::user()->rol==1)
+                {{-- rol -> role_id --}}
+                @if(Auth::user()->role_id == 1)
                     🤵‍
                 @else
                     🧑‍🍳
@@ -60,16 +63,19 @@
 
                 <div class="text-left">
                     <p class="text-[13px] font-semibold text-gray-800 dark:text-gray-100 leading-none">
-                        @if(Auth::user()->rol == 1)
-                            {{ Auth::user()->nombre }}
+                        {{-- rol -> role_id y nombre -> name --}}
+                        @if(Auth::user()->role_id == 1)
+                            {{ Auth::user()->name }}
                         @else
                             Mozo
                         @endif</p>
-                    <p class="text-xl text-gray-400 mt-0.5 leading-none">@if(Auth::user()->rol == 1)
+                    <p class="text-[10px] text-gray-400 mt-1 leading-none">
+                        @if(Auth::user()->role_id == 1)
                             Administrador
                         @else
                             Mozo
-                        @endif</p>
+                        @endif
+                    </p>
                 </div>
                 <svg class="w-3.5 h-3.5 text-gray-400 ml-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                      fill="currentColor">
@@ -83,9 +89,10 @@
                  class="dropdown-menu absolute top-[calc(100%+10px)] right-0 w-56 bg-white dark:bg-gray-900 rounded-2xl shadow-dropdown border border-gray-100 dark:border-gray-800 overflow-hidden z-50">
                 <div
                     class="px-4 py-3.5 border-b border-gray-100 dark:border-gray-800 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/20 dark:to-orange-950/20">
-                    @if(Auth::user()->rol==1)
-                    <p class="text-[13px] font-bold text-gray-800 dark:text-gray-100">{{Auth::user()->nombre}}</p>
-                    <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">{{Auth::user()->correo}}</p>
+                    {{-- rol -> role_id, nombre -> name, correo -> email --}}
+                    @if(Auth::user()->role_id == 1)
+                        <p class="text-[13px] font-bold text-gray-800 dark:text-gray-100">{{ Auth::user()->name }}</p>
+                        <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">{{ Auth::user()->email }}</p>
                     @endif
                 </div>
                 <div class="py-1.5">

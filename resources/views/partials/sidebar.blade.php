@@ -2,7 +2,6 @@
        class="w-72 shrink-0 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col
        fixed inset-y-0 left-0 z-30 shadow-sm overflow-hidden">
 
-
     <div class="sb-brand-wrap flex items-center gap-3 px-5 py-5 border-b border-gray-100 dark:border-gray-800">
         <img src="{{ asset('img/logo_principal.png') }}"
              alt="Logo Paseillo"
@@ -17,20 +16,20 @@
     </div>
 
     <nav class="flex-1 overflow-y-auto px-4 py-5 space-y-1">
-        @if(Auth::user()->rol==1)
-            @include('partials.menus.inicio')
-            @include('partials.menus.redireccion_mesa')
-            @include('partials.menus.registros')
-            @include('partials.menus.categorias')
-            @include('partials.menus.ventas')
-        @endif
-        @if(Auth::user()->rol==2)
-            @include('partials.menus.inicio')
-            @include('partials.menus.redireccion_mesa')
-
+        {{-- Cambiado: rol -> role_id --}}
+        @if(Auth::user()->role_id == 1)
+            @include('partials.menus.dashboard_home') {{-- Antes inicio --}}
+            @include('partials.menus.table_view_redirect') {{-- Antes redireccion_mesa --}}
+            @include('partials.menus.registrations') {{-- Antes registros --}}
+            @include('partials.menus.categories') {{-- Antes categorias --}}
+            @include('partials.menus.sales') {{-- Antes ventas --}}
         @endif
 
+        {{-- Cambiado: rol -> role_id --}}
+        @if(Auth::user()->role_id == 2)
+            @include('partials.menus.dashboard_home')
+            @include('partials.menus.table_view_redirect')
+        @endif
     </nav>
-
 
 </aside>

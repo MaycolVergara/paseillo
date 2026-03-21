@@ -9,19 +9,18 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = 'usuarios';
-    protected $primaryKey = 'id_usuario';
-    protected $fillable = ['nombre', 'correo', 'user', 'password', 'rol'];
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    protected $fillable = ['name', 'email', 'username', 'password', 'role_id'];
 
-    // 🌟 ESTA ES LA FUNCIÓN QUE FALTABA
-    public function rolAsignado()
+    public function assignedRole()
     {
-        // Relacionamos el campo 'rol' de usuarios con el 'id_rol' de la tabla roles
-        return $this->belongsTo(Rol::class, 'rol', 'id_rol');
+        // Relacionamos el campo 'role_id' de users con el 'id' de la tabla roles
+        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
     public function username()
     {
-        return 'user';
+        return 'username';
     }
 }

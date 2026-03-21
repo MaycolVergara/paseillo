@@ -28,10 +28,11 @@
 
         {{-- Formulario --}}
         <div class="px-8 pb-10">
+            {{-- Mantenemos la ruta login.post que definimos en web.php --}}
             <form action="{{ route('login.post') }}" method="POST" class="space-y-5">
                 @csrf
 
-                {{-- Mensaje de Error (si se equivocan) --}}
+                {{-- Mensaje de Error --}}
                 @if ($errors->any())
                     <div
                         class="p-3 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 text-red-600 dark:text-red-400 text-sm font-bold text-center">
@@ -40,15 +41,14 @@
                 @endif
 
                 <div>
-                    <label class="block text-[13px] font-bold text-gray-700 dark:text-gray-300 mb-1.5">Inserte el
-                        Usuario</label>
-                    <input type="text" name="user" required placeholder="admin"
+                    <label class="block text-[13px] font-bold text-gray-700 dark:text-gray-300 mb-1.5">Usuario</label>
+                    {{-- 🌟 CAMBIO CLAVE: name="user" -> name="username" --}}
+                    <input type="text" name="username" required placeholder="admin"
                            class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-2 focus:ring-red-500/20 focus:border-red-500 outline-none transition-all dark:text-white">
                 </div>
 
                 <div>
-                    <label class="block text-[13px] font-bold text-gray-700 dark:text-gray-300 mb-1.5">Insierte la
-                        Contraseña</label>
+                    <label class="block text-[13px] font-bold text-gray-700 dark:text-gray-300 mb-1.5">Contraseña</label>
                     <input type="password" name="password" required placeholder="••••••••"
                            class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-2 focus:ring-red-500/20 focus:border-red-500 outline-none transition-all dark:text-white">
                 </div>

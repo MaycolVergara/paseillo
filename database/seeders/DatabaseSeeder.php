@@ -10,9 +10,9 @@ class DatabaseSeeder extends Seeder
     {
         // Aquí llamamos a tu seeder de usuario
         $this->call([
-            MesasSeeder::class,
-            CategoriaSeeder::class,
-            UsuarioSeeder::class,
+            TableSeeder::class,
+            CategorySeeder::class,
+            UserSeeder::class,
 
         ]);
     }

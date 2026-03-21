@@ -3,113 +3,112 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Ventas;
-use App\Models\DetalleVentas;
-use App\Models\Productos;
-use App\Models\Categoria;
+use App\Models\Sale; // Antes Ventas
+use App\Models\SaleDetail; // Antes DetalleVentas
+use App\Models\Product; // Antes Productos
+use App\Models\Category; // Antes Categoria
 use Carbon\Carbon;
-use App\Models\Mesas;
+use App\Models\Table; // Antes Mesas
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $hoy = Carbon::today();
+        $today = Carbon::today();
 
         // 1. Dinero total y Ventas de hoy
-        $ventasHoy = Ventas::where('estado', 'Finalizado')->whereDate('fecha', $hoy)->get();
-        $totalDia = $ventasHoy->sum('total');
-        $pedidosHoy = $ventasHoy->count();
+        // Cambiamos 'estado' por 'status' y 'fecha' por 'date'
+        $salesToday = Sale::where('status', 'Finalizado')->whereDate('date', $today)->get();
+        $totalDay = $salesToday->sum('total');
+        $ordersToday = $salesToday->count();
 
         // 2. Detalles de hoy
-        $ventasHoyIds = $ventasHoy->pluck('id_venta');
-        $detallesHoy = DetalleVentas::whereIn('id_venta', $ventasHoyIds)->get();
+        $salesTodayIds = $salesToday->pluck('id'); // Antes id_venta
+        $detailsToday = SaleDetail::whereIn('sale_id', $salesTodayIds)->get(); // Antes id_venta
 
         // 3. Contadores de las tarjetas superiores
-        $pizzasVendidas = 0;
-        $hamburguesasVendidas = 0;
-        $gaseosasVendidas = 0;
-        $krispyVendidos = 0;
-        $salchipapasVendidas = 0;
+        $pizzasSold = 0;
+        $burgersSold = 0;
+        $drinksSold = 0;
+        $krispySold = 0;
+        $salchipapasSold = 0;
 
-        foreach ($detallesHoy as $detalle) {
-            $producto = Productos::find($detalle->id_producto);
-            if ($producto) {
-                $categoria = Categoria::find($producto->id_categoria);
-                $nombreCat = $categoria ? strtolower($categoria->nombre_categoria) : strtolower($producto->nombre_producto);
+        foreach ($detailsToday as $detail) {
+            $product = Product::find($detail->product_id); // Antes id_producto
+            if ($product) {
+                $category = Category::find($product->category_id); // Antes id_categoria
+                // Cambiamos 'nombre_categoria' por 'name' y 'nombre_producto' por 'name'
+                $catName = $category ? strtolower($category->name) : strtolower($product->name);
 
-                if (str_contains($nombreCat, 'pizza')) {
-                    $pizzasVendidas += $detalle->cantidad;
-                } elseif (str_contains($nombreCat, 'hamburguesa') || str_contains($nombreCat, 'burger')) {
-                    $hamburguesasVendidas += $detalle->cantidad;
-                } elseif (str_contains($nombreCat, 'bebida') || str_contains($nombreCat, 'gaseosa') || str_contains($nombreCat, 'refresco')) {
-                    $gaseosasVendidas += $detalle->cantidad;
-                } elseif (str_contains($nombreCat, 'krispy') || str_contains($nombreCat, 'pollo') || str_contains($nombreCat, 'broaster')) {
-                    $krispyVendidos += $detalle->cantidad;
-                } elseif (str_contains($nombreCat, 'salchipapa') || str_contains($nombreCat, 'papas')) {
-                    $salchipapasVendidas += $detalle->cantidad;
+                if (str_contains($catName, 'pizza')) {
+                    $pizzasSold += $detail->quantity;
+                } elseif (str_contains($catName, 'hamburguesa') || str_contains($catName, 'burger')) {
+                    $burgersSold += $detail->quantity;
+                } elseif (str_contains($catName, 'bebida') || str_contains($catName, 'gaseosa') || str_contains($catName, 'refresco')) {
+                    $drinksSold += $detail->quantity;
+                } elseif (str_contains($catName, 'krispy') || str_contains($catName, 'pollo') || str_contains($catName, 'broaster')) {
+                    $krispySold += $detail->quantity;
+                } elseif (str_contains($catName, 'salchipapa') || str_contains($catName, 'papas')) {
+                    $salchipapasSold += $detail->quantity;
                 }
             }
         }
 
-        //  NUEVO: 4. Calculamos el Top 5 de los "Más Vendidos"
-        // Agrupamos por producto, sumamos cantidades y ordenamos de mayor a menor
-        $agrupados = $detallesHoy->groupBy('id_producto')->map(function ($row) {
-            return $row->sum('cantidad');
-        })->sortDesc()->take(5); // Solo sacamos los 5 mejores
+        // 4. Calculamos el Top 5 de los "Más Vendidos"
+        $grouped = $detailsToday->groupBy('product_id')->map(function ($row) {
+            return $row->sum('quantity');
+        })->sortDesc()->take(5);
 
-        $topProductos = [];
-        $maxCantidad = $agrupados->first() ?? 1; // Para que el más vendido llene la barra al 100%
+        $topProducts = [];
+        $maxQuantity = $grouped->first() ?? 1;
 
-        foreach ($agrupados as $id_producto => $cantidad) {
-            $producto = Productos::find($id_producto);
-            if ($producto) {
-                $categoria = Categoria::find($producto->id_categoria);
-                $nombreCat = $categoria ? strtolower($categoria->nombre_categoria) : strtolower($producto->nombre_producto);
+        foreach ($grouped as $product_id => $quantity) {
+            $product = Product::find($product_id);
+            if ($product) {
+                $category = Category::find($product->category_id);
+                $catName = $category ? strtolower($category->name) : strtolower($product->name);
 
-                // Asignamos el emoji y el color de la barra según el tipo de comida
                 $emoji = '🍽️';
-                $colorFondo = 'from-gray-400 to-gray-300';
-                if (str_contains($nombreCat, 'pizza')) {
+                $bgColor = 'from-gray-400 to-gray-300';
+                if (str_contains($catName, 'pizza')) {
                     $emoji = '🍕';
-                    $colorFondo = 'from-red-500 to-orange-400';
-                } elseif (str_contains($nombreCat, 'hamburguesa') || str_contains($nombreCat, 'burger')) {
+                    $bgColor = 'from-red-500 to-orange-400';
+                } elseif (str_contains($catName, 'hamburguesa') || str_contains($catName, 'burger')) {
                     $emoji = '🍔';
-                    $colorFondo = 'from-orange-400 to-amber-400';
-                } elseif (str_contains($nombreCat, 'bebida') || str_contains($nombreCat, 'gaseosa')) {
+                    $bgColor = 'from-orange-400 to-amber-400';
+                } elseif (str_contains($catName, 'bebida') || str_contains($catName, 'gaseosa')) {
                     $emoji = '🥤';
-                    $colorFondo = 'from-blue-400 to-cyan-400';
-                } elseif (str_contains($nombreCat, 'krispy') || str_contains($nombreCat, 'pollo')) {
+                    $bgColor = 'from-blue-400 to-cyan-400';
+                } elseif (str_contains($catName, 'krispy') || str_contains($catName, 'pollo')) {
                     $emoji = '🍗';
-                    $colorFondo = 'from-orange-500 to-red-500';
-                } elseif (str_contains($nombreCat, 'salchipapa') || str_contains($nombreCat, 'papas')) {
+                    $bgColor = 'from-orange-500 to-red-500';
+                } elseif (str_contains($catName, 'salchipapa') || str_contains($catName, 'papas')) {
                     $emoji = '🍟';
-                    $colorFondo = 'from-yellow-400 to-amber-500';
+                    $bgColor = 'from-yellow-400 to-amber-500';
                 }
 
-                $topProductos[] = (object)[
-                    'nombre' => $producto->nombre_producto,
-                    'cantidad' => $cantidad,
+                $topProducts[] = (object)[
+                    'name' => $product->name,
+                    'quantity' => $quantity,
                     'emoji' => $emoji,
-                    'colorFondo' => $colorFondo,
-                    'porcentaje' => ($cantidad / $maxCantidad) * 100
+                    'colorFondo' => $bgColor,
+                    'percentage' => ($quantity / $maxQuantity) * 100
                 ];
             }
         }
 
-        $hoy=Carbon::today();
-        $pagoEfectivo = Ventas::where('estado', 'Finalizado')->whereDate('fecha', $hoy)->where('metodo_pago', 'Efectivo')->sum('total');
-        $pagoYape = Ventas::where('estado', 'Finalizado')->whereDate('fecha', $hoy)->whereIn('metodo_pago', ['Yape', 'Plin'])->sum('total');
-        $pagoTarjeta = Ventas::where('estado', 'Finalizado')->whereDate('fecha', $hoy)->where('metodo_pago', 'Tarjeta')->sum('total');
+        // Métodos de pago (Cambiamos 'metodo_pago' por 'payment_method')
+        $cashPayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->where('payment_method', 'Efectivo')->sum('total');
+        $yapePayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->whereIn('payment_method', ['Yape', 'Plin'])->sum('total');
+        $cardPayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->where('payment_method', 'Tarjeta')->sum('total');
 
-        $mesas = Mesas::orderBy('numero_mesa', 'asc')->get();
-        // 5. Enviamos todo a la vista (¡Incluimos $topProductos!)
+        // Mesas (Cambiamos 'numero_mesa' por 'table_number')
+        $tables = Table::orderBy('table_number', 'asc')->get();
+
         return view('index', compact(
-            'totalDia', 'pedidosHoy',
-            'pizzasVendidas', 'hamburguesasVendidas', 'gaseosasVendidas', 'krispyVendidos', 'salchipapasVendidas',
-            'topProductos', 'mesas','pagoEfectivo', 'pagoYape', 'pagoTarjeta'
+            'totalDay', 'ordersToday',
+            'pizzasSold', 'burgersSold', 'drinksSold', 'krispySold', 'salchipapasSold',
+            'topProducts', 'tables', 'cashPayment', 'yapePayment', 'cardPayment'
         ));
     }
-
-
 }
