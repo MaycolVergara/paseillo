@@ -238,31 +238,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //Editar Categoria botton
-function prepararEdicion(id, nombre) {
+
+function prepararEdicionCategoria(id, nombre) {
     const form = document.getElementById('form-categoria');
-    const titulo = document.getElementById('form-titulo');
-    const subtitulo = document.getElementById('form-subtitulo');
-    const inputNombre = document.getElementById('input_nombre');
-    const metodoDiv = document.getElementById('metodo-adicional');
-    const btnSubmit = document.getElementById('btn-submit');
-    const btnCancelar = document.getElementById('btn-cancelar');
+    const titulo = document.getElementById('cat-form-titulo');
+    const subtitulo = document.getElementById('cat-form-subtitulo');
+    const inputNombre = document.getElementById('cat_input_name');
+    const metodoDiv = document.getElementById('cat-metodo-adicional');
+    const btnSubmit = document.getElementById('cat-btn-submit');
+    const btnCancelar = document.getElementById('cat-btn-cancelar');
 
-    // Cambiamos textos y ruta
-    titulo.innerText = "Editar Categoría";
-    subtitulo.innerText = "Modifica el nombre del grupo seleccionado.";
+    // 1. Cambiamos la ruta a la de UPDATE
+    form.action = '/dashboard/categoryRegistration/' + id + '/update';
 
-    // 🌟 LA CLAVE: Asignamos el valor y aseguramos el name correcto para Laravel
-    inputNombre.value = nombre;
-    inputNombre.name = 'nombre_categoria';
-
-    // Asegúrate de que esta ruta coincida con tu webPartials.php
-    form.action = `/dashboard/categoriasRegistro/${id}/actualizar`;
-
+    // 2. Inyectamos el método PUT
     metodoDiv.innerHTML = '<input type="hidden" name="_method" value="PUT">';
-    btnSubmit.innerText = "Actualizar Categoría";
+
+    // 3. Rellenamos el campo
+    inputNombre.value = nombre;
+
+    // 4. Cambios visuales
+    titulo.innerText = 'Editar Categoría';
+    subtitulo.innerText = 'Modificando el nombre de la sección';
+    btnSubmit.innerText = 'Actualizar Categoría';
     btnCancelar.classList.remove('hidden');
 
-    // Scroll suave hacia el formulario
+    // 5. Scroll al formulario
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
@@ -311,36 +312,47 @@ function toggleDetalle(id) {
 }
 
 //Funcion de Editar Usuario
-function editarUsuario(id, nombre, correo, user, rol) {
-    // 1. Apuntamos el formulario a la ruta de actualizar
+function editarUsuario(id, name, email, username, role_id) {
+    // 1. Buscamos el formulario
     const form = document.getElementById('form-usuario');
-    form.action = '/dashboard/usuariosRegistro/' + id + '/actualizar';
 
-    // 2. Inyectamos el método PUT para que Laravel lo acepte
+    // 2. Cambiamos la ruta a la de UPDATE (según tu web.php)
+    form.action = '/dashboard/userRegistration/' + id + '/update';
+
+    // 3. Inyectamos el método PUT que Laravel necesita
     document.getElementById('metodo-adicional').innerHTML = '<input type="hidden" name="_method" value="PUT">';
 
-    // 3. Rellenamos los campos (Usando nombres actualizados)
-    form.querySelector('input[name="nombre"]').value = nombre;
-    form.querySelector('input[name="correo"]').value = correo;
-    form.querySelector('input[name="user"]').value = user; // ✅ Corregido
+    // 4. Rellenamos los campos usando los 'name' correctos de tu HTML
+    form.querySelector('input[name="name"]').value = name;
+    form.querySelector('input[name="email"]').value = email;
+    form.querySelector('input[name="username"]').value = username;
 
-    // 4. Seleccionamos el rol en el select
-    form.querySelector('select[name="rol"]').value = rol;
+    // Rellenamos el SELECT del Rol
+    form.querySelector('select[name="role_id"]').value = role_id;
 
-    // 5. Ajuste de seguridad para la contraseña
-    let inputPass = form.querySelector('input[name="password"]'); // ✅ Corregido
-    inputPass.value = ""; // Siempre vacía al empezar a editar
+    // 5. Ajuste de contraseña (opcional para edición)
+    let inputPass = form.querySelector('input[name="password"]');
+    inputPass.value = "";
     inputPass.removeAttribute('required');
-    inputPass.placeholder = "Dejar en blanco para mantener la actual";
+    inputPass.placeholder = "Dejar en blanco para no cambiar";
 
-    // 6. Cambios visuales en la interfaz
+    // 6. Cambios visuales
     document.getElementById('form-titulo').innerText = 'Editar Usuario';
-    document.getElementById('form-subtitulo').innerText = 'Modificando a: ' + nombre;
-    document.getElementById('btn-submit').innerText = 'Actualizar Usuario';
-
-    // Mostramos el botón de cancelar
+    document.getElementById('form-subtitulo').innerText = 'Modificando a: ' + name;
+    document.getElementById('btn-submit').innerText = 'Actualizar Cambios';
     document.getElementById('btn-cancelar').classList.remove('hidden');
 
-    // Scroll suave al formulario
+    // 7. Subir al formulario
     window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function toggleDetalle(id) {
+    const el = document.getElementById('detalle-' + id);
+    const icon = document.getElementById('icon-' + id);
+    if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+    } else {
+        el.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+    }
 }

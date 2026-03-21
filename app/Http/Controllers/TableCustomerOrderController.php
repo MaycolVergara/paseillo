@@ -104,7 +104,10 @@ class TableCustomerOrderController extends Controller
         $saleDetails = SaleDetail::where('sale_id', $sale->id)->get();
         $products = Product::all();
 
-        return view('issueReceipt', compact('sale', 'saleDetails', 'products'));
+        return view('issueReceipt',
+            compact('sale',
+                'saleDetails',
+                'products'));
     }
 
     public function finalizeSale(Request $request, $table_id)

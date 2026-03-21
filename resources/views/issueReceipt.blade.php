@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket Mesa {{ $venta->numero_mesa }} - Paseillo</title>
+    <title>Ticket Mesa {{ $sale->table_number }} - Paseillo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Estilos para ocultar cosas a la hora de imprimir en papel */
@@ -31,8 +31,8 @@
     <div class="text-center mb-5">
         <h1 class="font-black text-2xl mb-1">PASEILLO</h1>
         <p class="text-xs font-bold uppercase tracking-widest">Burger & Pizzas</p>
-        <p class="text-xs mt-2">Mesa: <span class="font-black text-base">{{ $venta->numero_mesa }}</span></p>
-        <p class="text-[10px] text-gray-500 mt-1">Fecha: {{ \Carbon\Carbon::parse($venta->fecha)->format('d/m/Y H:i') }}</p>
+        <p class="text-xs mt-2">Mesa: <span class="font-black text-base">{{ $sale->table_number }}</span></p>
+        <p class="text-[10px] text-gray-500 mt-1">Fecha: {{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y H:i') }}</p>
     </div>
 
     <div class="border-b-2 border-dashed border-gray-400 mb-4"></div>
@@ -47,17 +47,17 @@
         </tr>
         </thead>
         <tbody class="text-xs">
-        @foreach($detalleVentas as $detalle)
+        @foreach($saleDetails as $detalle)
             @php
-                $producto = $productos->where('id_producto', $detalle->id_producto)->first();
-                $nombre = $producto ? $producto->nombre_producto : 'Desconocido';
+                // Usamos la relación definida en el modelo o buscamos en la colección enviada
+                $nombre = $detalle->product ? $detalle->product->name : 'Desconocido';
             @endphp
             <tr class="border-b border-gray-100">
-                <td class="py-2 align-top font-bold">{{ $detalle->cantidad }}</td>
+                <td class="py-2 align-top font-bold">{{ $detalle->quantity }}</td>
                 <td class="py-2 px-1 pr-2 leading-tight">
                     {{ $nombre }}
-                    @if($detalle->personalizado)
-                        <br><span class="text-[9px] text-gray-500 italic">({{ $detalle->personalizado }})</span>
+                    @if($detalle->customization)
+                        <br><span class="text-[9px] text-gray-500 italic">({{ $detalle->customization }})</span>
                     @endif
                 </td>
                 <td class="py-2 text-right align-top">S/ {{ number_format($detalle->subtotal, 2) }}</td>
@@ -71,7 +71,7 @@
     {{-- Total a Pagar --}}
     <div class="flex justify-between items-center font-black text-lg mb-6">
         <span>TOTAL:</span>
-        <span>S/ {{ number_format($venta->total, 2) }}</span>
+        <span>S/ {{ number_format($sale->total, 2) }}</span>
     </div>
 
     {{-- Pie de Ticket --}}

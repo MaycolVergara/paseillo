@@ -107,17 +107,5 @@
 
     </div>
 
-    <script>
-        function toggleDetalle(id) {
-            const el = document.getElementById('detalle-' + id);
-            const icon = document.getElementById('icon-' + id);
-            if (el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                el.classList.add('hidden');
-                icon.classList.remove('rotate-180');
-            }
-        }
-    </script>
+
 @endsection
