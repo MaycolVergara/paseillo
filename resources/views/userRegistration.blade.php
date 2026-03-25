@@ -82,29 +82,28 @@
                     </tr>
                     </thead>
                     <tbody id="tabla-paginada" class="divide-y divide-gray-100 dark:divide-gray-800">
-                    {{-- $usuarios -> $users --}}
                     @foreach($users as $user)
                         <tr class="group hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-all fila-paginada">
                             <td class="px-6 py-5">
-                                {{-- nombre -> name --}}
+
                                 <p class="text-[15px] font-extrabold text-gray-900 dark:text-white">{{ $user->name }}</p>
                             </td>
                             <td class="px-6 py-5">
-                                {{-- correo -> email --}}
+
                                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $user->email }}</p>
                             </td>
                             <td class="px-6 py-5">
                                     <span
                                         class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-3 py-1.5 rounded-lg text-sm font-bold">
-                                        {{-- user -> username --}}
+
                                         {{ $user->username }}
                                     </span>
                             </td>
                             <td class="px-6 py-5">
                                 @php
-                                    // rol -> role_id
                                     $esAdmin = $user->role_id == 1;
-                                    $colorRol = $esAdmin ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400';
+                                      $colorRol = $esAdmin ? 'bg-red-100 text-red-700 dark:bg-red-900/30
+                                       dark:text-red-400' : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400';
                                 @endphp
                                 <span
                                     class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider {{ $colorRol }}">

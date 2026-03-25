@@ -98,12 +98,13 @@ class DashboardController extends Controller
         }
 
         // Métodos de pago (Cambiamos 'metodo_pago' por 'payment_method')
-        $cashPayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->where('payment_method', 'Efectivo')->sum('total');
+        $cashPayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->where('payment_method', 'Cash')->sum('total');
         $yapePayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->whereIn('payment_method', ['Yape', 'Plin'])->sum('total');
-        $cardPayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->where('payment_method', 'Tarjeta')->sum('total');
+        $cardPayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->where('payment_method', 'Card')->sum('total');
 
         // Mesas (Cambiamos 'numero_mesa' por 'table_number')
-        $tables = Table::orderBy('table_number', 'asc')->get();
+        $tables = Table::where('status', '!=','mesasNoExistentes')
+            ->orderBy('table_number', 'asc')->get();
 
         return view('index', compact(
             'totalDay', 'ordersToday',

@@ -34,11 +34,12 @@
                             $emoji = '🍔';
                         } elseif (str_contains($catName, 'bebida') || str_contains($catName, 'gaseosa') || str_contains($catName, 'refresco')) {
                             $emoji = '🥤';
-                        } elseif (str_contains($catName, 'krispy') || str_contains($catName, 'pollo') || str_contains($catName, 'broaster')) {
+                        }
+                        elseif (str_contains($catName, 'krispy') || str_contains($catName, 'pollo') || str_contains($catName, 'broaster')) {
                             $emoji = '🍗';
                         } elseif (str_contains($catName, 'salchipapa') || str_contains($catName, 'papas')) {
                             $emoji = '🍟';
-                        }
+                        } elseif (str_contains($catName, 'alitas')) { $emoji = '🍗'; }
                     @endphp
 
                     <h5 class="flex items-center gap-3 px-2 py-1.5 group/item rounded-xl hover:bg-orange-50 dark:hover:bg-orange-950/20 transition-all">

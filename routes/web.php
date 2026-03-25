@@ -5,12 +5,16 @@ use App\Http\Controllers\AuthController;
 // 1. Dashboard (Nombres actualizados a Inglés)
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TableConfigController;
 use App\Http\Controllers\TableCustomerOrderController;
-use App\Http\Controllers\TableViewController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SaleController;
+
+
+use App\Http\Controllers\nuevoContolladorMEsas;
+
+use App\Http\Controllers\customerTableDelyveryRegistrationController;
+use App\Http\Controllers\customerTableDelyveryView;
 
 // 2. WEB PUBLICA (CLIENTES) - INTACTO
 use App\Http\Controllers\webControllers\WebController;
@@ -45,7 +49,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     // ------------------------------------------------------
     // ACCESO GENERAL (Mozos y Administrador)
     // ------------------------------------------------------
-    Route::get('/tableView', [TableViewController::class, 'index']);
+
 
     // Gestion de Pedidos y Boletas
     Route::get('/tableOrderDetails/{id}', [TableCustomerOrderController::class, 'index']);
@@ -77,15 +81,26 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::put('/categoryRegistration/{id}/update', [CategoryController::class, 'update']);
         Route::delete('/categoryRegistration/{id}', [CategoryController::class, 'delete']);
 
-        // Configuracion de Mesas
-        Route::get('/tableRegistration', [TableConfigController::class, 'index']);
-        Route::post('/tableRegistration/insert', [TableConfigController::class, 'store']);
+        // Para ver el Panel Principal de pedidos
+        Route::get('/tableView', [nuevoContolladorMEsas::class, 'index']);
+
+        // Para ver la página de agregar mesas (El formulario)
+        Route::get('/tableRegistration', [nuevoContolladorMEsas::class, 'viewTableForm']);
+        Route::post('/tableRegistration/insert', [nuevoContolladorMEsas::class, 'store']);
+
 
         // Gestion de Usuarios
         Route::get('/userRegistration', [UserController::class, 'index']);
         Route::post('/userRegistration', [UserController::class, 'createUser']);
         Route::put('/userRegistration/{id}/update', [UserController::class, 'update']);
         Route::delete('/userRegistration/{id}', [UserController::class, 'delete']);
+
+        //Gestion de Cliente Delivery
+        Route::get('/customerTableDelyveryRegistration', [customerTableDelyveryRegistrationController::class, 'index']);
+        Route::post('/customerTableDelyveryRegistration/insert', [customerTableDelyveryRegistrationController::class, 'store']);
+
+        Route::get('/customerTableDelyveryView', [customerTableDelyveryView::class, 'index']);
+
 
         // Reportes y Ventas
         Route::get('/saleDetails', [SaleController::class, 'index']);

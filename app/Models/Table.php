@@ -6,22 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Table extends Model
 {
-    // 1. Nombre de la tabla traducido
+    // Nombre de la tabla
     protected $table = 'tables';
 
-    // 2. Llave primaria (id_mesa -> id)
+    // Llave primaria
     protected $primaryKey = 'id';
 
-    // 3. Campos permitidos traducidos
+    // Campos permitidos
     protected $fillable = [
         'table_number',
         'status',
         'serving_user_id'
     ];
 
-    public function assignedUser()
+   /* public function assignedUser()
     {
         // Relacionamos 'serving_user_id' con el 'id' del modelo User
         return $this->belongsTo(User::class, 'serving_user_id', 'id');
-    }
+    }*/
 }

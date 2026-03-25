@@ -5,21 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
 class Product extends Model
 {
     use SoftDeletes;
 
-    // 1. Nombre de la tabla en inglés
+
+    //  Nombre de la tabla
     protected $table = 'products';
 
-    // 2. Tu llave primaria (id_producto -> id)
+    // Tu llave primaria
     protected $primaryKey = 'id';
 
-    // 3. Desactivamos las fechas automáticas según tu código
+    // Desactivamos las fechas automáticas
     public $timestamps = false;
 
-    // 4. Campos permitidos en inglés
+    public function category()
+    {
+        //CONEXTAS CON CATEGORYA Y DE ACA SACAS SU ID Y NOMBRE
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
     protected $fillable = [
         'name',
         'price',

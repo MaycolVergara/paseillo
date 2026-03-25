@@ -6,13 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class SaleDetail extends Model
 {
-    // 1. Nombre de la tabla en inglés
+    //  Nombre de la tabla
     protected $table = 'sale_details';
 
-    // 2. Llave primaria (id_detalle -> id)
+    //  Llave primaria
     protected $primaryKey = 'id';
 
-    // 3. Campos permitidos en inglés
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    //  Campos permitidos
     protected $fillable = [
         'sale_id',
         'product_id',
