@@ -1,36 +1,65 @@
 @extends('layouts.app')
 
 @section('content')
+    {{-- Contenedor principal sin límites laterales para que ocupe todo --}}
+    <div class="px-7 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+        <div>
+            <h3 class="font-extrabold text-[16px] text-gray-900 dark:text-gray-100">Estado del Salón</h3>
+            <p class="text-xs font-medium text-gray-400 mt-0.5">Control de mesas en tiempo real</p>
+        </div>
 
-    <div class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-800 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div class="flex items-center gap-4">
-            <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
-                </svg>
-            </div>
-            <div>
-                <h2 class="text-2xl font-black text-gray-900 dark:text-white italic tracking-tight">Panel de Mesas</h2>
-                <div class="flex items-center gap-2 mt-1">
-                    {{-- Cambiado: $mesasLibres -> $availableTables (si las pasas) o lógica simple --}}
-                    <span class="text-[10px] font-black uppercase px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>  Libres
-                    </span>
-                    <span class="text-[10px] font-black uppercase px-2 py-0.5 bg-red-100 text-red-700 rounded-full flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>  Ocupadas
-                    </span>
+    </div>
+    <div class="w-full">
+
+        @if(isset($table_view) && count($table_config) > 0)
+            {{-- Quitamos el grid-cols-3 de afuera y dejamos que este div sea el único --}}
+            <div
+                    class="w-full bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 min-h-[500px]">
+
+                <div class="flex justify-between items-center border-b border-gray-100 pb-6 mb-8">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-gray-400">Vista del Salón</h3>
+                    <div class="flex gap-3">
+                        <div
+                                class="flex items-center gap-4 text-[11px] font-bold bg-gray-50 dark:bg-gray-800/50 px-3 py-1.5 rounded-lg border border-gray-100 dark:border-gray-700">
+                                <span class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+                                    <span
+                                            class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]">
+                                                                            </span>{{ $table_view->where('status', 'disponible')->count() }} Libre
+                                </span>
+                            <span class="flex items-center gap-1.5 text-rose-500 dark:text-rose-400">
+                                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]">
+                                            </span> {{ $table_view->where('status', 'ocupado')->count() }}Ocupada
+                                </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- GRID DE 5 COLUMNAS: Aquí es donde forzamos las 5 mesas por fila y que sean GRANDES --}}
+                <div id="contenedor-mesas" class="grid grid-cols-5 gap-8">
+
+                    @foreach($table_config as $table)
+                        {{-- He aumentado el padding (p-10) y el redondeado para que el botón sea masivo --}}
+                        <a href="{{ url('/dashboard/tableOrderDetailsDelyvery/'.$table->id) }}"
+
+                           class="aspect-square flex flex-col items-center justify-center gap-3 p-10 rounded-[3rem] border-4
+                               {{ $table->status == 'disponible' ? 'border-red-400 bg-red-100 text-red-700' :
+                                    'border-red-800 bg-red-900 text-white' }} hover:scale-105 transition-all shadow-xl">
+
+                            {{-- Número GIGANTE (text-6xl) --}}
+                            <span class="text-6xl font-black tracking-tighter">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+
+                            {{-- Texto del estado más legible --}}
+                            <span class="text-xs font-black uppercase tracking-widest">{{ $table->status }}</span>
+                        </a>
+                    @endforeach
+                    @else
+                        <div class="col-span-5 flex flex-col items-center justify-center py-20 text-gray-400">
+                            <p class="text-lg font-bold">Aún no hay mesas generadas</p>
+                        </div>
+
                 </div>
             </div>
-        </div>
-        <div class="flex items-center gap-3 w-full md:w-auto">
-            <div class="relative w-full md:w-64">
-                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                </span>
-                <input type="text" placeholder="Buscar por número..." class="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm outline-none">
-            </div>
-            <a href="{{ url('/dashboard') }}" class="px-5 py-2.5 bg-gray-100 text-gray-700 font-bold rounded-xl text-sm hover:bg-gray-200 transition-all">Volver</a>
-        </div>
+        @endif
     </div>
-
 @endsection

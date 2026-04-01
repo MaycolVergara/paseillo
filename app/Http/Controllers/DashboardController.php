@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Sale; // Antes Ventas
-use App\Models\SaleDetail; // Antes DetalleVentas
-use App\Models\Product; // Antes Productos
-use App\Models\Category; // Antes Categoria
+use App\Models\Sale;
+use App\Models\SaleDetail;
+use App\Models\Product;
+use App\Models\Category;
 use Carbon\Carbon;
-use App\Models\Table; // Antes Mesas
+use App\Models\Table;
 
 class DashboardController extends Controller
 {
@@ -16,17 +16,16 @@ class DashboardController extends Controller
     {
         $today = Carbon::today();
 
-        // 1. Dinero total y Ventas de hoy
-        // Cambiamos 'estado' por 'status' y 'fecha' por 'date'
+        // 1. Saca la cuenta de cuánta plata entró hoy y cuántos pedidos se hicieron
         $salesToday = Sale::where('status', 'Finalizado')->whereDate('date', $today)->get();
         $totalDay = $salesToday->sum('total');
         $ordersToday = $salesToday->count();
 
-        // 2. Detalles de hoy
-        $salesTodayIds = $salesToday->pluck('id'); // Antes id_venta
-        $detailsToday = SaleDetail::whereIn('sale_id', $salesTodayIds)->get(); // Antes id_venta
+        // 2. Trae la lista de todos los platos que se sirvieron hoy
+        $salesTodayIds = $salesToday->pluck('id');
+        $detailsToday = SaleDetail::whereIn('sale_id', $salesTodayIds)->get();
 
-        // 3. Contadores de las tarjetas superiores
+        // 3. Contadores para las tarjetas: Clasifica si vendiste Pizzas, Burgers, etc.
         $pizzasSold = 0;
         $burgersSold = 0;
         $drinksSold = 0;
@@ -34,10 +33,9 @@ class DashboardController extends Controller
         $salchipapasSold = 0;
 
         foreach ($detailsToday as $detail) {
-            $product = Product::find($detail->product_id); // Antes id_producto
+            $product = Product::find($detail->product_id);
             if ($product) {
-                $category = Category::find($product->category_id); // Antes id_categoria
-                // Cambiamos 'nombre_categoria' por 'name' y 'nombre_producto' por 'name'
+                $category = Category::find($product->category_id);
                 $catName = $category ? strtolower($category->name) : strtolower($product->name);
 
                 if (str_contains($catName, 'pizza')) {
@@ -54,7 +52,7 @@ class DashboardController extends Controller
             }
         }
 
-        // 4. Calculamos el Top 5 de los "Más Vendidos"
+        // 4. Arma el ranking del Top 5
         $grouped = $detailsToday->groupBy('product_id')->map(function ($row) {
             return $row->sum('quantity');
         })->sortDesc()->take(5);
@@ -70,22 +68,11 @@ class DashboardController extends Controller
 
                 $emoji = '🍽️';
                 $bgColor = 'from-gray-400 to-gray-300';
-                if (str_contains($catName, 'pizza')) {
-                    $emoji = '🍕';
-                    $bgColor = 'from-red-500 to-orange-400';
-                } elseif (str_contains($catName, 'hamburguesa') || str_contains($catName, 'burger')) {
-                    $emoji = '🍔';
-                    $bgColor = 'from-orange-400 to-amber-400';
-                } elseif (str_contains($catName, 'bebida') || str_contains($catName, 'gaseosa')) {
-                    $emoji = '🥤';
-                    $bgColor = 'from-blue-400 to-cyan-400';
-                } elseif (str_contains($catName, 'krispy') || str_contains($catName, 'pollo')) {
-                    $emoji = '🍗';
-                    $bgColor = 'from-orange-500 to-red-500';
-                } elseif (str_contains($catName, 'salchipapa') || str_contains($catName, 'papas')) {
-                    $emoji = '🍟';
-                    $bgColor = 'from-yellow-400 to-amber-500';
-                }
+                if (str_contains($catName, 'pizza')) { $emoji = '🍕'; $bgColor = 'from-red-500 to-orange-400'; }
+                elseif (str_contains($catName, 'hamburguesa') || str_contains($catName, 'burger')) { $emoji = '🍔'; $bgColor = 'from-orange-400 to-amber-400'; }
+                elseif (str_contains($catName, 'bebida') || str_contains($catName, 'gaseosa')) { $emoji = '🥤'; $bgColor = 'from-blue-400 to-cyan-400'; }
+                elseif (str_contains($catName, 'krispy') || str_contains($catName, 'pollo')) { $emoji = '🍗'; $bgColor = 'from-orange-500 to-red-500'; }
+                elseif (str_contains($catName, 'salchipapa') || str_contains($catName, 'papas')) { $emoji = '🍟'; $bgColor = 'from-yellow-400 to-amber-500'; }
 
                 $topProducts[] = (object)[
                     'name' => $product->name,
@@ -97,12 +84,17 @@ class DashboardController extends Controller
             }
         }
 
-        // Métodos de pago (Cambiamos 'metodo_pago' por 'payment_method')
-        $cashPayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->where('payment_method', 'Cash')->sum('total');
-        $yapePayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->whereIn('payment_method', ['Yape', 'Plin'])->sum('total');
-        $cardPayment = Sale::where('status', 'Finalizado')->whereDate('date', $today)->where('payment_method', 'Card')->sum('total');
+        // 5. ✅ CORRECCIÓN DE LA PLATA: SEPARAR SALÓN DE DELIVERY
+        // Salón: Todo lo que tenga una mesa física asignada (table_id)
+        $cashPayment = $salesToday->whereNotNull('table_id')->sum('total');
 
-        // Mesas (Cambiamos 'numero_mesa' por 'table_number')
+        // Delivery: Todo lo que tenga una mesa de delivery asignada (table_delivery_id)
+        $yapePayment = $salesToday->whereNotNull('table_delivery_id')->sum('total');
+
+        // Tarjeta: Si quieres seguir viendo pagos con tarjeta (general)
+        $cardPayment = $salesToday->where('payment_method', 'Card')->sum('total');
+
+        // 6. Carga el estado de las mesas
         $tables = Table::where('status', '!=','mesasNoExistentes')
             ->orderBy('table_number', 'asc')->get();
 

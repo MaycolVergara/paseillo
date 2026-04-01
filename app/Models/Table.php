@@ -19,9 +19,4 @@ class Table extends Model
         'serving_user_id'
     ];
 
-   /* public function assignedUser()
-    {
-        // Relacionamos 'serving_user_id' con el 'id' del modelo User
-        return $this->belongsTo(User::class, 'serving_user_id', 'id');
-    }*/
 }

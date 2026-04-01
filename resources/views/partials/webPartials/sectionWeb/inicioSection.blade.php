@@ -57,7 +57,7 @@
                 target="_blank"
                 class="font-condensed font-800 inline-flex items-center gap-2 rounded-full border-2 border-white/50 px-8 py-4 text-sm uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white hover:bg-white/10"
             >
-                📲 Ordenar Ahora
+                <img src="/icon/whatsapp.png" alt="WhatsApp" class="w-9 h-9"> Ordenar Ahora
             </a>
 
             <a

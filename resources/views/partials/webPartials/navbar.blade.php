@@ -47,7 +47,7 @@
                     target="_blank"
                     class="bg-brand hover:bg-brand-dark font-condensed font-800 hidden items-center gap-2 rounded-full px-5 py-2.5 text-sm uppercase tracking-wider text-white shadow-[0_4px_16px_rgba(227,6,19,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(227,6,19,0.45)] sm:inline-flex"
                 >
-                    <span>📲</span> Ordenar ahora
+                    <img src="/icon/whatsapp.png" alt="WhatsApp" class="w-9 h-9">Ordenar ahora
                 </a>
                 <button
                     id="ham"

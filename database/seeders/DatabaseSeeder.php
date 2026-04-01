@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TableDelivery;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -10,7 +11,7 @@ class DatabaseSeeder extends Seeder
     {
         // Aquí llamamos a tu seeder de usuario
         $this->call([
-            TableDelivey::class,
+            TableDeliverySeeder::class,
             TableSeeder::class,
             CategorySeeder::class,
             UserSeeder::class,

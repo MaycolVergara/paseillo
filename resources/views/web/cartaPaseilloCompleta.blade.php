@@ -143,7 +143,7 @@
                                     href="https://wa.me/51000000000?text=Quiero%20Classic%20Paseillo"
                                     target="_blank"
                                     class="bg-brand hover:bg-brand-dark font-condensed font-800 rounded-xl px-4 py-2 text-xs uppercase tracking-wide text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_20px_rgba(227,6,19,0.4)]"
-                                >+ Pedir</a
+                                >Pedir</a
                                 >
                             </div>
                         </div>

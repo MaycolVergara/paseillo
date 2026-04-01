@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class TableCustomerOrderController extends Controller
 {
+    /**
+     * Carga la vista de la mesa seleccionada.
+     * Busca si hay una venta pendiente y trae los productos con sus nombres.
+     */
     public function index($id)
     {
         $products = Product::all();
@@ -22,7 +26,6 @@ class TableCustomerOrderController extends Controller
             ->first();
 
         if ($activeSale) {
-            // ✅ CORRECCIÓN 1: Agregamos with('product') para traer la información del producto
             $saleDetails = SaleDetail::with('product')->where('sale_id', $activeSale->id)->get();
             $overallTotal = $activeSale->total;
         } else {
@@ -34,9 +37,13 @@ class TableCustomerOrderController extends Controller
             compact('products', 'categories', 'saleDetails', 'overallTotal', 'id'));
     }
 
+    /**
+     * Registra un producto en la mesa.
+     * Si la mesa está libre, crea la venta nueva y la marca como "ocupado".
+     * Registra quién es el mozo que está atendiendo la mesa.
+     */
     public function saveOrder(Request $request, $table_id)
     {
-        // ✅ CORRECCIÓN 2: Cambiamos 'id' por 'product_id'
         $request->validate([
             'product_id' => 'required',
             'quantity' => 'required|integer|min:1',
@@ -85,6 +92,10 @@ class TableCustomerOrderController extends Controller
         return redirect()->back()->with('success', 'Product added to the table');
     }
 
+    /**
+     * Prepara la información para imprimir la boleta o el pre-ticket.
+     * Muestra el resumen de lo consumido antes de cerrar la cuenta.
+     */
     public function generateReceipt($table_id)
     {
         $sale = Sale::where('table_id', $table_id)->where('status', 'Pending')->first();
@@ -100,6 +111,10 @@ class TableCustomerOrderController extends Controller
             compact('sale', 'saleDetails', 'products'));
     }
 
+    /**
+     * Finaliza la venta, guarda el método de pago y libera la mesa.
+     * La mesa vuelve a estar "disponible" para nuevos clientes.
+     */
     public function finalizeSale(Request $request, $table_id)
     {
         $sale = Sale::where('table_id', $table_id)->where('status', 'Pending')->first();
@@ -119,6 +134,10 @@ class TableCustomerOrderController extends Controller
         return redirect('/dashboard/tableView')->with('success', 'Sale finalized and table cleared');
     }
 
+    /**
+     * Elimina un producto específico de la orden si el cliente se arrepiente.
+     * Resta el valor del producto del total general de la mesa.
+     */
     public function deleteDetail($detail_id)
     {
         $detail = SaleDetail::find($detail_id);

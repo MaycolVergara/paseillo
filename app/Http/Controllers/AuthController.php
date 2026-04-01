@@ -2,45 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    // 1. Proceso de entrada: Valida que el usuario y la clave coincidan con la BD.
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required', // Antes 'user'
+            'username' => 'required',
             'password' => 'required'
         ]);
 
-        // 1. Buscamos al usuario por su username
+        // Busca al trabajador por su nombre de usuario.
         $user = User::where('username', $request->username)->first();
 
-        // 2. ¿Existe el usuario?
         if ($user) {
-            // 3. Comparamos la clave escrita con la encriptada de la base de datos
+            // SEGURIDAD: Hash::check compara la clave escrita con la encriptada.
             if (Hash::check($request->password, $user->password)) {
 
-                // 4. ¡Correcto! Iniciamos sesión
+                // Crea la sesión oficial del usuario en el sistema.
                 Auth::login($user);
                 $request->session()->regenerate();
 
-                // 5. Redirección por ROL (Cambiamos 'rol_id' por 'role_id')
+                // LÓGICA DE ACCESO: Si es Admin (1) va al Dashboard, si es Mozo va a las Mesas.
                 if ($user->role_id == 1) {
                     return redirect()->intended('/dashboard');
                 } else {
-                    return redirect()->intended('/dashboard/tableView'); // Antes /dashboard/mesasView
+                    return redirect()->intended('/dashboard/tableView');
                 }
             }
         }
 
-        // Si algo falla
+        // Si falló, lo regresa con un mensaje de error.
         return back()->withErrors(['username' => 'Invalid username or password.']);
     }
 
+    // 2. Proceso de salida: Cierra la sesión y manda al usuario de vuelta al login.
     public function logout(Request $request)
     {
         Auth::logout();

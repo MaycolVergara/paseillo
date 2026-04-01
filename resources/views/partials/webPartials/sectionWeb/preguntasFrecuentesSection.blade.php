@@ -178,7 +178,7 @@
                 target="_blank"
                 class="bg-brand hover:bg-brand-dark font-condensed font-800 inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm uppercase tracking-widest text-white shadow-[0_6px_24px_rgba(227,6,19,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(227,6,19,0.45)]"
             >
-                💬 Pregúntanos por WhatsApp
+                <img src="/icon/whatsapp.png" alt="WhatsApp" class="w-9 h-9"> Pregúntanos por WhatsApp
             </a>
         </div>
     </div>

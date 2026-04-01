@@ -15,31 +15,22 @@
                 </svg>
             </div>
             <div>
-                <h2 class="text-2xl font-black text-gray-900 dark:text-white italic tracking-tight">Panel de Mesas
-                    Delivey</h2>
+                <h2 class="text-2xl font-black text-gray-900 dark:text-white italic tracking-tight">Panel de Mesas</h2>
                 <div class="flex items-center gap-2 mt-1">
                     {{-- Cambiado: $mesasLibres -> $availableTables (si las pasas) o lógica simple --}}
                     <span
                         class="text-[10px] font-black uppercase px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>  Libres
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> {{ $table_view->where('status', 'disponible')->count() }} Libres
                     </span>
                     <span
                         class="text-[10px] font-black uppercase px-2 py-0.5 bg-red-100 text-red-700 rounded-full flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Ocupadas
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> {{ $table_view->where('status', 'ocupado')->count() }} Ocupadas
                     </span>
                 </div>
             </div>
         </div>
         <div class="flex items-center gap-3 w-full md:w-auto">
-            <div class="relative w-full md:w-64">
-                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle
-                            cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                </span>
-                <input type="text" placeholder="Buscar por número..."
-                       class="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm outline-none">
-            </div>
+
             <a href="{{ url('/dashboard') }}"
                class="px-5 py-2.5 bg-gray-100 text-gray-700 font-bold rounded-xl text-sm hover:bg-gray-200 transition-all">Volver</a>
         </div>
@@ -53,27 +44,38 @@
             <div class="flex justify-between items-center border-b border-gray-100 pb-4 mb-6">
                 <h3 class="text-xs font-black uppercase tracking-widest text-gray-400">Vista del Salón</h3>
                 {{-- Cambiado: $totalMesas -> $table_view->count() --}}
-                <span id="texto-estado" class="text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-lg">Mesas actuales:</span>
+                <span id="texto-estado" class="text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-lg">Mesas actuales:{{ $table_view->where('status', 'disponible')->count() }}</span>
             </div>
-
-            <div id="contenedor-mesas" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
-                {{-- Cambiado: $mesas_config -> $table_config --}}
-
-                @foreach($table_view as $table)
-                    <button
-                        class="aspect-square flex flex-col items-center justify-center gap-1 rounded-2xl border-2 {{ $table->status == 'disponible' ? 'border-emerald-100 bg-emerald-50 text-emerald-600' : 'border-red-100 bg-red-50 text-red-600' }} hover:scale-105 transition-all shadow-sm">
-                        {{-- Cambiado: numero_mesa -> table_number --}}
-                        <span
-                            class="text-2xl font-black">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
-                        {{-- Cambiado: estado -> status --}}
-                        <span class="text-[10px] font-bold uppercase tracking-widest">{{ $table->status }}</span>
-                    </button>
-                @endforeach
-
-                <div class="col-span-full flex flex-col items-center justify-center py-10 text-gray-400">
-                    <p class="text-sm font-bold">Aún no hay mesas generadas</p>
+            @if(session('error'))
+                <div class="mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 shadow-md rounded-r-xl animate-bounce">
+                    <div class="flex items-center">
+                        <span class="text-xl mr-2">⚠️</span>
+                        <p class="font-black uppercase text-xs">{{ session('error') }}</p>
+                    </div>
                 </div>
+            @endif
+            <div id="contenedor-mesas" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
+                @if(isset($table_config) && count($table_config) > 0)
 
+                    @foreach($table_config as $table)
+                        {{-- He aumentado el padding (p-10) y el redondeado para que el botón sea masivo --}}
+                        <button
+                                class="aspect-square flex flex-col items-center justify-center gap-3 p-10 rounded-[3rem] border-4
+                               {{ $table->status == 'disponible' ? 'border-red-400 bg-red-100 text-red-700' :
+                                    'border-red-800 bg-red-900 text-white' }} hover:scale-105 transition-all shadow-xl">
+
+                            {{-- Número GIGANTE (text-6xl) --}}
+                            <span class="text-6xl font-black tracking-tighter">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+
+                            {{-- Texto del estado más legible --}}
+                            <span class="text-xs font-black uppercase tracking-widest">{{ $table->status }}</span>
+                        </button>
+                    @endforeach
+                @else
+                    <div class="col-span-full flex flex-col items-center justify-center py-10 text-gray-400">
+                        <p class="text-sm font-bold">Aún no hay mesas generadas</p>
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -81,8 +83,8 @@
         <div
             class="lg:col-span-1 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden sticky top-6">
             <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
-                <h3 class="text-lg font-black text-gray-800 dark:text-white">Ajustar Mesas Delivery</h3>
-                <p class="text-xs text-gray-500 mt-1">Configura la cantidad total de mesas de delivery.</p>
+                <h3 class="text-lg font-black text-gray-800 dark:text-white">Ajustar Salón</h3>
+                <p class="text-xs text-gray-500 mt-1">Configura la cantidad total de mesas.</p>
             </div>
 
             {{-- Ruta actualizada: /dashboard/tableRegistration/insert --}}
@@ -93,8 +95,8 @@
                         class="block text-[11px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2 text-center">
                         ¿Cuántas mesas hay en total?
                     </label>
-
-                    <input type="number" name="tablesCostomer" required min="1" max="100" placeholder="Ej. 10"
+                    {{-- Cambiado: name="cantidad" -> name="quantity" --}}
+                    <input type="number" name="quantityDelivery" required min="1" max="100" placeholder="Ej. 10"
                            class="w-full px-4 py-6 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl text-4xl outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all font-black text-center text-gray-800 dark:text-white shadow-inner">
                 </div>
 
@@ -110,6 +112,5 @@
                 </button>
             </form>
         </div>
-
     </div>
 @endsection

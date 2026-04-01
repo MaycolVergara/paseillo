@@ -42,7 +42,7 @@
                         target="_blank"
                         class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:-translate-y-1 hover:border-[#25D366] hover:bg-[#25D366]"
                         title="WhatsApp"
-                    >💬</a
+                    ><img src="/icon/whatsapp.png" alt="WhatsApp" class="w-6 h-6"></a
                     >
                 </div>
             </div>
@@ -146,7 +146,7 @@
     <div
         class="bg-brand-black font-condensed font-700 pointer-events-none translate-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs uppercase tracking-wide text-white opacity-0 shadow-xl transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
     >
-        📲 Ordena aquí — WhatsApp
+       Ordena aquí — WhatsApp
     </div>
     <!-- Button -->
     <a
@@ -154,7 +154,7 @@
         target="_blank"
         class="w-15 h-15 relative flex h-[60px] w-[60px] items-center justify-center rounded-full bg-[#25D366] text-3xl shadow-[0_8px_30px_rgba(37,211,102,0.5)] transition-all duration-300 hover:scale-110 hover:shadow-[0_12px_40px_rgba(37,211,102,0.6)]"
     >
-        💬
+        <img src="/icon/whatsapp.png" alt="WhatsApp" class="w-9 h-9">
         <!-- Pulse ring -->
         <span class="animate-pulse-ring absolute inset-0 rounded-full bg-[#25D366]"></span>
     </a>

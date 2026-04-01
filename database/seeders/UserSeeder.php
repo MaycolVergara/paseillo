@@ -11,11 +11,7 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        // 1. Creamos el rol (Si no lo has creado en otro Seeder)
-       /* DB::table('roles')->updateOrInsert(
-            ['id' => 1],
-            ['name' => 'administrador']
-        );*/
+
         $this->call(RolSeeder::class);
 
         // 2. Creamos el usuario Admin corto

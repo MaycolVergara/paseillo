@@ -6,18 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('table_delivery', function (Blueprint $table) {
+        Schema::create('tables_delivery', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('table_number');
-            $table->enum('status', ['disponible', 'ocupado'])->default('disponible'); // estado
+            $table->enum('status', ['disponible', 'ocupado', 'deliveryNoExistentes'])->default('disponible');
 
-
-            $table->unsignedInteger('user_id')->nullable();
-            // Relación con la tabla users (id_usuario)
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            // CONEXIÓN HACIA LOS USUARIOS (Mozos/Admins)
+            $table->unsignedInteger('serving_user_id')->nullable();
+            $table->foreign('serving_user_id')->references('id')->on('users')->onDelete('set null');
 
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_delivery');
+        Schema::dropIfExists('tables_delivery');
     }
 };

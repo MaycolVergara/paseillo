@@ -3,15 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Database\Seeders\TableDelivey;
 
 class TableDelivery extends Model
 {
-    protected $table = 'table_delivery';
+    protected  $table="tables_delivery";
     protected $primaryKey = 'id';
+
+    // Campos permitidos
     protected $fillable = [
         'table_number',
         'status',
-        'user_id'
+        'serving_user_id'
     ];
 }

@@ -6,17 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Table;
 use Illuminate\Database\QueryException;
 
-class nuevoContolladorMEsas extends Controller
+class TableController extends Controller
 {
+    /**
+     * Carga el mapa de mesas del local.
+     * Filtra solo las que están activas para que los mozos vean qué mesa ocupar.
+     */
     public function index()
     {
-        // Traemos TODAS las mesas para ver el salón completo
         $table_config = Table::where('status', '!=', 'mesasNoExistentes')
             ->orderBy('table_number', 'asc')->get();
         $table_view = Table::all();
         return view('tableView', compact('table_config', 'table_view'));
     }
 
+    /**
+     * Muestra el formulario para configurar el tamaño del salón.
+     * Permite al admin decidir cuántas mesas físicas tiene el restaurante.
+     */
     public function viewTableForm()
     {
         $table_config = Table::where('status', '!=', 'mesasNoExistentes')
@@ -26,24 +33,26 @@ class nuevoContolladorMEsas extends Controller
         return view('tableRegistration', compact('table_config', 'table_view'));
     }
 
+    /**
+     * El motor que suma o resta mesas del local.
+     * Tiene el candado de seguridad para no borrar mesas con gente comiendo.
+     */
     public function store(Request $request)
     {
         $newQuantity = (int)$request->input('quantity');
         $currentTotal = Table::count();
 
-        // 1. EL BLOQUEO TOTAL:
-        // Buscamos si existe CUALQUIER mesa con el estado 'ocupado' en todo el sistema
+        // 🛡️ SEGURIDAD: Si hay una mesa en "ocupado", el sistema bloquea cualquier cambio.
         $hayGenteComiendo = Table::where('status', 'ocupado')->exists();
 
         if ($hayGenteComiendo) {
-            // No importa si quieres poner más o menos mesas, si hay alguien atendido, ERROR.
             return redirect()->back()->with('error',
                 '¡Atención! No puedes modificar el salón porque hay mesas con pedidos activos.');
         }
 
-        // 2. SI NO HAY NADIE COMIENDO, PROCEDEMOS A ACTUALIZAR
+        // Lógica de actualización si el salón está vacío:
         if ($newQuantity > $currentTotal) {
-            // Subir mesas: Reactivamos las antiguas y creamos las nuevas
+            // Caso A: Subir mesas. Reactiva las "apagadas" y crea las que falten.
             Table::where('table_number', '<=', $currentTotal)
                 ->where('status', 'mesasNoExistentes')
                 ->update(['status' => 'disponible']);
@@ -55,11 +64,10 @@ class nuevoContolladorMEsas extends Controller
                 ]);
             }
         } elseif ($newQuantity < $currentTotal) {
-            // Bajar mesas: Las que se quedan pasan a disponible
+            // Caso B: Bajar mesas. Las que sobran se marcan como "mesasNoExistentes".
             Table::where('table_number', '<=', $newQuantity)
                 ->update(['status' => 'disponible']);
 
-            // Las que sobran pasan a tu estado especial de 'apagadas'
             Table::where('table_number', '>', $newQuantity)
                 ->update(['status' => 'mesasNoExistentes']);
         }
