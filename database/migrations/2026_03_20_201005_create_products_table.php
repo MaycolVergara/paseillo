@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2); // precio
             $table->string('description', 100)->nullable(); // descripcion_producto
             $table->dateTime('delivery_date')->nullable(); // fecha_entrega
-            $table->string('image', 100)->nullable(); // imagen_producto
+            $table->string('image', 250)->nullable(); // imagen_producto
             $table->unsignedInteger('category_id')->nullable(); // id_categoria
             $table->foreign('category_id')->references('id')->on('categories'); // id_categoria
             $table->softDeletes();

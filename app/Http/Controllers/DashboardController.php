@@ -9,7 +9,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Carbon\Carbon;
 use App\Models\Table;
-
+use App\Models\TableDelivery;
 class DashboardController extends Controller
 {
     public function index()
@@ -98,10 +98,13 @@ class DashboardController extends Controller
         $tables = Table::where('status', '!=','mesasNoExistentes')
             ->orderBy('table_number', 'asc')->get();
 
+        $tableDelivery=TableDelivery::where('status', '!=','deliveryNoExistente')
+             ->orderBy('table_number', 'asc')->get();
+
         return view('index', compact(
             'totalDay', 'ordersToday',
             'pizzasSold', 'burgersSold', 'drinksSold', 'krispySold', 'salchipapasSold',
-            'topProducts', 'tables', 'cashPayment', 'yapePayment', 'cardPayment'
+            'topProducts', 'tables','tableDelivery', 'cashPayment', 'yapePayment', 'cardPayment'
         ));
     }
 }

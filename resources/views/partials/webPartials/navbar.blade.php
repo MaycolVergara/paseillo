@@ -17,15 +17,11 @@
                     class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors"
                 >Inicio</a
                 >
+
                 <a
-                    href="#especialidades"
+                    href="#carta"
                     class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors"
-                >Especialidades</a
-                >
-                <a
-                    href="#combos"
-                    class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors"
-                >Combos</a
+                >Platos</a
                 >
 
                 <a
@@ -37,6 +33,11 @@
                     href="#nosotros"
                     class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors"
                 >Nosotros</a
+                >
+                <a
+                    href="#preguntas"
+                    class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors"
+                >Preguntas</a
                 >
             </nav>
 
@@ -77,17 +78,12 @@
                 class="font-condensed font-700 hover:text-brand hover:bg-brand/5 rounded-lg px-3 py-2.5 text-base uppercase tracking-wide text-gray-800 transition-all"
             >Inicio</a
             >
+
             <a
-                href="#especialidades"
+                href="#carta"
                 onclick="closeNav()"
                 class="font-condensed font-700 hover:text-brand hover:bg-brand/5 rounded-lg px-3 py-2.5 text-base uppercase tracking-wide text-gray-800 transition-all"
-            >Especialidades</a
-            >
-            <a
-                href="#combos"
-                onclick="closeNav()"
-                class="font-condensed font-700 hover:text-brand hover:bg-brand/5 rounded-lg px-3 py-2.5 text-base uppercase tracking-wide text-gray-800 transition-all"
-            >Combos</a
+            >Platos</a
             >
 
             <a
@@ -102,6 +98,12 @@
                 class="font-condensed font-700 hover:text-brand hover:bg-brand/5 rounded-lg px-3 py-2.5 text-base uppercase tracking-wide text-gray-800 transition-all"
             >Nosotros</a
             >
+            <a
+                href="#preguntas"
+                class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors"
+            >Preguntas</a
+            >
+
             <a
                 href="https://wa.me/51000000000"
                 target="_blank"

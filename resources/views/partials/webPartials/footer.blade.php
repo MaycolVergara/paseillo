@@ -20,22 +20,22 @@
                     </div>
                 </div>
                 <p class="mb-6 max-w-sm text-sm leading-relaxed text-white/40">
-                    El mejor street food de Huanta, Ayacucho. Pizzas artesanales, burgers jugosas, krispy
+                    El mejor local de Huanta, Ayacucho. Pizzas artesanales, burgers jugosas, krispy
                     crujiente y salchipapas con salsas de la casa.
                 </p>
                 <!-- Social -->
                 <div class="flex gap-3">
                     <a
-                        href="#"
+                        href="https://www.facebook.com/profile.php?id=100042860179879&locale=es_LA"
                         class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:-translate-y-1 hover:border-[#1877F2] hover:bg-[#1877F2]"
                         title="Facebook"
-                    >📘</a
+                    ><img src="/icon/facebook.png" alt="Facebook" class="w-6 h-6"></a
                     >
                     <a
-                        href="#"
+                        href="https://www.instagram.com/paseillo_burger_pizza/"
                         class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg transition-all duration-300 hover:-translate-y-1 hover:border-pink-500 hover:bg-gradient-to-br hover:from-[#833ab4] hover:to-[#fd1d1d]"
                         title="Instagram"
-                    >📸</a
+                    ><img src="/icon/instagram.png" alt="Instagram" class="w-6 h-6"></a
                     >
                     <a
                         href="https://wa.me/51000000000"
@@ -61,11 +61,6 @@
                     >Inicio</a
                     >
                     <a
-                        href="#especialidades"
-                        class="font-condensed hover:text-brand text-sm text-white/40 transition-colors"
-                    >Especialidades</a
-                    >
-                    <a
                         href="#combos"
                         class="font-condensed hover:text-brand text-sm text-white/40 transition-colors"
                     >Combos</a
@@ -79,6 +74,11 @@
                         href="#nosotros"
                         class="font-condensed hover:text-brand text-sm text-white/40 transition-colors"
                     >Nosotros</a
+                    >
+                    <a
+                        href="#preguntas"
+                        class="font-condensed hover:text-brand text-sm text-white/40 transition-colors"
+                    >Preguntas</a
                     >
                 </div>
             </div>
@@ -95,7 +95,7 @@
                         <div
                             class="bg-brand/10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-sm"
                         >
-                            📍
+                            <img src="/icon/mapa.png" alt="mapa" class="w-6 h-6">
                         </div>
                         <span class="font-condensed text-sm text-white/40">Huanta, Ayacucho, Perú</span>
                     </div>
@@ -103,7 +103,7 @@
                         <div
                             class="bg-brand/10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-sm"
                         >
-                            📞
+                            <img src="/icon/whatsapp.png" alt="WhatsApp" class="w-6 h-6">
                         </div>
                         <span class="font-condensed text-sm text-white/40">+51 000 000 000</span>
                     </div>
@@ -111,7 +111,7 @@
                         <div
                             class="bg-brand/10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-sm"
                         >
-                            🕐
+                            <img src="/icon/reloj.png" alt="relojd" class="w-6 h-6">
                         </div>
                         <span class="font-condensed text-sm text-white/40">Lun – Dom: 12pm – 10pm</span>
                     </div>
@@ -157,5 +157,28 @@
         <img src="/icon/whatsapp.png" alt="WhatsApp" class="w-9 h-9">
         <!-- Pulse ring -->
         <span class="animate-pulse-ring absolute inset-0 rounded-full bg-[#25D366]"></span>
+    </a>
+</div>
+
+<!-- ══════════════ CARTA FLOAT ══════════════ -->
+<div class="group fixed bottom-32 right-6 z-50 flex flex-col items-end gap-3">
+    <!-- Tooltip -->
+    <div
+        class="bg-brand-black font-condensed font-700 pointer-events-none translate-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs uppercase tracking-wide text-white opacity-0 shadow-xl transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+    >
+        Ver nuestra Carta
+    </div>
+    <!-- Button -->
+    <a
+        href="/cartaPaseilloCompleta"
+        class="relative flex h-[60px] w-[60px] items-center justify-center rounded-full bg-brand shadow-[0_8px_30px_rgba(227,6,19,0.5)] transition-all duration-300 hover:scale-110 hover:shadow-[0_12px_40px_rgba(227,6,19,0.6)]"
+    >
+        <!-- Icono de Menú / Carta -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+
+        <!-- Pulse ring (La animación igual a la de WhatsApp) -->
+        <span class="animate-ping absolute inset-0 rounded-full bg-brand opacity-75"></span>
     </a>
 </div>

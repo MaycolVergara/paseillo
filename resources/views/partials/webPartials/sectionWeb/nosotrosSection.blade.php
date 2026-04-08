@@ -6,7 +6,7 @@
 
                 <div class="absolute top-0 left-0 w-[75%] h-[80%] z-10 overflow-hidden rounded-[2rem] shadow-xl">
                     <img
-                        src="https://img.freepik.com/foto-gratis/chef-haciendo-hamburguesa-cocina_114579-2469.jpg?w=740&t=st=1711514000~exp=1711514600~hmac=a1b2c3d4e5f6"
+                        src="/img_paseillo/pollo1.jpg"
                         alt="Preparando Hamburguesas Paseillo"
                         class="h-full w-full object-cover"
                     />
@@ -15,7 +15,7 @@
 
                 <div class="absolute bottom-0 right-0 w-[60%] h-[70%] z-20 overflow-hidden rounded-[2rem] border-8 border-white shadow-2xl">
                     <img
-                        src="/img_paseillo/"
+                        src="/img_paseillo/pollo2.jpg"
                         alt="Clientes Paseillo"
                         class="h-full w-full object-cover"
                     />
@@ -66,7 +66,7 @@
                 </p>
                 <p class="mb-10 text-base leading-relaxed text-gray-500">
                     Cada plato es preparado con amor y dedicación para ofrecerte la mejor experiencia.
-                    Somos tu lugar favorito de street food.
+                    Somos tu lugar favorito de la bella esmeralda de los andes.
                 </p>
 
                 <div class="grid grid-cols-3 gap-4">

@@ -1,4 +1,4 @@
-<section id="platos" class="bg-brand-black relative overflow-hidden py-24">
+<section id="carta" class="bg-brand-black relative overflow-hidden py-24">
     <div
         class="absolute inset-0 opacity-[0.03]"
         style="

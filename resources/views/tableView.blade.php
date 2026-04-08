@@ -24,11 +24,12 @@
                                 <span class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
                                     <span
                                         class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]">
-                                                                            </span>{{ $table_view->where('status', 'disponible')->count() }} Libre
+                                                                            </span>
+                                    "{{ $table_view->where('status', 'disponible')->count() }}" Libre
                                 </span>
                             <span class="flex items-center gap-1.5 text-rose-500 dark:text-rose-400">
                                             <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]">
-                                            </span> {{ $table_view->where('status', 'ocupado')->count() }}Ocupada
+                                            </span> "{{ $table_view->where('status', 'ocupado')->count() }}" Ocupada
                                 </span>
                         </div>
 

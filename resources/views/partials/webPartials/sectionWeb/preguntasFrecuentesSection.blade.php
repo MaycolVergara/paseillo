@@ -1,5 +1,5 @@
 <!-- ══════════════ FAQ ══════════════ -->
-<section id="faq" class="bg-brand-gray py-24">
+<section id="preguntas" class="bg-brand-gray py-24">
     <div class="mx-auto max-w-3xl px-4 sm:px-6">
         <!-- Header -->
         <div class="mb-14 text-center">
@@ -7,7 +7,7 @@
                 class="reveal bg-brand/10 border-brand/20 mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
             >
             <span class="font-condensed font-700 text-brand text-xs uppercase tracking-[3px]"
-            >FAQ</span
+            >PREGUNTAS</span
             >
             </div>
             <h2

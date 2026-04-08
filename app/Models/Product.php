@@ -30,6 +30,7 @@ class Product extends Model
         'price',
         'description',
         'delivery_date',
+        'image',
         'category_id'
     ];
 }

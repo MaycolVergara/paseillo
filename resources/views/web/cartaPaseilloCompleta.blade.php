@@ -37,7 +37,7 @@
                     class="reveal bg-brand/20 border-brand/40 mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
                 >
             <span class="font-condensed font-700 text-brand text-xs uppercase tracking-[3px]"
-            >Nuestros Platos</span
+            >Nuestra Carta</span
             >
                 </div>
                 <h2
@@ -111,6 +111,7 @@
             >
                 @foreach($Hamburguesas as $hamburguesa)
                     <!-- BURGERS -->
+
                     <div
                         class="carta-card card-shine reveal hover:border-brand/50 group overflow-hidden
                         rounded-2xl border border-white/10 bg-white/[0.05] transition-all duration-300 hover:-translate-y-2
@@ -118,7 +119,7 @@
                         data-cat="burger">
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&q=80"
+                                src="{{ asset('storage/' . $hamburguesa->image) }}"
                                 alt="Classic Paseillo"
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
@@ -133,12 +134,12 @@
                         </div>
                         <div class="p-4">
                             <h3 class="font-condensed text-lg font-bold text-white">
-                                {{$hamburguesa->nombre_producto}}</h3>
+                                {{$hamburguesa->name}}</h3>
                             <p class="mt-1 text-xs leading-relaxed text-white/50">
-                                {{$hamburguesa->descripcion_producto}}
+                                {{$hamburguesa->description}}
                             </p>
                             <div class="mt-4 flex items-center justify-between">
-                                <span class="font-anton text-brand text-2xl">S/. {{$hamburguesa->precio}}</span>
+                                <span class="font-anton text-brand text-2xl">S/. {{$hamburguesa->price}}</span>
                                 <a
                                     href="https://wa.me/51000000000?text=Quiero%20Classic%20Paseillo"
                                     target="_blank"
@@ -158,8 +159,7 @@
                     >
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80"
-                                alt="Margherita"
+                                src="{{ asset('storage/' . $pizza->image) }}" alt="Margherita"
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -170,12 +170,12 @@
                             </div>
                         </div>
                         <div class="p-4">
-                            <h3 class="font-condensed text-lg font-bold text-white">{{$pizza->nombre_producto}}</h3>
+                            <h3 class="font-condensed text-lg font-bold text-white">{{$pizza->name}}</h3>
                             <p class="mt-1 text-xs leading-relaxed text-white/50">
-                                {{$pizza->descripcion_producto}}
+                                {{$pizza->description}}
                             </p>
                             <div class="mt-4 flex items-center justify-between">
-                                <span class="font-anton text-brand text-2xl">S/. {{$pizza->precio}}</span>
+                                <span class="font-anton text-brand text-2xl">S/. {{$pizza->price}}</span>
                                 <a
                                     href="https://wa.me/51000000000?text=Quiero%20Margherita%20Cl%C3%A1sica"
                                     target="_blank"
@@ -195,7 +195,7 @@
                     >
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                src="https://images.unsplash.com/photo-1562967914-608f82629710?w=400&q=80"
+                                src="{{ asset('storage/' . $krispy->image) }}"
                                 alt="Krispy Clásico"
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
@@ -207,12 +207,12 @@
                             </div>
                         </div>
                         <div class="p-4">
-                            <h3 class="font-condensed text-lg font-bold text-white">{{$krispy->nombre_producto}}</h3>
+                            <h3 class="font-condensed text-lg font-bold text-white">{{$krispy->name}}</h3>
                             <p class="mt-1 text-xs leading-relaxed text-white/50">
-                                {{$krispy->descripcion_producto	}}
+                                {{$krispy->description	}}
                             </p>
                             <div class="mt-4 flex items-center justify-between">
-                                <span class="font-anton text-brand text-2xl">S/. {{$krispy->precio}}</span>
+                                <span class="font-anton text-brand text-2xl">S/. {{$krispy->price}}</span>
                                 <a
                                     href="https://wa.me/51000000000?text=Quiero%20Krispy%20Cl%C3%A1sico"
                                     target="_blank"
@@ -234,19 +234,19 @@
                     >
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=80"
+                                src="{{ asset('storage/' . $salchipapa->image) }}"
                                 alt="Salchipapa Clásica"
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                         </div>
                         <div class="p-4">
-                            <h3 class="font-condensed text-lg font-bold text-white">{{$salchipapa->nombre_producto}}</h3>
+                            <h3 class="font-condensed text-lg font-bold text-white">{{$salchipapa->name}}</h3>
                             <p class="mt-1 text-xs leading-relaxed text-white/50">
-                                {{$salchipapa->descripcion_producto	}}
+                                {{$salchipapa->description	}}
                             </p>
                             <div class="mt-4 flex items-center justify-between">
-                                <span class="font-anton text-brand text-2xl">S/. {{$salchipapa->precio}}</span>
+                                <span class="font-anton text-brand text-2xl">S/. {{$salchipapa->price}}</span>
                                 <a
                                     href="https://wa.me/51000000000?text=Quiero%20Salchipapa%20Cl%C3%A1sica"
                                     target="_blank"
@@ -268,19 +268,19 @@
                     >
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=80"
+                                src="{{ asset('storage/' . $alita->image) }}"
                                 alt="Salchipapa Clásica"
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                         </div>
                         <div class="p-4">
-                            <h3 class="font-condensed text-lg font-bold text-white">{{$alita->nombre_producto}}</h3>
+                            <h3 class="font-condensed text-lg font-bold text-white">{{$alita->name}}</h3>
                             <p class="mt-1 text-xs leading-relaxed text-white/50">
-                                {{$alita->descripcion_producto	}}
+                                {{$alita->description	}}
                             </p>
                             <div class="mt-4 flex items-center justify-between">
-                                <span class="font-anton text-brand text-2xl">S/. {{$alita->precio}}</span>
+                                <span class="font-anton text-brand text-2xl">S/. {{$alita->price}}</span>
                                 <a
                                     href="https://wa.me/51000000000?text=Quiero%20Salchipapa%20Cl%C3%A1sica"
                                     target="_blank"
