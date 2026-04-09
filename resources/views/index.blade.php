@@ -132,11 +132,11 @@
         {{-- ══════════════════════════════════════════════
             MESAS SALON
        ══════════════════════════════════════════════ --}}
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 lg:gap-6">
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-5 lg:gap-6 items-start">
 
             {{-- Panel Mesas --}}
             <div
-                class="xl:col-span-2 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 flex flex-col">
+                class="xl:col-span-3 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 flex flex-col overflow-hidden">
 
                 <div class="px-7 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
                     <div>
@@ -149,23 +149,21 @@
                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
                             {{ $tables->where('status', 'disponible')->count() }} Libre
                         </span>
-                                    <span class="flex items-center gap-1.5 text-rose-500 dark:text-rose-400">
+                        <span class="flex items-center gap-1.5 text-rose-500 dark:text-rose-400">
                             <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]"></span>
                             {{ $tables->where('status', 'ocupado')->count() }} Ocupada
                         </span>
                     </div>
                 </div>
 
-                <div class="p-6 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-5 gap-4">
+                <div class="p-4" style="display:grid; grid-template-columns: repeat(10, 1fr); gap: 8px;">
                     @foreach($tables as $table)
-                        <button class="relative aspect-square flex flex-col items-center justify-center gap-1.5 p-2 rounded-2xl border-2 hover:-translate-y-1 transition-all duration-300
+                        <button class="relative aspect-square flex flex-col items-center justify-center gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
                            {{ $table->status == 'disponible'
-                              ? 'border-emerald-100 bg-emerald-50/50 text-emerald-600 hover:shadow-lg hover:shadow-emerald-500/20'
-                              : 'border-rose-100 bg-rose-50/50 text-rose-600 hover:shadow-lg hover:shadow-rose-500/20' }}">
-                                <span
-                                    class="text-3xl font-black tracking-tighter">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
-                                <span
-                                    class="text-[9px] font-black uppercase tracking-widest opacity-80">{{ $table->status }}</span>
+                              ? 'border-emerald-100 bg-emerald-50/50 text-emerald-600 hover:shadow-md hover:shadow-emerald-500/20'
+                              : 'border-rose-100 bg-rose-50/50 text-rose-600 hover:shadow-md hover:shadow-rose-500/20' }}">
+                            <span class="font-black tracking-tighter leading-none" style="font-size: clamp(12px, 2vw, 22px);">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+                            <span class="font-black uppercase tracking-widest opacity-70 leading-none" style="font-size: 8px;">{{ $table->status }}</span>
                         </button>
                     @endforeach
                 </div>
@@ -222,25 +220,23 @@
 
 
         {{-- ══════════════════════════════════════════════
-             MESAS DELIVERY
+             MESAS DELIVERY + FLUJO DE CAJA
         ══════════════════════════════════════════════ --}}
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 lg:gap-6">
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-5 lg:gap-6 items-start">
 
-            {{-- Panel Mesas --}}
-            <div class="xl:col-span-2 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 flex flex-col">
+            {{-- Panel Delivery --}}
+            <div class="xl:col-span-3 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 flex flex-col overflow-hidden">
                 <div class="px-7 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
                     <div>
-                        <h3 class="font-extrabold text-[16px] text-gray-900 dark:text-gray-100">Estado del Salón</h3>
-                        <p class="text-xs font-medium text-gray-400 mt-0.5">Control de mesas en tiempo real</p>
+                        <h3 class="font-extrabold text-[16px] text-gray-900 dark:text-gray-100">Estado Delivery</h3>
+                        <p class="text-xs font-medium text-gray-400 mt-0.5">Control de pedidos delivery en tiempo real</p>
                     </div>
 
                     <div class="flex items-center gap-4 text-[11px] font-bold bg-gray-50 dark:bg-gray-800/50 px-3 py-1.5 rounded-lg border border-gray-100 dark:border-gray-700">
-
-                        <span  class="flex items-center gap-1.5 text-rose-500 dark:text-rose-400">
+                        <span class="flex items-center gap-1.5 text-rose-500 dark:text-rose-400">
                             <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]"></span>
                             {{ $tableDelivery->where('status', 'disponible')->count() }} Libres
-                         </span>
-
+                        </span>
                         <span class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
                             {{ $tableDelivery->where('status', 'ocupado')->count() }} Ocupadas
@@ -248,18 +244,16 @@
                     </div>
                 </div>
 
-                {{-- Grid ajustado a 5 columnas en XL --}}
-                <div class="p-6 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-5 gap-4">
+                <div class="p-4" style="display:grid; grid-template-columns: repeat(10, 1fr); gap: 8px;">
                     @foreach($tableDelivery as $table)
                         <button
-                            class="relative aspect-square flex flex-col items-center justify-center gap-1.5 p-2 rounded-2xl border-2 hover:-translate-y-1 transition-all duration-300 shadow-sm
+                            class="relative aspect-square flex flex-col items-center justify-center gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
                             {{ $table->status == 'disponible' ? 'border-red-400 bg-red-100 text-red-700' :
-                                    'border-red-800 bg-red-900 text-white' }} hover:scale-105 transition-all shadow-xl">
-
-                            <span class="text-3xl font-black tracking-tighter">
+                                    'border-red-800 bg-red-900 text-white' }}">
+                            <span class="font-black tracking-tighter leading-none" style="font-size: clamp(12px, 2vw, 22px);">
                                 {{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}
                             </span>
-                                        <span class="text-[9px] font-black uppercase tracking-widest opacity-80">
+                            <span class="font-black uppercase tracking-widest opacity-80 leading-none" style="font-size: 8px;">
                                 {{ $table->status }}
                             </span>
                         </button>
@@ -267,135 +261,75 @@
                 </div>
             </div>
 
-        </div>
+            {{-- Panel Flujo de Caja --}}
+            <div class="xl:col-span-1 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 relative overflow-hidden">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-400 via-purple-400 to-blue-500"></div>
 
-
-        {{-- ══════════════════════════
-             4. FLUJO DE CAJA (Premium)
-        ══════════════════════════ --}}
-        <div
-            class="bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 relative overflow-hidden">
-            <div
-                class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-400 via-purple-400 to-blue-500"></div>
-
-            <div class="px-7 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
-                <div>
-                    <h3 class="font-extrabold text-[16px] text-gray-900 dark:text-gray-100">Flujo de Caja</h3>
-                    <p class="text-xs font-medium text-gray-400 mt-0.5">Ingresos según método de pago</p>
+                {{-- Header compacto --}}
+                <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-extrabold text-[13px] text-gray-900 dark:text-gray-100">Flujo de Caja</h3>
+                        <p class="text-[10px] font-medium text-gray-400">Ingresos por método de pago</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest">Cierre</p>
+                        <p class="text-base font-black text-gray-900 dark:text-white tracking-tighter">
+                            <span class="text-xs font-bold text-gray-400 mr-0.5">S/</span>{{ number_format($totalDay ?? 0, 2) }}
+                        </p>
+                    </div>
                 </div>
-                <div class="text-right">
-                    <p class="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-1">Cierre del día</p>
-                    <p class="text-2xl font-black text-gray-900 dark:text-white tracking-tighter">
-                        <span
-                            class="text-base font-bold text-gray-400 mr-1">S/</span>{{ number_format($totalDay ?? 0, 2) }}
-                    </p>
+
+                {{-- 3 cards en fila horizontal --}}
+                <div class="p-3 grid grid-cols-3 gap-2">
+
+                    {{-- Efectivo --}}
+                    @php $pctCash = ($totalDay ?? 0) > 0 ? ($cashPayment / $totalDay) * 100 : 0; @endphp
+                    <div class="bg-emerald-50/60 dark:bg-emerald-900/10 rounded-2xl p-3 border border-emerald-100 dark:border-emerald-800/30 flex flex-col gap-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-base">💵</span>
+                            <span class="text-[10px] font-black text-emerald-600">{{ number_format($pctCash, 0) }}%</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Efectivo</p>
+                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/ {{ number_format($cashPayment ?? 0, 2) }}</p>
+                        <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
+                            <div class="h-full bg-emerald-400 rounded-full" style="width: {{ $pctCash }}%"></div>
+                        </div>
+                    </div>
+
+                    {{-- Billeteras --}}
+                    @php
+                        $digitalTotal = ($yapePayment ?? 0) + ($plinPayment ?? 0);
+                        $pctDigital = ($totalDay ?? 0) > 0 ? ($digitalTotal / $totalDay) * 100 : 0;
+                    @endphp
+                    <div class="bg-purple-50/60 dark:bg-purple-900/10 rounded-2xl p-3 border border-purple-100 dark:border-purple-800/30 flex flex-col gap-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-base">📱</span>
+                            <span class="text-[10px] font-black text-purple-600">{{ number_format($pctDigital, 0) }}%</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Billeteras</p>
+                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/ {{ number_format($digitalTotal, 2) }}</p>
+                        <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
+                            <div class="h-full bg-purple-400 rounded-full" style="width: {{ $pctDigital }}%"></div>
+                        </div>
+
+                    </div>
+
+                    {{-- Tarjeta --}}
+                    @php $pctCard = ($totalDay ?? 0) > 0 ? ($cardPayment / $totalDay) * 100 : 0; @endphp
+                    <div class="bg-blue-50/60 dark:bg-blue-900/10 rounded-2xl p-3 border border-blue-100 dark:border-blue-800/30 flex flex-col gap-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-base">💳</span>
+                            <span class="text-[10px] font-black text-blue-600">{{ number_format($pctCard, 0) }}%</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Tarjeta</p>
+                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/ {{ number_format($cardPayment ?? 0, 2) }}</p>
+                        <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
+                            <div class="h-full bg-blue-400 rounded-full" style="width: {{ $pctCard }}%"></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="p-7 grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                {{-- Efectivo --}}
-                @php $pctCash = ($totalDay ?? 0) > 0 ? ($cashPayment / $totalDay) * 100 : 0; @endphp
-                <div
-                    class="group relative bg-white dark:bg-gray-800/40 rounded-3xl p-6 border border-gray-100 dark:border-gray-700/50 hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-300 overflow-hidden">
-                    <div
-                        class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all"></div>
-                    <div class="relative">
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-xl border border-emerald-100 dark:border-emerald-800/50">
-                                    💵
-                                </div>
-                                <span class="text-[14px] font-bold text-gray-700 dark:text-gray-200">Efectivo</span>
-                            </div>
-                            <span
-                                class="text-[12px] font-black text-emerald-600 bg-emerald-50 dark:bg-emerald-900/40 px-2.5 py-1 rounded-lg">{{ number_format($pctCash, 0) }}%</span>
-                        </div>
-                        <p class="text-3xl font-black text-gray-900 dark:text-white mb-4 tracking-tighter"><span
-                                class="text-base font-semibold text-gray-400 mr-1">S/</span>{{ number_format($cashPayment ?? 0, 2) }}
-                        </p>
-                        <div
-                            class="w-full bg-gray-100 dark:bg-gray-700/50 rounded-full h-2 overflow-hidden shadow-inner">
-                            <div class="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full relative"
-                                 style="width: {{ $pctCash }}%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Yape/Plin --}}
-                @php
-                    $digitalTotal = ($yapePayment ?? 0) + ($plinPayment ?? 0);
-                    $pctDigital = ($totalDay ?? 0) > 0 ? ($digitalTotal / $totalDay) * 100 : 0;
-                @endphp
-                <div
-                    class="group relative bg-white dark:bg-gray-800/40 rounded-3xl p-6 border border-gray-100 dark:border-gray-700/50 hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-300 overflow-hidden">
-                    <div
-                        class="absolute -right-10 -top-10 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-all"></div>
-                    <div class="relative">
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-xl border border-purple-100 dark:border-purple-800/50">
-                                    📱
-                                </div>
-                                <span class="text-[14px] font-bold text-gray-700 dark:text-gray-200">Billeteras</span>
-                            </div>
-                            <span
-                                class="text-[12px] font-black text-purple-600 bg-purple-50 dark:bg-purple-900/40 px-2.5 py-1 rounded-lg">{{ number_format($pctDigital, 0) }}%</span>
-                        </div>
-                        <p class="text-3xl font-black text-gray-900 dark:text-white mb-3 tracking-tighter"><span
-                                class="text-base font-semibold text-gray-400 mr-1">S/</span>{{ number_format($digitalTotal, 2) }}
-                        </p>
-
-                        <div
-                            class="flex justify-between items-center text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-2">
-                            <span class="flex items-center gap-1.5"><span
-                                    class="w-2 h-2 rounded-full bg-[#00BFA5]"></span>Yape: {{ number_format($yapePayment ?? 0, 2) }}</span>
-                            <span class="flex items-center gap-1.5"><span
-                                    class="w-2 h-2 rounded-full bg-[#FF0050]"></span>Plin: {{ number_format($plinPayment ?? 0, 2) }}</span>
-                        </div>
-                        <div
-                            class="w-full bg-gray-100 dark:bg-gray-700/50 rounded-full h-2 overflow-hidden shadow-inner">
-                            <div class="h-full bg-gradient-to-r from-purple-400 to-purple-500 rounded-full relative"
-                                 style="width: {{ $pctDigital }}%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Tarjeta --}}
-                @php $pctCard = ($totalDay ?? 0) > 0 ? ($cardPayment / $totalDay) * 100 : 0; @endphp
-                <div
-                    class="group relative bg-white dark:bg-gray-800/40 rounded-3xl p-6 border border-gray-100 dark:border-gray-700/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 overflow-hidden">
-                    <div
-                        class="absolute -right-10 -top-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-all"></div>
-                    <div class="relative">
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-xl border border-blue-100 dark:border-blue-800/50">
-                                    💳
-                                </div>
-                                <span
-                                    class="text-[14px] font-bold text-gray-700 dark:text-gray-200">Tarjeta (POS)</span>
-                            </div>
-                            <span
-                                class="text-[12px] font-black text-blue-600 bg-blue-50 dark:bg-blue-900/40 px-2.5 py-1 rounded-lg">{{ number_format($pctCard, 0) }}%</span>
-                        </div>
-                        <p class="text-3xl font-black text-gray-900 dark:text-white mb-4 tracking-tighter"><span
-                                class="text-base font-semibold text-gray-400 mr-1">S/</span>{{ number_format($cardPayment ?? 0, 2) }}
-                        </p>
-                        <div
-                            class="w-full bg-gray-100 dark:bg-gray-700/50 rounded-full h-2 overflow-hidden shadow-inner">
-                            <div class="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full relative"
-                                 style="width: {{ $pctCard }}%"></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
-
-    </div>
-
 @endsection

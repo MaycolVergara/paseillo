@@ -38,7 +38,14 @@ class SaleController extends Controller
             $totalDay = $sales->sum('total');
         }
 
+        $cashPayment = $sales->where('payment_method', 'cash')->sum('total');
+
+        $yapePayment = $sales->where('payment_method', 'yape')->sum('total');
+
+        $cardPayment = $sales->where('payment_method', 'card')->sum('total');
+
+
         return view('/saleDetails',
-            compact('sales', 'totalDay', 'start_date', 'end_date'));
+            compact('sales', 'totalDay', 'start_date', 'end_date', 'yapePayment', 'cardPayment', 'cashPayment'));
     }
 }

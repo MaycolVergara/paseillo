@@ -21,7 +21,7 @@ return new class extends Migration {
 
             $table->integer('table_number')->nullable();
             $table->string('status', 20)->default('open');
-            $table->string('payment_method', 50)->nullable();
+            $table->enum('payment_method', ['cash', 'card', 'yape'])->default('cash');
 
             // RELACIONES
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
