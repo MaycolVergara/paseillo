@@ -74,18 +74,11 @@
                                     class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
                                     @php
                                         // Relación category en lugar de categorias->where
-                                        $catName = $product->category ? strtolower($product->category->name) : strtolower($product->name);
-                                        $emoji = '🍽️';
-
-                                        if (str_contains($catName, 'pizza')) { $emoji = '🍕'; }
-                                        elseif (str_contains($catName, 'hamburguesa') || str_contains($catName, 'burger')) { $emoji = '🍔'; }
-                                        elseif (str_contains($catName, 'bebida') || str_contains($catName, 'gaseosa') || str_contains($catName, 'refresco')) { $emoji = '🥤'; }
-                                        elseif (str_contains($catName, 'krispy') || str_contains($catName, 'pollo') || str_contains($catName, 'broaster')) { $emoji = '🍗'; }
-                                        elseif (str_contains($catName, 'salchipapa') || str_contains($catName, 'papas')) { $emoji = '🍟'; }
-                                        elseif (str_contains($catName, 'alitas')) { $emoji = '🍗'; }
+                                        $catName = $product->category ? $product->category->name : $product->name;
+                                        $initial = mb_strtoupper(mb_substr($catName, 0, 1));
                                     @endphp
 
-                                    {{ $emoji }}
+                                    <span class="text-sm font-black text-orange-500">{{ $initial }}</span>
                                 </div>
                                 <div>
                                     {{-- nombre_producto -> name --}}

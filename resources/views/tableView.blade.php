@@ -16,40 +16,57 @@
             <div
                 class="w-full bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 min-h-[500px]">
 
-                <div class="flex justify-between items-center border-b border-gray-100 pb-6 mb-8">
+                {{-- Leyenda de colores --}}
+                <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-6 mb-8">
                     <h3 class="text-xs font-black uppercase tracking-widest text-gray-400">Vista del Salón</h3>
                     <div class="flex gap-3">
                         <div
                             class="flex items-center gap-4 text-[11px] font-bold bg-gray-50 dark:bg-gray-800/50 px-3 py-1.5 rounded-lg border border-gray-100 dark:border-gray-700">
                                 <span class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
-                                    <span
-                                        class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]">
-                                                                            </span>
-                                    "{{ $table_view->where('status', 'disponible')->count() }}" Libre
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
+                                    {{ $table_view->where('status', 'disponible')->count() }} Libre
                                 </span>
                             <span class="flex items-center gap-1.5 text-rose-500 dark:text-rose-400">
-                                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]">
-                                            </span> "{{ $table_view->where('status', 'ocupado')->count() }}" Ocupada
-                                </span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]"></span>
+                                Admin
+                            </span>
+                            <span class="flex items-center gap-1.5 text-blue-500 dark:text-blue-400">
+                                <span class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span>
+                                Mozo
+                            </span>
                         </div>
-
                     </div>
                 </div>
 
-                {{-- GRID DE 5 COLUMNAS: Aquí es donde forzamos las 5 mesas por fila y que sean GRANDES --}}
+                {{-- GRID DE 5 COLUMNAS --}}
                 <div id="contenedor-mesas" class="grid grid-cols-5 gap-8">
 
                     @foreach($table_config as $table)
-                        {{-- He aumentado el padding (p-10) y el redondeado para que el botón sea masivo --}}
+                        @php
+                            // Determinar el color según el estado y quién atiende
+                            if ($table->status == 'disponible') {
+                                // Mesa libre = verde
+                                $cardClass = 'border-emerald-100 bg-emerald-50 text-emerald-600 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-400';
+                                $labelText = 'Disponible';
+                            } elseif ($table->servingUser && $table->servingUser->role_id == 2) {
+                                // Mozo atendiendo = azul
+                                $cardClass = 'border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-900 dark:bg-blue-950/30 dark:text-blue-400';
+                                $labelText = $table->servingUser->name;
+                            } else {
+                                // Admin atendiendo = rojo
+                                $cardClass = 'border-red-100 bg-red-50 text-red-600 dark:border-red-900 dark:bg-red-950/30 dark:text-red-400';
+                                $labelText = $table->servingUser ? $table->servingUser->name : 'Ocupado';
+                            }
+                        @endphp
+
                         <a href="{{ url('/dashboard/tableOrderDetails/'.$table->table_number) }}"
-                           class="aspect-square flex flex-col items-center justify-center gap-3 p-4 rounded-[3rem] border-4 {{ $table->status == 'disponible' ? 'border-emerald-100 bg-emerald-50 text-emerald-600' : 'border-red-100 bg-red-50 text-red-600' }} hover:scale-105 transition-all shadow-xl">
+                           class="aspect-square flex flex-col items-center justify-center gap-3 p-4 rounded-[3rem] border-4 {{ $cardClass }} hover:scale-105 transition-all shadow-xl">
 
-                            {{-- Número GIGANTE (text-6xl) --}}
-                            <span
-                                class="text-6xl font-black tracking-tighter">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+                            {{-- Número GIGANTE --}}
+                            <span class="text-6xl font-black tracking-tighter">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
 
-                            {{-- Texto del estado más legible --}}
-                            <span class="text-xs font-black uppercase tracking-widest">{{ $table->status }}</span>
+                            {{-- Nombre de quién atiende o estado --}}
+                            <span class="text-xs font-black uppercase tracking-widest text-center leading-tight">{{ $labelText }}</span>
                         </a>
                     @endforeach
                     @else

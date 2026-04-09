@@ -7,20 +7,17 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TableCustomerOrderController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\TableCustomerOrderDeliveryContoller;
+use App\Http\Controllers\TableCustomerOrderDeliveryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SaleController;
-
 
 use App\Http\Controllers\TableController;
 
 use App\Http\Controllers\TablesDeliveryController;
 
-;
-
 // 2. WEB PUBLICA (CLIENTES) - INTACTO
 use App\Http\Controllers\webControllers\WebController;
-use App\Http\Controllers\webControllers\cartaPaseilloCompletaContoller;
+use App\Http\Controllers\webControllers\CartaPaseilloCompletaController;
 
 use App\Http\Middleware\SoloAdmin;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 // ==========================================================
 Route::group([], function () {
     Route::get('/', [WebController::class, 'index']);
-    Route::get('/cartaPaseilloCompleta', [cartaPaseilloCompletaContoller::class, 'cartaPaseilloCompleta']);
+    Route::get('/cartaPaseilloCompleta', [CartaPaseilloCompletaController::class, 'cartaPaseilloCompleta']);
 });
 
 // ==========================================================
@@ -46,15 +43,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // ==========================================================
 // PANEL DE ADMINISTRACION Y VENTAS (DASHBOARD)
 // ==========================================================
-// ==========================================================
-// PANEL DE ADMINISTRACION Y VENTAS (DASHBOARD)
-// ==========================================================
 Route::prefix('dashboard')->middleware('auth')->group(function () {
 
     // ------------------------------------------------------
     // SECCIÓN 1: PEDIDOS DEL SALÓN FÍSICO (MESAS NORMALES)
     // ------------------------------------------------------
     // Estas rutas las usan los mozos para las mesas del local
+    Route::get('/tableView', [TableController::class, 'index']);
     Route::get('/tableOrderDetails/{id}', [TableCustomerOrderController::class, 'index']);
     Route::post('/saveOrder/{table_id}', [TableCustomerOrderController::class, 'saveOrder']);
     Route::delete('/deleteDetail/{detail_id}', [TableCustomerOrderController::class, 'deleteDetail']);
@@ -74,7 +69,6 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         // SECCIÓN 2: GESTIÓN DE MESAS (CONFIGURACIÓN)
         // ------------------------------------------------------
         // Configuración Salón Físico
-        Route::get('/tableView', [TableController::class, 'index']);
         Route::get('/tableRegistration', [TableController::class, 'viewTableForm']);
         Route::post('/tableRegistration/insert', [TableController::class, 'store']);
 
@@ -87,11 +81,10 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         // SECCIÓN 3: PEDIDOS DE DELIVERY (BOTONES ROJOS)
         // ------------------------------------------------------
         // He cambiado las URLs para que NO CHOCEN con las del salón
-        Route::get('/tableOrderDetailsDelyvery/{id}', [TableCustomerOrderDeliveryContoller::class, 'index']);
+        Route::get('/tableOrderDetailsDelyvery/{id}', [TableCustomerOrderDeliveryController::class, 'index']);
 
-
-        Route::post('/saveOrderDelivery/{table_id}', [TableCustomerOrderDeliveryContoller::class, 'saveOrder']);
-        Route::post('/finalizeSaleDelivery/{table_id}', [TableCustomerOrderDeliveryContoller::class, 'finalizeSale']);
+        Route::post('/saveOrderDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'saveOrder']);
+        Route::post('/finalizeSaleDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'finalizeSale']);
 
         // ------------------------------------------------------
         // SECCIÓN 4: MANTENIMIENTO (PRODUCTOS, CATEGORÍAS, USUARIOS)

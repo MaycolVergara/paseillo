@@ -356,10 +356,3 @@ function toggleDetalle(id) {
         icon.classList.remove('rotate-180');
     }
 }
-function toggleDetalle(id) {
-    const detalle = document.getElementById('detalle-' + id);
-    const icon    = document.getElementById('icon-' + id);
-    const isOpen  = !detalle.classList.contains('hidden');
-    detalle.classList.toggle('hidden');
-    icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
-}

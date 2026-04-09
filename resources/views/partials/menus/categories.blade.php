@@ -26,26 +26,8 @@
                     @php
                         // nombre_categoria -> name
                         $catName = strtolower($category->name);
-                        $emoji = '🍽️';
-
-                        if (str_contains($catName, 'pizza')) {
-                            $emoji = '🍕';
-                        } elseif (str_contains($catName, 'hamburguesa') || str_contains($catName, 'burger')) {
-                            $emoji = '🍔';
-                        } elseif (str_contains($catName, 'bebida') || str_contains($catName, 'gaseosa') || str_contains($catName, 'refresco')) {
-                            $emoji = '🥤';
-                        }
-                        elseif (str_contains($catName, 'krispy') || str_contains($catName, 'pollo') || str_contains($catName, 'broaster')) {
-                            $emoji = '🍗';
-                        } elseif (str_contains($catName, 'salchipapa') || str_contains($catName, 'papas')) {
-                            $emoji = '🍟';
-                        } elseif (str_contains($catName, 'alitas')) { $emoji = '🍗'; }
                     @endphp
-
                     <h5 class="flex items-center gap-3 px-2 py-1.5 group/item rounded-xl hover:bg-orange-50 dark:hover:bg-orange-950/20 transition-all">
-                        <div class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-sm group-hover/item:scale-110 transition-transform shadow-sm">
-                            {{ $emoji }}
-                        </div>
                         <span class="text-sm font-semibold text-gray-600 dark:text-gray-400 group-hover/item:text-orange-600 transition-colors">
                             {{ $category->name }}
                         </span>

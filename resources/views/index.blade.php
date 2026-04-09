@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="space-y-6"> {{-- Contenedor principal con espaciado uniforme --}}
 
         {{-- ══════════════════════════
@@ -19,7 +18,7 @@
                         <span class="text-3xl">🍔</span>
                     </div>
                     <div>
-                        @if(Auth::user()->role_id == 1)
+                        @if (Auth::user()->role_id == 1)
                             <h2 class="text-xl md:text-2xl font-black text-gray-900 dark:text-white tracking-tight">
                                 ¡Buen día, <span
                                     class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">{{ Auth::user()->name }}</span>!
@@ -27,11 +26,11 @@
                             </h2>
                         @endif
                         <div class="flex items-center gap-2 mt-1">
-                        <span class="relative flex h-2.5 w-2.5">
-                            <span
-                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                        </span>
+                            <span class="relative flex h-2.5 w-2.5">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                            </span>
                             <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
                                 Panel en vivo</p>
                         </div>
@@ -43,16 +42,16 @@
                         class="hidden md:flex items-center gap-2 text-xs font-bold text-gray-500 dark:text-gray-400 bg-gray-50/80 dark:bg-gray-800/80 px-4 py-2.5 rounded-xl border border-gray-100 dark:border-gray-700">
                         <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                         {{ now()->translatedFormat('d M Y') }}
                     </div>
                     <a href="{{ url('/') }}" target="_blank"
-                       class="group flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-gray-900 to-gray-800 dark:from-orange-500 dark:to-red-600 shadow-md hover:shadow-xl transition-all duration-300 active:scale-95">
-                        <svg class="w-4 h-4 group-hover:rotate-12 transition-transform" fill="none"
-                             stroke="currentColor" viewBox="0 0 24 24">
+                        class="group flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-gray-900 to-gray-800 dark:from-orange-500 dark:to-red-600 shadow-md hover:shadow-xl transition-all duration-300 active:scale-95">
+                        <svg class="w-4 h-4 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.l"
-                                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                         Ver Menú Web
                     </a>
@@ -64,62 +63,67 @@
              2. STATS GRID (Tarjetas)
         ══════════════════════════ --}}
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 lg:gap-5">
-
             {{-- Ventas Hoy (Tarjeta Hero) --}}
             <div
                 class="col-span-2 relative bg-gradient-to-br from-orange-500 via-red-500 to-rose-600 rounded-3xl p-6 shadow-lg shadow-orange-500/20 overflow-hidden group">
                 <div
-                    class="absolute -right-10 -top-10 w-40 h-40 bg-white/20 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+                    class="absolute -right-10 -top-10 w-40 h-40 bg-white/20 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-700">
+                </div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 blur-2xl rounded-full"></div>
                 <div class="relative z-10 flex flex-col justify-between h-full">
                     <div class="flex items-center gap-2 mb-4">
                         <div class="w-8 h-8 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center">
                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <p class="text-[11px] font-black uppercase text-white/90 tracking-widest">Ingresos Hoy</p>
                     </div>
                     <div>
                         <p class="text-4xl font-black text-white tracking-tighter drop-shadow-sm">
-                            <span
-                                class="text-2xl font-bold opacity-80 mr-1">S/</span>{{ number_format($totalDay ?? 0, 2) }}
+                            <span class="text-2xl font-bold opacity-80 mr-1">S/</span>{{ number_format($totalDay ?? 0, 2) }}
                         </p>
                     </div>
                 </div>
             </div>
-
             {{-- Pedidos --}}
             <div
-                class="bg-white dark:bg-gray-900 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-800 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-                <div
-                    class="w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-3 text-blue-500">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                    </svg>
+                class="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-5 shadow-lg shadow-slate-900/20 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group">
+                <div class="absolute -right-6 -top-6 w-20 h-20 bg-blue-500/20 blur-2xl rounded-full group-hover:bg-blue-400/30 transition-colors duration-500"></div>
+                <div class="relative z-10">
+                    <div
+                        class="w-10 h-10 bg-blue-500/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-3">
+                        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    </div>
+                    <p class="text-[10px] font-bold uppercase text-slate-400 tracking-widest">Pedidos</p>
+                    <p class="text-2xl font-black text-white mt-1">{{ $ordersToday ?? 0 }}</p>
                 </div>
-                <p class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Pedidos</p>
-                <p class="text-2xl font-black text-gray-900 dark:text-white mt-1">{{ $ordersToday ?? 0 }}</p>
             </div>
-
-            {{-- Mini Cards de Productos --}}
+            {{-- Mini Cards de Productos con diseño premium --}}
             @php
                 $miniStats = [
-                    ['icon' => '🍕', 'name' => 'Pizzas', 'val' => $pizzasSold],
-                    ['icon' => '🍔', 'name' => 'Burgers', 'val' => $burgersSold],
-                    ['icon' => '🥤', 'name' => 'Bebidas', 'val' => $drinksSold],
-                    ['icon' => '🍗', 'name' => 'Krispy', 'val' => $krispySold],
+                    ['icon' => '🍕', 'name' => 'Pizzas', 'val' => $pizzasSold, 'from' => 'from-red-500', 'to' => 'to-orange-400', 'glow' => 'shadow-red-500/20', 'accent' => 'bg-red-400/20', 'text' => 'text-red-300'],
+                    ['icon' => '🍔', 'name' => 'Burgers', 'val' => $burgersSold, 'from' => 'from-amber-500', 'to' => 'to-yellow-400', 'glow' => 'shadow-amber-500/20', 'accent' => 'bg-amber-400/20', 'text' => 'text-amber-300'],
+                    ['icon' => '🥤', 'name' => 'Bebidas', 'val' => $drinksSold, 'from' => 'from-cyan-500', 'to' => 'to-blue-400', 'glow' => 'shadow-cyan-500/20', 'accent' => 'bg-cyan-400/20', 'text' => 'text-cyan-300'],
+                    ['icon' => '🍗', 'name' => 'Krispy', 'val' => $krispySold, 'from' => 'from-orange-600', 'to' => 'to-red-500', 'glow' => 'shadow-orange-500/20', 'accent' => 'bg-orange-400/20', 'text' => 'text-orange-300'],
                 ];
             @endphp
-
-            @foreach($miniStats as $stat)
+            @foreach ($miniStats as $stat)
                 <div
-                    class="bg-white dark:bg-gray-900 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-800 hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col justify-between">
-                    <div class="text-2xl mb-2">{{ $stat['icon'] }}</div>
-                    <div>
-                        <p class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">{{ $stat['name'] }}</p>
-                        <p class="text-2xl font-black text-gray-900 dark:text-white mt-1">{{ $stat['val'] ?? 0 }}</p>
+                    class="relative bg-gradient-to-br {{ $stat['from'] }} {{ $stat['to'] }} rounded-3xl p-5 shadow-lg {{ $stat['glow'] }} overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 blur-xl rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
+                                <span class="text-xl group-hover:scale-110 transition-transform inline-block">{{ $stat['icon'] }}</span>
+                            </div>
+                        </div>
+                        <p class="text-[10px] font-bold uppercase text-white/80 tracking-widest">{{ $stat['name'] }}</p>
+                        <p class="text-2xl font-black text-white mt-1 drop-shadow-sm">{{ $stat['val'] ?? 0 }}</p>
                     </div>
                 </div>
             @endforeach
@@ -157,13 +161,16 @@
                 </div>
 
                 <div class="p-4" style="display:grid; grid-template-columns: repeat(10, 1fr); gap: 8px;">
-                    @foreach($tables as $table)
-                        <button class="relative aspect-square flex flex-col items-center justify-center gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
+                    @foreach ($tables as $table)
+                        <button
+                            class="relative aspect-square flex flex-col items-center justify-center gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
                            {{ $table->status == 'disponible'
-                              ? 'border-emerald-100 bg-emerald-50/50 text-emerald-600 hover:shadow-md hover:shadow-emerald-500/20'
-                              : 'border-rose-100 bg-rose-50/50 text-rose-600 hover:shadow-md hover:shadow-rose-500/20' }}">
-                            <span class="font-black tracking-tighter leading-none" style="font-size: clamp(12px, 2vw, 22px);">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
-                            <span class="font-black uppercase tracking-widest opacity-70 leading-none" style="font-size: 8px;">{{ $table->status }}</span>
+                               ? 'border-emerald-100 bg-emerald-50/50 text-emerald-600 hover:shadow-md hover:shadow-emerald-500/20'
+                               : 'border-rose-100 bg-rose-50/50 text-rose-600 hover:shadow-md hover:shadow-rose-500/20' }}">
+                            <span class="font-black tracking-tighter leading-none"
+                                style="font-size: clamp(12px, 2vw, 22px);">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+                            <span class="font-black uppercase tracking-widest opacity-70 leading-none"
+                                style="font-size: 8px;">{{ $table->status }}</span>
                         </button>
                     @endforeach
                 </div>
@@ -186,24 +193,29 @@
                     @forelse($topProducts as $index => $top)
                         <div
                             class="group flex items-center gap-4 px-3 py-3.5 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                            <div class="w-7 h-7 rounded-xl flex items-center justify-center text-[12px] font-black flex-shrink-0 shadow-sm
-                            {{ $index === 0 ? 'bg-gradient-to-br from-yellow-300 to-amber-500 text-amber-950' :
-                              ($index === 1 ? 'bg-gradient-to-br from-gray-200 to-gray-400 text-gray-800' :
-                              ($index === 2 ? 'bg-gradient-to-br from-orange-300 to-orange-600 text-white' :
-                              'bg-gray-100 dark:bg-gray-800 text-gray-500')) }}">
+                            <div
+                                class="w-7 h-7 rounded-xl flex items-center justify-center text-[12px] font-black flex-shrink-0 shadow-sm
+                            {{ $index === 0
+                                ? 'bg-gradient-to-br from-yellow-300 to-amber-500 text-amber-950'
+                                : ($index === 1
+                                    ? 'bg-gradient-to-br from-gray-200 to-gray-400 text-gray-800'
+                                    : ($index === 2
+                                        ? 'bg-gradient-to-br from-orange-300 to-orange-600 text-white'
+                                        : 'bg-gray-100 dark:bg-gray-800 text-gray-500')) }}">
                                 {{ $index + 1 }}
                             </div>
-                            <div
-                                class="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">{{ $top->emoji ?? '🍽️' }}</div>
+                            <div class="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                                {{ $top->emoji ?? '🍽️' }}</div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex justify-between items-end mb-1.5">
-                                    <p class="text-[13px] font-bold text-gray-800 dark:text-gray-200 truncate">{{ $top->name }}</p>
+                                    <p class="text-[13px] font-bold text-gray-800 dark:text-gray-200 truncate">
+                                        {{ $top->name }}</p>
                                     <span
-                                        class="text-[11px] font-black text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 px-2 py-0.5 rounded border border-gray-100 dark:border-gray-700 shadow-sm">{{ $top->quantity ?? 0 }} u.</span>
+                                        class="text-[11px] font-black text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 px-2 py-0.5 rounded border border-gray-100 dark:border-gray-700 shadow-sm">{{ $top->quantity ?? 0 }}
+                                        u.</span>
                                 </div>
                                 <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
-                                    <div
-                                        class="h-full bg-gradient-to-r {{ $top->colorFondo ?? 'from-orange-400 to-red-500' }} rounded-full"
+                                    <div class="h-full bg-gradient-to-r {{ $top->colorFondo ?? 'from-orange-400 to-red-500' }} rounded-full"
                                         style="width: {{ $top->percentage ?? 0 }}%"></div>
                                 </div>
                             </div>
@@ -225,14 +237,16 @@
         <div class="grid grid-cols-1 xl:grid-cols-4 gap-5 lg:gap-6 items-start">
 
             {{-- Panel Delivery --}}
-            <div class="xl:col-span-3 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 flex flex-col overflow-hidden">
+            <div
+                class="xl:col-span-3 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 flex flex-col overflow-hidden">
                 <div class="px-7 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
                     <div>
                         <h3 class="font-extrabold text-[16px] text-gray-900 dark:text-gray-100">Estado Delivery</h3>
                         <p class="text-xs font-medium text-gray-400 mt-0.5">Control de pedidos delivery en tiempo real</p>
                     </div>
 
-                    <div class="flex items-center gap-4 text-[11px] font-bold bg-gray-50 dark:bg-gray-800/50 px-3 py-1.5 rounded-lg border border-gray-100 dark:border-gray-700">
+                    <div
+                        class="flex items-center gap-4 text-[11px] font-bold bg-gray-50 dark:bg-gray-800/50 px-3 py-1.5 rounded-lg border border-gray-100 dark:border-gray-700">
                         <span class="flex items-center gap-1.5 text-rose-500 dark:text-rose-400">
                             <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]"></span>
                             {{ $tableDelivery->where('status', 'disponible')->count() }} Libres
@@ -245,15 +259,18 @@
                 </div>
 
                 <div class="p-4" style="display:grid; grid-template-columns: repeat(10, 1fr); gap: 8px;">
-                    @foreach($tableDelivery as $table)
+                    @foreach ($tableDelivery as $table)
                         <button
                             class="relative aspect-square flex flex-col items-center justify-center gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
-                            {{ $table->status == 'disponible' ? 'border-red-400 bg-red-100 text-red-700' :
-                                    'border-red-800 bg-red-900 text-white' }}">
-                            <span class="font-black tracking-tighter leading-none" style="font-size: clamp(12px, 2vw, 22px);">
+                            {{ $table->status == 'disponible'
+                                ? 'border-red-400 bg-red-100 text-red-700'
+                                : 'border-red-800 bg-red-900 text-white' }}">
+                            <span class="font-black tracking-tighter leading-none"
+                                style="font-size: clamp(12px, 2vw, 22px);">
                                 {{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}
                             </span>
-                            <span class="font-black uppercase tracking-widest opacity-80 leading-none" style="font-size: 8px;">
+                            <span class="font-black uppercase tracking-widest opacity-80 leading-none"
+                                style="font-size: 8px;">
                                 {{ $table->status }}
                             </span>
                         </button>
@@ -262,8 +279,10 @@
             </div>
 
             {{-- Panel Flujo de Caja --}}
-            <div class="xl:col-span-1 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 relative overflow-hidden">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-400 via-purple-400 to-blue-500"></div>
+            <div
+                class="xl:col-span-1 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 relative overflow-hidden">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-400 via-purple-400 to-blue-500">
+                </div>
 
                 {{-- Header compacto --}}
                 <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
@@ -274,7 +293,8 @@
                     <div class="text-right">
                         <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest">Cierre</p>
                         <p class="text-base font-black text-gray-900 dark:text-white tracking-tighter">
-                            <span class="text-xs font-bold text-gray-400 mr-0.5">S/</span>{{ number_format($totalDay ?? 0, 2) }}
+                            <span
+                                class="text-xs font-bold text-gray-400 mr-0.5">S/</span>{{ number_format($totalDay ?? 0, 2) }}
                         </p>
                     </div>
                 </div>
@@ -284,13 +304,15 @@
 
                     {{-- Efectivo --}}
                     @php $pctCash = ($totalDay ?? 0) > 0 ? ($cashPayment / $totalDay) * 100 : 0; @endphp
-                    <div class="bg-emerald-50/60 dark:bg-emerald-900/10 rounded-2xl p-3 border border-emerald-100 dark:border-emerald-800/30 flex flex-col gap-1.5">
+                    <div
+                        class="bg-emerald-50/60 dark:bg-emerald-900/10 rounded-2xl p-3 border border-emerald-100 dark:border-emerald-800/30 flex flex-col gap-1.5">
                         <div class="flex items-center justify-between">
                             <span class="text-base">💵</span>
                             <span class="text-[10px] font-black text-emerald-600">{{ number_format($pctCash, 0) }}%</span>
                         </div>
                         <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Efectivo</p>
-                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/ {{ number_format($cashPayment ?? 0, 2) }}</p>
+                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/
+                            {{ number_format($cashPayment ?? 0, 2) }}</p>
                         <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
                             <div class="h-full bg-emerald-400 rounded-full" style="width: {{ $pctCash }}%"></div>
                         </div>
@@ -301,13 +323,16 @@
                         $digitalTotal = ($yapePayment ?? 0) + ($plinPayment ?? 0);
                         $pctDigital = ($totalDay ?? 0) > 0 ? ($digitalTotal / $totalDay) * 100 : 0;
                     @endphp
-                    <div class="bg-purple-50/60 dark:bg-purple-900/10 rounded-2xl p-3 border border-purple-100 dark:border-purple-800/30 flex flex-col gap-1.5">
+                    <div
+                        class="bg-purple-50/60 dark:bg-purple-900/10 rounded-2xl p-3 border border-purple-100 dark:border-purple-800/30 flex flex-col gap-1.5">
                         <div class="flex items-center justify-between">
                             <span class="text-base">📱</span>
-                            <span class="text-[10px] font-black text-purple-600">{{ number_format($pctDigital, 0) }}%</span>
+                            <span
+                                class="text-[10px] font-black text-purple-600">{{ number_format($pctDigital, 0) }}%</span>
                         </div>
                         <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Billeteras</p>
-                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/ {{ number_format($digitalTotal, 2) }}</p>
+                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/
+                            {{ number_format($digitalTotal, 2) }}</p>
                         <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
                             <div class="h-full bg-purple-400 rounded-full" style="width: {{ $pctDigital }}%"></div>
                         </div>
@@ -316,13 +341,15 @@
 
                     {{-- Tarjeta --}}
                     @php $pctCard = ($totalDay ?? 0) > 0 ? ($cardPayment / $totalDay) * 100 : 0; @endphp
-                    <div class="bg-blue-50/60 dark:bg-blue-900/10 rounded-2xl p-3 border border-blue-100 dark:border-blue-800/30 flex flex-col gap-1.5">
+                    <div
+                        class="bg-blue-50/60 dark:bg-blue-900/10 rounded-2xl p-3 border border-blue-100 dark:border-blue-800/30 flex flex-col gap-1.5">
                         <div class="flex items-center justify-between">
                             <span class="text-base">💳</span>
                             <span class="text-[10px] font-black text-blue-600">{{ number_format($pctCard, 0) }}%</span>
                         </div>
                         <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Tarjeta</p>
-                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/ {{ number_format($cardPayment ?? 0, 2) }}</p>
+                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/
+                            {{ number_format($cardPayment ?? 0, 2) }}</p>
                         <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
                             <div class="h-full bg-blue-400 rounded-full" style="width: {{ $pctCard }}%"></div>
                         </div>
@@ -332,4 +359,4 @@
             </div>
 
         </div>
-@endsection
+    @endsection

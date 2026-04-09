@@ -25,9 +25,8 @@
             @include('partials.menus.sales') {{-- Antes ventas --}}
         @endif
 
-        {{-- Cambiado: rol -> role_id --}}
+        {{-- Mozo: solo ve su área de mesas, sin acceso al dashboard admin --}}
         @if(Auth::user()->role_id == 2)
-            @include('partials.menus.dashboard_home')
             @include('partials.menus.table_view_redirect')
         @endif
     </nav>

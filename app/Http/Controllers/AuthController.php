@@ -38,7 +38,7 @@ class AuthController extends Controller
         }
 
         // Si falló, lo regresa con un mensaje de error.
-        return back()->withErrors(['username' => 'Invalid username or password.']);
+        return back()->withErrors(['username' => 'Por fabor ingrese nuevamente.']);
     }
 
     // 2. Proceso de salida: Cierra la sesión y manda al usuario de vuelta al login.

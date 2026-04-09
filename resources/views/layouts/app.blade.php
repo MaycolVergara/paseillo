@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="es" data-theme="day">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -14,7 +16,7 @@
 
 
 </head>
-<html>
+
 <body
     class="bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
 <div class="flex min-h-screen">

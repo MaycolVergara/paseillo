@@ -8,7 +8,7 @@
             <div>
                 <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight italic flex items-center gap-2">
                     <span class="text-orange-500">
-                        📦</span> Inventario Paseillo
+                        </span> Inventario Paseillo
                 </h2>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Gestión de productos, categorías y precios en
                     tiempo real.</p>

@@ -49,7 +49,7 @@
             @if(session('error'))
                 <div class="mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 shadow-md rounded-r-xl animate-bounce">
                     <div class="flex items-center">
-                        <span class="text-xl mr-2">⚠️</span>
+                        <span class="text-sm font-black mr-2">ALERTA</span>
                         <p class="font-black uppercase text-xs">{{ session('error') }}</p>
                     </div>
                 </div>

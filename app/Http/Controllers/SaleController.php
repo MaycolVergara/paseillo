@@ -17,35 +17,33 @@ class SaleController extends Controller
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
 
-        // 2. Arranca en cero para que la pantalla no cargue basura al inicio
+        // 2. SIEMPRE carga todas las ventas finalizadas para las tarjetas de resumen
+        $allSales = Sale::where('status', 'Finalizado')->get();
+        $totalDay = $allSales->sum('total');
+
+        // 3. Calcula los pagos por método con TODAS las ventas (siempre visible)
+        $cashPayment = $allSales->where('payment_method', 'cash')->sum('total');
+        $yapePayment = $allSales->where('payment_method', 'yape')->sum('total');
+        $cardPayment = $allSales->where('payment_method', 'card')->sum('total');
+        $plinPayment = $allSales->where('payment_method', 'plin')->sum('total');
+
+        // Conteos generales para las tarjetas
+        $totalVentas = $allSales->count();
+        $ventasSalon = $allSales->whereNotNull('table_id')->count();
+        $ventasDelivery = $allSales->whereNotNull('table_delivery_id')->count();
+
+        // 4. Solo filtra las ventas para la tabla de detalle cuando hay fechas
         $sales = collect();
-        $totalDay = 0;
-
-        // 3. Solo hace la búsqueda si le diste un rango de tiempo real
         if ($start_date && $end_date) {
-
-            // Limpia el formato de fecha de HTML para que la base de datos no dé error
             $filterStart = str_replace('T', ' ', $start_date) . ':00';
             $filterEnd = str_replace('T', ' ', $end_date) . ':59';
 
-            // 🔍 FILTRO CLAVE: Solo cuenta las ventas que ya están PAGADAS (Finalizado)
-            // Busca todo lo que esté "entre" el inicio y el fin del turno
             $sales = Sale::where('status', 'Finalizado')
                 ->whereBetween('date', [$filterStart, $filterEnd])
                 ->get();
-
-            // Suma todos los totales de la lista para darte el monto final
-            $totalDay = $sales->sum('total');
         }
 
-        $cashPayment = $sales->where('payment_method', 'cash')->sum('total');
-
-        $yapePayment = $sales->where('payment_method', 'yape')->sum('total');
-
-        $cardPayment = $sales->where('payment_method', 'card')->sum('total');
-
-
         return view('/saleDetails',
-            compact('sales', 'totalDay', 'start_date', 'end_date', 'yapePayment', 'cardPayment', 'cashPayment'));
+            compact('sales', 'totalDay', 'start_date', 'end_date', 'yapePayment', 'cardPayment', 'cashPayment', 'plinPayment', 'totalVentas', 'ventasSalon', 'ventasDelivery'));
     }
 }

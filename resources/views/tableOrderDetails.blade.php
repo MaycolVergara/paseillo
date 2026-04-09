@@ -183,7 +183,7 @@
                 @empty
                     <tr>
                         <td colspan="6" class="px-6 py-8 text-center text-sm font-medium text-gray-400">
-                            <span class="block text-2xl mb-2">🍽️</span>
+                            <span class="block text-sm font-bold text-gray-300 mb-2">Sin productos</span>
                             No hay productos en esta orden todavía.
                         </td>
                     </tr>
@@ -224,9 +224,9 @@
                         <div class="relative">
                             <select name="payment_method" required
                                     class="w-full appearance-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 rounded-xl px-4 py-2.5 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all cursor-pointer font-bold text-sm h-[46px]">
-                                <option value="Cash" selected>💵 Efectivo</option>
-                                <option value="Yape">📱 Yape / Plin</option>
-                                <option value="Card">💳 Tarjeta (POS)</option>
+                                <option value="Cash" selected>Efectivo</option>
+                                <option value="Yape">Yape / Plin</option>
+                                <option value="Card">Tarjeta (POS)</option>
                             </select>
                             <div
                                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">

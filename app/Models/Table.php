@@ -19,4 +19,9 @@ class Table extends Model
         'serving_user_id'
     ];
 
+    // Relación: quién está atendiendo esta mesa
+    public function servingUser()
+    {
+        return $this->belongsTo(User::class, 'serving_user_id', 'id');
+    }
 }
