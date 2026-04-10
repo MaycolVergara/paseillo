@@ -320,7 +320,7 @@
 
                     {{-- Billeteras --}}
                     @php
-                        $digitalTotal = ($yapePayment ?? 0) + ($plinPayment ?? 0);
+                        $digitalTotal = ($yapePayment ?? 0);
                         $pctDigital = ($totalDay ?? 0) > 0 ? ($digitalTotal / $totalDay) * 100 : 0;
                     @endphp
                     <div
@@ -330,7 +330,7 @@
                             <span
                                 class="text-[10px] font-black text-purple-600">{{ number_format($pctDigital, 0) }}%</span>
                         </div>
-                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Billeteras</p>
+                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Yape</p>
                         <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/
                             {{ number_format($digitalTotal, 2) }}</p>
                         <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">

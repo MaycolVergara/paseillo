@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
+use App\Models\UserModel;
 use Database\Seeders\RolSeeder;
 class UserSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
         $this->call(RolSeeder::class);
 
         // 2. Creamos el usuario Admin corto
-        User::create([
+        UserModel::create([
             'name'     => 'Admin Paseillo',
             'email'    => 'admin@paseillo.com',
             'username' => 'admin', // 👈 Ahora sí podrás entrar con "admin"

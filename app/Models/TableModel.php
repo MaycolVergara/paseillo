@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Table extends Model
+class TableModel extends Model
 {
     // Nombre de la tabla
     protected $table = 'tables';
@@ -22,6 +22,6 @@ class Table extends Model
     // Relación: quién está atendiendo esta mesa
     public function servingUser()
     {
-        return $this->belongsTo(User::class, 'serving_user_id', 'id');
+        return $this->belongsTo(UserModel::class, 'serving_user_id', 'id');
     }
 }

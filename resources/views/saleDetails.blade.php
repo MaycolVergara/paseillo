@@ -114,7 +114,8 @@
                     <span class="text-[40px] font-black text-emerald-600">{{ number_format($pctCash, 0) }}%</span>
                 </div>
                 <p class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Efectivo</p>
-                <p class="text-2xl font-black text-gray-900 dark:text-white mt-1">S/ {{ number_format($cashPayment ?? 0, 2) }}</p>
+                <p class="text-2xl font-black text-gray-900 dark:text-white mt-1">
+                    S/ {{ number_format($cashPayment ?? 0, 2) }}</p>
                 <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
                     <div class="h-full bg-emerald-400 rounded-full" style="width: {{ $pctCash }}%"></div>
                 </div>
@@ -123,7 +124,7 @@
 
             {{-- YAPE --}}
             @php
-                $digitalTotal = ($yapePayment ?? 0) + ($plinPayment ?? 0);
+                $digitalTotal = ($yapePayment ?? 0);
                 $pctDigital = ($totalDay ?? 0) > 0 ? ($digitalTotal / $totalDay) * 100 : 0;
             @endphp
             <div
@@ -135,8 +136,9 @@
                     </div>
                     <span class="text-[40px] font-black text-purple-600">{{ number_format($pctDigital, 0) }}%</span>
                 </div>
-                <p class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Yape / Plin</p>
-                <p class="text-2xl font-black text-gray-900 dark:text-white mt-1">S/ {{ number_format($digitalTotal, 2) }}</p>
+                <p class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Yape</p>
+                <p class="text-2xl font-black text-gray-900 dark:text-white mt-1">
+                    S/ {{ number_format($digitalTotal, 2) }}</p>
                 <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
                     <div class="h-full bg-purple-400 rounded-full" style="width: {{ $pctDigital }}%"></div>
                 </div>
@@ -155,7 +157,8 @@
                     <span class="text-[40px] font-black text-blue-600">{{ number_format($pctCard, 0) }}%</span>
                 </div>
                 <p class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Tarjeta</p>
-                <p class="text-2xl font-black text-gray-900 dark:text-white mt-1">S/ {{ number_format($cardPayment ?? 0, 2) }}</p>
+                <p class="text-2xl font-black text-gray-900 dark:text-white mt-1">
+                    S/ {{ number_format($cardPayment ?? 0, 2) }}</p>
                 <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
                     <div class="h-full bg-blue-400 rounded-full" style="width: {{ $pctCard }}%"></div>
                 </div>
@@ -206,11 +209,7 @@
                                     'color' =>
                                         'bg-teal-50 text-teal-600 border border-teal-200 dark:bg-teal-900/20 dark:border-teal-800',
                                 ],
-                                'plin' => [
-                                    'label' => 'Plin',
-                                    'color' =>
-                                        'bg-pink-50 text-pink-600 border border-pink-200 dark:bg-pink-900/20 dark:border-pink-800',
-                                ],
+
                                 'card' => [
                                     'label' => 'Tarjeta',
                                     'color' =>
@@ -308,9 +307,9 @@
                                         </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
-                                        @php $details = \App\Models\SaleDetail::where('sale_id', $sale->id)->get(); @endphp
+                                        @php $details = \App\Models\SaleDetailModel::where('sale_id', $sale->id)->get(); @endphp
                                         @foreach ($details as $detail)
-                                            @php $product = \App\Models\Product::find($detail->product_id); @endphp
+                                            @php $product = \App\Models\ProductModel::find($detail->product_id); @endphp
                                             <tr class="hover:bg-white dark:hover:bg-gray-800/50 transition-colors">
                                                 <td
                                                     class="px-4 py-2.5 text-[12px] font-bold text-gray-800 dark:text-gray-200">

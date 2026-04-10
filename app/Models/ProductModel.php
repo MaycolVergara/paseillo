@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class ProductModel extends Model
 {
     use SoftDeletes;
 
@@ -22,7 +22,7 @@ class Product extends Model
     public function category()
     {
         //CONEXTAS CON CATEGORYA Y DE ACA SACAS SU ID Y NOMBRE
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(CategoryModel::class, 'category_id');
     }
 
     protected $fillable = [

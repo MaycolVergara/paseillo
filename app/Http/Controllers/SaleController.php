@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Sale;
+use App\Models\SaleModel;
 
 class SaleController extends Controller
 {
@@ -18,14 +18,13 @@ class SaleController extends Controller
         $end_date = $request->input('end_date');
 
         // 2. SIEMPRE carga todas las ventas finalizadas para las tarjetas de resumen
-        $allSales = Sale::where('status', 'Finalizado')->get();
+        $allSales = SaleModel::where('status', 'Finalizado')->get();
         $totalDay = $allSales->sum('total');
 
         // 3. Calcula los pagos por método con TODAS las ventas (siempre visible)
         $cashPayment = $allSales->where('payment_method', 'cash')->sum('total');
         $yapePayment = $allSales->where('payment_method', 'yape')->sum('total');
         $cardPayment = $allSales->where('payment_method', 'card')->sum('total');
-        $plinPayment = $allSales->where('payment_method', 'plin')->sum('total');
 
         // Conteos generales para las tarjetas
         $totalVentas = $allSales->count();
@@ -38,12 +37,12 @@ class SaleController extends Controller
             $filterStart = str_replace('T', ' ', $start_date) . ':00';
             $filterEnd = str_replace('T', ' ', $end_date) . ':59';
 
-            $sales = Sale::where('status', 'Finalizado')
+            $sales = SaleModel::where('status', 'Finalizado')
                 ->whereBetween('date', [$filterStart, $filterEnd])
                 ->get();
         }
 
         return view('/saleDetails',
-            compact('sales', 'totalDay', 'start_date', 'end_date', 'yapePayment', 'cardPayment', 'cashPayment', 'plinPayment', 'totalVentas', 'ventasSalon', 'ventasDelivery'));
+            compact('sales', 'totalDay', 'start_date', 'end_date', 'yapePayment', 'cardPayment', 'cashPayment', 'totalVentas', 'ventasSalon', 'ventasDelivery'));
     }
 }

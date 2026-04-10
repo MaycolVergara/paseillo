@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Table;
+use App\Models\TableModel;
 use Illuminate\Database\QueryException;
 
 class TableController extends Controller
@@ -14,10 +14,10 @@ class TableController extends Controller
      */
     public function index()
     {
-        $table_config = Table::with('servingUser')
+        $table_config = TableModel::with('servingUser')
             ->where('status', '!=', 'mesasNoExistentes')
             ->orderBy('table_number', 'asc')->get();
-        $table_view = Table::all();
+        $table_view = TableModel::all();
         return view('tableView', compact('table_config', 'table_view'));
     }
 
@@ -27,10 +27,10 @@ class TableController extends Controller
      */
     public function viewTableForm()
     {
-        $table_config = Table::where('status', '!=', 'mesasNoExistentes')
+        $table_config = TableModel::where('status', '!=', 'mesasNoExistentes')
             ->orderBy('table_number', 'asc')
             ->get();
-        $table_view = Table::all();
+        $table_view = TableModel::all();
         return view('tableRegistration', compact('table_config', 'table_view'));
     }
 
@@ -41,10 +41,10 @@ class TableController extends Controller
     public function store(Request $request)
     {
         $newQuantity = (int)$request->input('quantity');
-        $currentTotal = Table::count();
+        $currentTotal = TableModel::count();
 
         // 🛡️ SEGURIDAD: Si hay una mesa en "ocupado", el sistema bloquea cualquier cambio.
-        $hayGenteComiendo = Table::where('status', 'ocupado')->exists();
+        $hayGenteComiendo = TableModel::where('status', 'ocupado')->exists();
 
         if ($hayGenteComiendo) {
             return redirect()->back()->with('error',
@@ -54,22 +54,22 @@ class TableController extends Controller
         // Lógica de actualización si el salón está vacío:
         if ($newQuantity > $currentTotal) {
             // Caso A: Subir mesas. Reactiva las "apagadas" y crea las que falten.
-            Table::where('table_number', '<=', $currentTotal)
+            TableModel::where('table_number', '<=', $currentTotal)
                 ->where('status', 'mesasNoExistentes')
                 ->update(['status' => 'disponible']);
 
             for ($i = $currentTotal + 1; $i <= $newQuantity; $i++) {
-                Table::create([
+                TableModel::create([
                     'table_number' => $i,
                     'status' => 'disponible'
                 ]);
             }
         } elseif ($newQuantity < $currentTotal) {
             // Caso B: Bajar mesas. Las que sobran se marcan como "mesasNoExistentes".
-            Table::where('table_number', '<=', $newQuantity)
+            TableModel::where('table_number', '<=', $newQuantity)
                 ->update(['status' => 'disponible']);
 
-            Table::where('table_number', '>', $newQuantity)
+            TableModel::where('table_number', '>', $newQuantity)
                 ->update(['status' => 'mesasNoExistentes']);
         }
 

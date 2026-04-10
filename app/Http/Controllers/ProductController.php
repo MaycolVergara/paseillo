@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\Category;
+use App\Models\ProductModel;
+use App\Models\CategoryModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,8 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        $categories = Category::all();
+        $products = ProductModel::all();
+        $categories = CategoryModel::all();
 
         return view('productList', compact('products', 'categories'));
     }
@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function insertProductView()
     {
-        $categories = Category::all();
+        $categories = CategoryModel::all();
         return view('productRegistration', compact('categories'));
     }
 
@@ -43,7 +43,7 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        $product = new Product();
+        $product = new ProductModel();
         $product->name = $request->name;
         $product->price = $request->price;
         $product->delivery_date = $request->delivery_date;
@@ -68,11 +68,11 @@ class ProductController extends Controller
      */
     public function viewEdit($id)
     {
-        $product = Product::find($id);
-        $categories = Category::all();
+        $product = ProductModel::find($id);
+        $categories = CategoryModel::all();
 
         if (!$product) {
-            return redirect('/dashboard/productList')->with('error', 'Product not found');
+            return redirect('/dashboard/productList')->with('error', 'ProductModel not found');
         }
         return view('productEdit', compact('product', 'categories'));
     }
@@ -83,7 +83,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
+        $product = ProductModel::find($id);
 
         $product->name = $request->name;
         $product->price = $request->price;
@@ -113,7 +113,7 @@ class ProductController extends Controller
      */
     public function delete($id)
     {
-        $product = Product::find($id);
+        $product = ProductModel::find($id);
 
         if ($product) {
             // Limpia el servidor borrando la foto del producto eliminado

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Sale;
-use App\Models\SaleDetail;
-use App\Models\Product;
-use App\Models\Category;
+use App\Models\SaleModel;
+use App\Models\SaleDetailModel;
+use App\Models\ProductModel;
+use App\Models\CategoryModel;
 use Carbon\Carbon;
-use App\Models\Table;
-use App\Models\TableDelivery;
+use App\Models\TableModel;
+use App\Models\TableDeliveryModel;
 class DashboardController extends Controller
 {
     public function index()
@@ -17,13 +17,13 @@ class DashboardController extends Controller
         $today = Carbon::today();
 
         // 1. Saca la cuenta de cuánta plata entró hoy y cuántos pedidos se hicieron
-        $salesToday = Sale::where('status', 'Finalizado')->whereDate('date', $today)->get();
+        $salesToday = SaleModel::where('status', 'Finalizado')->whereDate('date', $today)->get();
         $totalDay = $salesToday->sum('total');
         $ordersToday = $salesToday->count();
 
         // 2. Trae la lista de todos los platos que se sirvieron hoy
         $salesTodayIds = $salesToday->pluck('id');
-        $detailsToday = SaleDetail::whereIn('sale_id', $salesTodayIds)->get();
+        $detailsToday = SaleDetailModel::whereIn('sale_id', $salesTodayIds)->get();
 
         // 3. Contadores para las tarjetas: Clasifica si vendiste Pizzas, Burgers, etc.
         $pizzasSold = 0;
@@ -32,10 +32,14 @@ class DashboardController extends Controller
         $krispySold = 0;
         $salchipapasSold = 0;
 
+        // Pre-cargar todos los productos y categorías para evitar consultas N+1
+        $allProducts = ProductModel::all()->keyBy('id');
+        $allCategories = CategoryModel::all()->keyBy('id');
+
         foreach ($detailsToday as $detail) {
-            $product = Product::find($detail->product_id);
+            $product = $allProducts->get($detail->product_id);
             if ($product) {
-                $category = Category::find($product->category_id);
+                $category = $allCategories->get($product->category_id);
                 $catName = $category ? strtolower($category->name) : strtolower($product->name);
 
                 if (str_contains($catName, 'pizza')) {
@@ -107,10 +111,10 @@ class DashboardController extends Controller
 
 
         // 6. Carga el estado de las mesas
-        $tables = Table::where('status', '!=','mesasNoExistentes')
+        $tables = TableModel::where('status', '!=','mesasNoExistentes')
             ->orderBy('table_number', 'asc')->get();
 
-        $tableDelivery=TableDelivery::where('status', '!=','deliveryNoExistente')
+        $tableDelivery=TableDeliveryModel::where('status', '!=','deliveryNoExistente')
              ->orderBy('table_number', 'asc')->get();
 
         return view('index', compact(

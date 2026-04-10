@@ -55,13 +55,11 @@
 
                 <div class="ml-5 pl-4 mt-1.5 mb-1 border-l-2 border-dashed border-gray-200 dark:border-gray-700 space-y-1">
                     {{-- Ruta actualizada: usuariosRegistro -> userRegistration --}}
-                    <a href="{{ url('/dashboard/userRegistration')}}" class="nav-link sub-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all duration-200">
+                    <a href="{{ url('/dashboard/staffList')}}" class="nav-link sub-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all duration-200">
                         <span class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 shrink-0"></span>
-                        Usuarios
+                        Personal
                     </a>
                 </div>
-
-
             </div>
         </div>
 

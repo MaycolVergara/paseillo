@@ -141,8 +141,9 @@
                     @csrf
                     <div class="w-full md:w-48">
                         <select name="payment_method" required class="w-full bg-white dark:bg-gray-900 border border-gray-200 rounded-xl px-4 py-2.5 font-bold text-sm h-[46px]">
-                            <option value="Cash" selected>Efectivo</option>
-                            <option value="Yape">Yape / Plin</option>
+                            <option value="cash" selected>Efectivo</option>
+                            <option value="yape">Yape</option>
+                            <option value="card">Tarjeta (POS)</option>
                         </select>
                     </div>
                     @if(Auth::user()->role_id == 1)

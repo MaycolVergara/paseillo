@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SaleDetail extends Model
+class SaleDetailModel extends Model
 {
     //  Nombre de la tabla
     protected $table = 'sale_details';
@@ -14,7 +14,7 @@ class SaleDetail extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(ProductModel::class, 'product_id');
     }
 
     //  Campos permitidos

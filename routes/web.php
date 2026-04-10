@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 // 1. Dashboard (Nombres actualizados a Inglés)
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableCustomerOrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TableCustomerOrderDeliveryController;
@@ -103,10 +104,17 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::put('/categoryRegistration/{id}/update', [CategoryController::class, 'update']);
         Route::delete('/categoryRegistration/{id}', [CategoryController::class, 'delete']);
 
-        // Usuarios
-        Route::get('/userRegistration', [UserController::class, 'index']);
-        Route::post('/userRegistration', [UserController::class, 'createUser']);
-        Route::put('/userRegistration/{id}/update', [UserController::class, 'update']);
-        Route::delete('/userRegistration/{id}', [UserController::class, 'delete']);
+        // Personal
+        Route::get('/staffList', [StaffController::class, 'index']);
+        Route::get('/staffRegistration', [StaffController::class, 'viewForm']);
+        Route::get('/staff/{id}/edit', [StaffController::class, 'viewEdit']);
+        Route::post('/staff/store', [StaffController::class, 'store']);
+        Route::put('/staff/update/{id}', [StaffController::class, 'update']);
+        Route::patch('/staff/status/{id}', [StaffController::class, 'toggleStatus']);
+
+        // Accesos y Credenciales (Usuarios)
+        Route::get('/staff/{id}/credentials', [UserController::class, 'createCredentials']);
+        Route::post('/staff/{id}/credentials', [UserController::class, 'storeCredentials']);
     });
+
 });

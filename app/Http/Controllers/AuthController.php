@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +18,7 @@ class AuthController extends Controller
         ]);
 
         // Busca al trabajador por su nombre de usuario.
-        $user = User::where('username', $request->username)->first();
+        $user = UserModel::where('username', $request->username)->first();
 
         if ($user) {
             // SEGURIDAD: Hash::check compara la clave escrita con la encriptada.

@@ -4,23 +4,23 @@
             onclick="toggleAccordion(this)">
         <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-500 group-hover:bg-orange-100 dark:group-hover:bg-orange-900/30 group-hover:text-orange-500 transition-colors duration-200 shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path
-                    fill-rule="evenodd"
-                    d="M5.5 3A2.5 2.5 0 003 5.5v2.879a2.5 2.5 0 00.732 1.767l6.5 6.5a2.5 2.5 0 003.536 0l2.878-2.878a2.5 2.5 0 000-3.536l-6.5-6.5A2.5 2.5 0 008.38 3H5.5zM6 7a1 1 0 100-2 1 1 0 000 2z"
-                    clip-rule="evenodd"/></svg>
+                        fill-rule="evenodd"
+                        d="M5.5 3A2.5 2.5 0 003 5.5v2.879a2.5 2.5 0 00.732 1.767l6.5 6.5a2.5 2.5 0 003.536 0l2.878-2.878a2.5 2.5 0 000-3.536l-6.5-6.5A2.5 2.5 0 008.38 3H5.5zM6 7a1 1 0 100-2 1 1 0 000 2z"
+                        clip-rule="evenodd"/></svg>
         </span>
         <span class="nav-item-text flex-1 text-left whitespace-nowrap overflow-hidden">Categorías</span>
         <span class="nav-chevron-wrap"><svg class="chevron-icon w-5 h-5 text-gray-400 shrink-0"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path
-                    fill-rule="evenodd"
-                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.04 1.08l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                    clip-rule="evenodd"/></svg></span>
+                        fill-rule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.04 1.08l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                        clip-rule="evenodd"/></svg></span>
     </button>
     <div class="submenu-wrapper">
         <div class="submenu-inner">
             <div class="ml-5 pl-4 mt-1.5 mb-1 border-l-2 border-dashed border-gray-200 dark:border-gray-700 space-y-1">
                 @php
-                    // Modelo actualizado: Categoria -> Category
-                    $categoriesList = \App\Models\Category::all();
+                    // Modelo actualizado: Categoria -> CategoryModel
+                    $categoriesList = \App\Models\CategoryModel::all();
                 @endphp
                 @foreach($categoriesList as $category)
                     @php
