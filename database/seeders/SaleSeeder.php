@@ -44,10 +44,10 @@ class SaleSeeder extends Seeder
         }
 
         // Limpieza segura de ventas viejas
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
         SaleDetailModel::truncate();
         SaleModel::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
 
         // 2. Generar ventas en una línea de tiempo (últimos 14 días)
         for ($i = 10; $i >= 0; $i--) {
