@@ -14,11 +14,11 @@ class StaffSeeder extends Seeder
     {
 
         // Limpiar para que no se dupliquen al correr multiple veces
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
         UserModel::truncate();
         StaffModel::truncate();
         \DB::table('staff_absences')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
 
         $hoy = \Carbon\Carbon::now()->day;
 

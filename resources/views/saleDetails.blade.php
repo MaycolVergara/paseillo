@@ -38,18 +38,18 @@
                     <div class="flex flex-col gap-1">
                         <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Desde</label>
                         <input type="datetime-local" name="start_date" value="{{ $start_date }}" required
-                               class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:border-orange-400 transition-colors">
+                            class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:border-orange-400 transition-colors">
                     </div>
                     <div class="flex flex-col gap-1">
                         <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Hasta</label>
                         <input type="datetime-local" name="end_date" value="{{ $end_date }}" required
-                               class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:border-orange-400 transition-colors">
+                            class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:border-orange-400 transition-colors">
                     </div>
                     <button type="submit"
-                            class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-sm font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 active:scale-95">
+                        class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-sm font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 active:scale-95">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                  d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+                                d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
                         </svg>
                         Generar
                     </button>
@@ -70,10 +70,9 @@
                 <div class="relative z-10">
                     <div class="flex items-center gap-2 mb-3">
                         <div class="w-7 h-7 bg-white/20 rounded-xl flex items-center justify-center">
-                            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor"
-                                 viewBox="0 0 24 24">
+                            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <p class="text-[10px] font-black uppercase text-white/90 tracking-widest">Total
@@ -86,8 +85,7 @@
             </div>
 
             {{-- Nº Ventas --}}
-            <div
-                class="bg-white dark:bg-gray-900 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-800">
+            <div class="bg-white dark:bg-gray-900 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-800">
                 <div
                     class="w-9 h-9 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-3 text-blue-500">
                     <img src="{{ asset('icon/venta.png') }}" alt="TotalVenta" class="w-6 h-6 object-contain">
@@ -124,7 +122,7 @@
 
             {{-- YAPE --}}
             @php
-                $digitalTotal = ($yapePayment ?? 0);
+                $digitalTotal = $yapePayment ?? 0;
                 $pctDigital = ($totalDay ?? 0) > 0 ? ($digitalTotal / $totalDay) * 100 : 0;
             @endphp
             <div
@@ -231,7 +229,7 @@
 
                             {{-- Fila principal clickeable --}}
                             <button type="button" onclick="toggleDetalle({{ $sale->id }})"
-                                    class="w-full grid grid-cols-12 items-center px-6 py-3.5 text-left">
+                                class="w-full grid grid-cols-12 items-center px-6 py-3.5 text-left">
 
                                 <div class="col-span-1">
                                     <span class="text-[11px] font-black text-gray-400">#{{ $sale->id }}</span>
@@ -278,9 +276,9 @@
 
                                 <div class="col-span-1 flex justify-center">
                                     <svg id="icon-{{ $sale->id }}"
-                                         class="w-4 h-4 text-gray-400 transition-transform duration-300" fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                        class="w-4 h-4 text-gray-400 transition-transform duration-300" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </div>
                             </button>
@@ -298,54 +296,54 @@
                                     <table class="w-full text-left">
                                         <thead
                                             class="text-[10px] uppercase tracking-wider text-gray-400 bg-white/50 dark:bg-gray-800/30">
-                                        <tr>
-                                            <th class="px-4 py-2.5 font-black">Producto</th>
-                                            <th class="px-4 py-2.5 font-black text-center">Cant.</th>
-                                            <th class="px-4 py-2.5 font-black text-right">P. Unit.</th>
-                                            <th class="px-4 py-2.5 font-black text-right">Subtotal</th>
-                                            <th class="px-4 py-2.5 font-black">Personalización</th>
-                                        </tr>
+                                            <tr>
+                                                <th class="px-4 py-2.5 font-black">Producto</th>
+                                                <th class="px-4 py-2.5 font-black text-center">Cant.</th>
+                                                <th class="px-4 py-2.5 font-black text-right">P. Unit.</th>
+                                                <th class="px-4 py-2.5 font-black text-right">Subtotal</th>
+                                                <th class="px-4 py-2.5 font-black">Personalización</th>
+                                            </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
-                                        @php $details = \App\Models\SaleDetailModel::where('sale_id', $sale->id)->get(); @endphp
-                                        @foreach ($details as $detail)
-                                            @php $product = \App\Models\ProductModel::find($detail->product_id); @endphp
-                                            <tr class="hover:bg-white dark:hover:bg-gray-800/50 transition-colors">
-                                                <td
-                                                    class="px-4 py-2.5 text-[12px] font-bold text-gray-800 dark:text-gray-200">
-                                                    {{ $product ? $product->name : '— Producto eliminado —' }}
-                                                </td>
-                                                <td class="px-4 py-2.5 text-center">
+                                            @php $details = \App\Models\SaleDetailModel::where('sale_id', $sale->id)->get(); @endphp
+                                            @foreach ($details as $detail)
+                                                @php $product = \App\Models\ProductModel::find($detail->product_id); @endphp
+                                                <tr class="hover:bg-white dark:hover:bg-gray-800/50 transition-colors">
+                                                    <td
+                                                        class="px-4 py-2.5 text-[12px] font-bold text-gray-800 dark:text-gray-200">
+                                                        {{ $product ? $product->name : '— Producto eliminado —' }}
+                                                    </td>
+                                                    <td class="px-4 py-2.5 text-center">
                                                         <span
                                                             class="text-[11px] font-black bg-orange-100 dark:bg-orange-900/30 text-orange-600 px-2 py-0.5 rounded-lg">
                                                             x{{ $detail->quantity }}
                                                         </span>
-                                                </td>
-                                                <td
-                                                    class="px-4 py-2.5 text-right text-[12px] text-gray-500 dark:text-gray-400 font-semibold">
-                                                    S/ {{ number_format($detail->unit_price, 2) }}
-                                                </td>
-                                                <td
-                                                    class="px-4 py-2.5 text-right text-[12px] font-black text-gray-900 dark:text-white">
-                                                    S/ {{ number_format($detail->subtotal, 2) }}
-                                                </td>
-                                                <td class="px-4 py-2.5 text-[11px] text-gray-400 italic">
-                                                    {{ $detail->customization ?? '—' }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                    </td>
+                                                    <td
+                                                        class="px-4 py-2.5 text-right text-[12px] text-gray-500 dark:text-gray-400 font-semibold">
+                                                        S/ {{ number_format($detail->unit_price, 2) }}
+                                                    </td>
+                                                    <td
+                                                        class="px-4 py-2.5 text-right text-[12px] font-black text-gray-900 dark:text-white">
+                                                        S/ {{ number_format($detail->subtotal, 2) }}
+                                                    </td>
+                                                    <td class="px-4 py-2.5 text-[11px] text-gray-400 italic">
+                                                        {{ $detail->customization ?? '—' }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                         <tfoot>
-                                        <tr class="bg-orange-50/60 dark:bg-orange-900/10">
-                                            <td colspan="3"
-                                                class="px-4 py-2.5 text-[11px] font-black uppercase tracking-widest text-gray-400 text-right">
-                                                Total
-                                            </td>
-                                            <td class="px-4 py-2.5 text-right text-[14px] font-black text-orange-600">
-                                                S/ {{ number_format($sale->total, 2) }}
-                                            </td>
-                                            <td></td>
-                                        </tr>
+                                            <tr class="bg-orange-50/60 dark:bg-orange-900/10">
+                                                <td colspan="3"
+                                                    class="px-4 py-2.5 text-[11px] font-black uppercase tracking-widest text-gray-400 text-right">
+                                                    Total
+                                                </td>
+                                                <td class="px-4 py-2.5 text-right text-[14px] font-black text-orange-600">
+                                                    S/ {{ number_format($sale->total, 2) }}
+                                                </td>
+                                                <td></td>
+                                            </tr>
                                         </tfoot>
                                     </table>
                                 </div>
