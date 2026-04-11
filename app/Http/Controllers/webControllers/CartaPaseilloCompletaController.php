@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ProductModel;
 
 
-class cartaPaseilloCompletaContoller extends Controller
+class CartaPaseilloCompletaController extends Controller
 {
     public function cartaPaseilloCompleta()
     {
