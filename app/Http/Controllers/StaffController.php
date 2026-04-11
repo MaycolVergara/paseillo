@@ -58,7 +58,6 @@ class StaffController extends Controller
                 'address'     => $request->address,
                 'hire_date'   => $request->hire_date,
                 'payment_day' => $request->payment_day,
-                'advance_payment' => $request->advance_payment,
                 'is_active'   => true,
             ]);
 
@@ -113,7 +112,6 @@ class StaffController extends Controller
             'address'     => $request->address,     // Agregado
             'hire_date'   => $request->hire_date,   // Agregado
             'payment_day' => $request->payment_day, // Agregado
-            'advance_payment' => $request->advance_payment,
         ]);
 
         return redirect('/dashboard/staffList')->with('success', 'Datos actualizados correctamente.');

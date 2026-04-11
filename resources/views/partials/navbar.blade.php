@@ -1,10 +1,14 @@
 @php
-    // 1. Buscamos qué día es hoy (ej: 15, 30, etc.)
     $diaActual = \Carbon\Carbon::now()->day;
 
-    // 2. Buscamos al personal activo que su 'payment_day' sea igual a hoy
+    $yaPagados = \App\Models\StaffPaymentModel::whereMonth('created_at', \Carbon\Carbon::now()->month)
+                            ->whereYear('created_at', \Carbon\Carbon::now()->year)
+                            ->where('payment_type', 'salary')
+                            ->pluck('staff_id')->toArray();
+
     $personalAPagar = \App\Models\StaffModel::where('is_active', true)
                         ->where('payment_day', $diaActual)
+                        ->whereNotIn('id', $yaPagados)
                         ->get();
 
     $cantidadAPagar = $personalAPagar->count();

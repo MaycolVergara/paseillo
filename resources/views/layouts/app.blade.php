@@ -35,5 +35,9 @@
 </div>
 
 <script src="{{ asset('js/main.js') }}"></script>
+
+<script src="{{ asset('js/lucide_icon/lucide.min.js') }}"></script>
+<script src="{{ asset('js/lucide_icon/lucide_js/lucide.js') }}"></script>
+
 </body>
 </html>

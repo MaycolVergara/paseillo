@@ -75,7 +75,7 @@
                         <div class="w-8 h-8 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center">
                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <p class="text-[11px] font-black uppercase text-white/90 tracking-widest">Ingresos Hoy</p>
@@ -90,13 +90,15 @@
             {{-- Pedidos --}}
             <div
                 class="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-5 shadow-lg shadow-slate-900/20 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group">
-                <div class="absolute -right-6 -top-6 w-20 h-20 bg-blue-500/20 blur-2xl rounded-full group-hover:bg-blue-400/30 transition-colors duration-500"></div>
+                <div
+                    class="absolute -right-6 -top-6 w-20 h-20 bg-blue-500/20 blur-2xl rounded-full group-hover:bg-blue-400/30 transition-colors duration-500">
+                </div>
                 <div class="relative z-10">
                     <div
                         class="w-10 h-10 bg-blue-500/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-3">
                         <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                         </svg>
                     </div>
                     <p class="text-[10px] font-bold uppercase text-slate-400 tracking-widest">Pedidos</p>
@@ -106,20 +108,60 @@
             {{-- Mini Cards de Productos con diseño premium --}}
             @php
                 $miniStats = [
-                    ['icon' => '🍕', 'name' => 'Pizzas', 'val' => $pizzasSold, 'from' => 'from-red-500', 'to' => 'to-orange-400', 'glow' => 'shadow-red-500/20', 'accent' => 'bg-red-400/20', 'text' => 'text-red-300'],
-                    ['icon' => '🍔', 'name' => 'Burgers', 'val' => $burgersSold, 'from' => 'from-amber-500', 'to' => 'to-yellow-400', 'glow' => 'shadow-amber-500/20', 'accent' => 'bg-amber-400/20', 'text' => 'text-amber-300'],
-                    ['icon' => '🥤', 'name' => 'Bebidas', 'val' => $drinksSold, 'from' => 'from-cyan-500', 'to' => 'to-blue-400', 'glow' => 'shadow-cyan-500/20', 'accent' => 'bg-cyan-400/20', 'text' => 'text-cyan-300'],
-                    ['icon' => '🍗', 'name' => 'Krispy', 'val' => $krispySold, 'from' => 'from-orange-600', 'to' => 'to-red-500', 'glow' => 'shadow-orange-500/20', 'accent' => 'bg-orange-400/20', 'text' => 'text-orange-300'],
+                    [
+                        'icon' => '🍕',
+                        'name' => 'Pizzas',
+                        'val' => $pizzasSold,
+                        'from' => 'from-red-500',
+                        'to' => 'to-orange-400',
+                        'glow' => 'shadow-red-500/20',
+                        'accent' => 'bg-red-400/20',
+                        'text' => 'text-red-300',
+                    ],
+                    [
+                        'icon' => '🍔',
+                        'name' => 'Burgers',
+                        'val' => $burgersSold,
+                        'from' => 'from-amber-500',
+                        'to' => 'to-yellow-400',
+                        'glow' => 'shadow-amber-500/20',
+                        'accent' => 'bg-amber-400/20',
+                        'text' => 'text-amber-300',
+                    ],
+                    [
+                        'icon' => '🥤',
+                        'name' => 'Bebidas',
+                        'val' => $drinksSold,
+                        'from' => 'from-cyan-500',
+                        'to' => 'to-blue-400',
+                        'glow' => 'shadow-cyan-500/20',
+                        'accent' => 'bg-cyan-400/20',
+                        'text' => 'text-cyan-300',
+                    ],
+                    [
+                        'icon' => '🍗',
+                        'name' => 'Krispy',
+                        'val' => $krispySold,
+                        'from' => 'from-orange-600',
+                        'to' => 'to-red-500',
+                        'glow' => 'shadow-orange-500/20',
+                        'accent' => 'bg-orange-400/20',
+                        'text' => 'text-orange-300',
+                    ],
                 ];
             @endphp
             @foreach ($miniStats as $stat)
                 <div
                     class="relative bg-gradient-to-br {{ $stat['from'] }} {{ $stat['to'] }} rounded-3xl p-5 shadow-lg {{ $stat['glow'] }} overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                    <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 blur-xl rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                    <div
+                        class="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 blur-xl rounded-full group-hover:scale-150 transition-transform duration-500">
+                    </div>
                     <div class="relative z-10">
                         <div class="flex items-center justify-between mb-3">
-                            <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
-                                <span class="text-xl group-hover:scale-110 transition-transform inline-block">{{ $stat['icon'] }}</span>
+                            <div
+                                class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
+                                <span
+                                    class="text-xl group-hover:scale-110 transition-transform inline-block">{{ $stat['icon'] }}</span>
                             </div>
                         </div>
                         <p class="text-[10px] font-bold uppercase text-white/80 tracking-widest">{{ $stat['name'] }}</p>
@@ -127,6 +169,83 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+
+
+        {{-- ══════════════════════════════════════════════
+             2.5. GRÁFICOS Y SALUD FINANCIERA
+        ══════════════════════════════════════════════ --}}
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 lg:gap-6 items-start">
+            {{-- Panel Gráfico (Toma 2 columnas en pantallas grandes) --}}
+            <div
+                class="xl:col-span-2 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 p-6 flex flex-col h-full">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="font-extrabold text-[16px] text-gray-900 dark:text-gray-100">Tendencia de Ventas</h3>
+                        <p class="text-xs font-medium text-gray-400 mt-0.5">Últimos 7 días (Ingresos diarios)</p>
+                    </div>
+                </div>
+                <div class="flex-1 w-full min-h-[250px] relative">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+
+            {{-- Panel Salud Financiera --}}
+            <div
+                class="xl:col-span-1 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/80 dark:border-gray-800 p-6 flex flex-col h-full relative overflow-hidden">
+
+                <h3 class="font-extrabold text-[16px] text-gray-900 dark:text-gray-100 relative z-10">Salud Financiera</h3>
+                <p class="text-xs font-medium text-gray-400 mt-0.5 relative z-10">Análisis del mes en curso</p>
+
+                <div class="mt-6 space-y-5 relative z-10">
+                    {{-- Ingresos --}}
+                    <div>
+                        <div class="flex justify-between items-end mb-1">
+                            <span class="text-xs font-black text-gray-500 uppercase tracking-widest">Ingresos Brutos</span>
+                            <span class="text-lg font-black text-emerald-500">S/ {{ number_format($salesMonth, 2) }}</span>
+                        </div>
+                    </div>
+
+                    {{-- Nómina --}}
+                    <div>
+                        <div class="flex justify-between items-end mb-1">
+                            <span class="text-xs font-black text-gray-500 uppercase tracking-widest">Costos de
+                                Planilla</span>
+                            <span class="text-lg font-black text-rose-500">S/ {{ number_format($totalPayroll, 2) }}</span>
+                        </div>
+                        @php
+                            $payrollPct = $salesMonth > 0 ? min(($totalPayroll / $salesMonth) * 100, 100) : 100;
+                        @endphp
+                        <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-2 overflow-hidden flex">
+                            <div class="bg-rose-500 h-full rounded-full transition-all duration-1000"
+                                style="width: {{ $payrollPct }}%"></div>
+                        </div>
+                    </div>
+
+                    <hr class="border-gray-100 dark:border-gray-800 my-2">
+
+                    {{-- Utilidad Bruta --}}
+                    @php $utilidadBruta = $salesMonth - $totalPayroll; @endphp
+                    <div>
+                        <span class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-1">Ganancia
+                            Estimada</span>
+                        <div class="flex items-center gap-2">
+                            <span
+                                class="text-3xl font-black {{ $utilidadBruta >= 0 ? 'text-gray-900 dark:text-white' : 'text-red-500' }} tracking-tighter">
+                                S/ {{ number_format($utilidadBruta, 2) }}
+                            </span>
+                            @if ($utilidadBruta > 0)
+                                <span
+                                    class="bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 text-[10px] px-2 py-0.5 rounded-md font-bold">+
+                                    Positivo</span>
+                            @else
+                                <span
+                                    class="bg-rose-100 text-rose-600 dark:bg-rose-500/20 dark:text-rose-400 text-[10px] px-2 py-0.5 rounded-md font-bold">Pérdida</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         {{-- ══════════════════════════════════════════════
@@ -320,7 +439,7 @@
 
                     {{-- Billeteras --}}
                     @php
-                        $digitalTotal = ($yapePayment ?? 0);
+                        $digitalTotal = $yapePayment ?? 0;
                         $pctDigital = ($totalDay ?? 0) > 0 ? ($digitalTotal / $totalDay) * 100 : 0;
                     @endphp
                     <div
@@ -359,4 +478,101 @@
             </div>
 
         </div>
-    @endsection
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const canvas = document.getElementById('salesChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            // Definiendo el gradiente (efecto area chart premium)
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(249, 115, 22, 0.4)'); // orange-500 opaco
+            gradient.addColorStop(1, 'rgba(249, 115, 22, 0.0)');
+
+            const labels = {!! json_encode($chartLabels) !!};
+            const data = {!! json_encode($chartData) !!};
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Ingresos Brutos',
+                        data: data,
+                        borderColor: '#f97316', // orange-500
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#ea580c',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        fill: true,
+                        tension: 0.4 // Hace las curvas fluidas y profesionales
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#1f2937',
+                            padding: 12,
+                            titleFont: {
+                                size: 13
+                            },
+                            bodyFont: {
+                                size: 15,
+                                weight: 'bold'
+                            },
+                            callbacks: {
+                                label: function(context) {
+                                    return ' S/ ' + context.parsed.y.toFixed(2);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#9ca3af',
+                                font: {
+                                    size: 11,
+                                    weight: '600'
+                                }
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(229, 231, 235, 0.5)',
+                                drawBorder: false,
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                color: '#9ca3af',
+                                font: {
+                                    size: 11
+                                },
+                                callback: function(value) {
+                                    return 'S/ ' + value;
+                                }
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+@endsection

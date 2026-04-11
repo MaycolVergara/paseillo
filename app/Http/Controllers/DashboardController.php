@@ -10,6 +10,8 @@ use App\Models\CategoryModel;
 use Carbon\Carbon;
 use App\Models\TableModel;
 use App\Models\TableDeliveryModel;
+use App\Models\StaffModel;
+
 class DashboardController extends Controller
 {
     public function index()
@@ -117,10 +119,29 @@ class DashboardController extends Controller
         $tableDelivery=TableDeliveryModel::where('status', '!=','deliveryNoExistente')
              ->orderBy('table_number', 'asc')->get();
 
+        // 7. Salud Financiera (Nómina vs Ingresos del Mes)
+        $totalPayroll = StaffModel::where('is_active', true)->sum('salary');
+        $salesMonth = SaleModel::where('status', 'Finalizado')
+            ->whereMonth('date', $today->month)
+            ->whereYear('date', $today->year)
+            ->sum('total');
+
+        // 8. Data para el Gráfico Interactivo (Últimos 7 días)
+        $chartLabels = [];
+        $chartData = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = Carbon::today()->subDays($i);
+            // translatedFormat gives local format. D d -> 'vie 10'
+            $chartLabels[] = ucfirst($date->translatedFormat('D d'));
+            $dailyTotal = SaleModel::where('status', 'Finalizado')->whereDate('date', $date)->sum('total');
+            $chartData[] = round($dailyTotal, 2);
+        }
+
         return view('index', compact(
             'totalDay', 'ordersToday',
             'pizzasSold', 'burgersSold', 'drinksSold', 'krispySold', 'salchipapasSold',
             'topProducts', 'tables','tableDelivery', 'cashPayment', 'yapePayment', 'cardPayment',
+            'totalPayroll', 'salesMonth', 'chartLabels', 'chartData'
         ));
     }
 }

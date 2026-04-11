@@ -11,4 +11,9 @@ class StaffModel extends Model
     protected $fillable = [
         'name', 'surname', 'phone', 'dni', 'email', 'address', 'salary', 'advance_payment', 'position', 'is_active', 'hire_date', 'payment_day'
     ];
+
+    public function absences()
+    {
+        return $this->hasMany(StaffAbsenceModel::class, 'staff_id');
+    }
 }

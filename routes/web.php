@@ -11,10 +11,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TableCustomerOrderDeliveryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SaleController;
-
 use App\Http\Controllers\TableController;
-
 use App\Http\Controllers\TablesDeliveryController;
+use App\Http\Controllers\StaffReportController;
+
 
 // 2. WEB PUBLICA (CLIENTES) - INTACTO
 use App\Http\Controllers\webControllers\WebController;
@@ -112,9 +112,26 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::put('/staff/update/{id}', [StaffController::class, 'update']);
         Route::patch('/staff/status/{id}', [StaffController::class, 'toggleStatus']);
 
+        // Personal Reporte
+        Route::get('/staffreport', [StaffReportController::class, 'index']);
+        Route::post('/staffreport/pay/{id}', [StaffReportController::class, 'registerPayment']);
+        
+        // Pagos Adelantados (Advances)
+        Route::get('/staffAdvanceRegistration', [StaffReportController::class, 'createAdvance']);
+        Route::post('/staffAdvanceRegistration/store', [StaffReportController::class, 'storeAdvance']);
+
+        // Faltas / Inasistencias
+        Route::get('/staffAbsenceRegistration', [StaffReportController::class, 'createAbsence']);
+        Route::post('/staffAbsenceRegistration/store', [StaffReportController::class, 'storeAbsence']);
+
         // Accesos y Credenciales (Usuarios)
         Route::get('/staff/{id}/credentials', [UserController::class, 'createCredentials']);
         Route::post('/staff/{id}/credentials', [UserController::class, 'storeCredentials']);
+
+
+
+
+
     });
 
 });
