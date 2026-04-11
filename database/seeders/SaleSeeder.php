@@ -17,16 +17,16 @@ class SaleSeeder extends Seeder
         $products = ProductModel::all();
         if ($products->count() < 8) {
             $realisticProducts = [
-                ['name' => 'Pizza Hawaiana Familiar', 'price' => 38.00],
-                ['name' => 'Pizza Pepperoni Mediana', 'price' => 26.00],
-                ['name' => 'Hamburguesa Royal con Papas', 'price' => 16.00],
-                ['name' => 'Hamburguesa Clásica', 'price' => 12.00],
-                ['name' => 'Alitas Broaster (6 und)', 'price' => 18.00],
-                ['name' => 'Pollo Krispy (2 Piezas)', 'price' => 15.00],
-                ['name' => 'Salchipapa Mixta Grande', 'price' => 20.00],
-                ['name' => 'Coca Cola 1.5 Litros', 'price' => 10.00],
-                ['name' => 'Chicha Morada Jarra', 'price' => 12.00],
-                ['name' => 'Papas Fritas Porción', 'price' => 8.00],
+                ['name' => 'Pizza Hawaiana Familiar', 'price' => 38.00, 'category_id' => 2],
+                ['name' => 'Pizza Pepperoni Mediana', 'price' => 26.00, 'category_id' => 2],
+                ['name' => 'Hamburguesa Royal con Papas', 'price' => 16.00, 'category_id' => 1],
+                ['name' => 'Hamburguesa Clásica', 'price' => 12.00, 'category_id' => 1],
+                ['name' => 'Alitas Broaster (6 und)', 'price' => 18.00, 'category_id' => 5],
+                ['name' => 'Pollo Krispy (2 Piezas)', 'price' => 15.00, 'category_id' => 3],
+                ['name' => 'Salchipapa Mixta Grande', 'price' => 20.00, 'category_id' => 4],
+                ['name' => 'Coca Cola 1.5 Litros', 'price' => 10.00, 'category_id' => 6],
+                ['name' => 'Chicha Morada Jarra', 'price' => 12.00, 'category_id' => 6],
+                ['name' => 'Papas Fritas Porción', 'price' => 8.00, 'category_id' => 4],
             ];
 
             foreach ($realisticProducts as $p) {
@@ -35,7 +35,7 @@ class SaleSeeder extends Seeder
                     [
                         'description' => 'Deliciosa opción preparada al instante.',
                         'price' => $p['price'],
-                        'category_id' => null
+                        'category_id' => $p['category_id']
                     ]
                 );
             }
