@@ -23,7 +23,10 @@
 
     @include('partials.sidebar')
 
-    <div id="main-area" class="ml-72 flex-1 flex flex-col min-h-screen">
+    {{-- Backdrop para móvil --}}
+    <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-40 hidden md:hidden transition-opacity duration-300 opacity-0 pointer-events-none"></div>
+
+    <div id="main-area" class="md:ml-72 transition-all duration-300 flex-1 flex flex-col min-h-screen w-full relative">
 
         @include('partials.navbar')
 

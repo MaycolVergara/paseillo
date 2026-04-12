@@ -313,8 +313,7 @@
     {{-- Tabla Resumen de Próximos Pagos --}}
     <div
         class="animate-in delay-7 bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
-        <div
-            class="p-5 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/20">
+        <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gray-50/50 dark:bg-gray-800/20">
             <div>
                 <h3 class="text-lg font-black text-gray-900 dark:text-white flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -336,7 +335,7 @@
                 <p class="text-xs text-gray-500 mt-1">Detalle personal por trabajador para el periodo seleccionado.</p>
             </div>
 
-            <div class="relative max-w-xs">
+            <div class="relative w-full sm:max-w-xs">
                 <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
@@ -350,7 +349,8 @@
             </div>
         </div>
 
-        <div class="min-w-full inline-block align-middle overflow-x-auto">
+        <div class="overflow-x-auto w-full scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-800">
+            <div class="min-w-[1000px] lg:min-w-full inline-block align-middle">
             <table class="w-full text-left border-collapse table-auto">
                 <thead>
                     <tr class="bg-gray-50/80 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
@@ -497,6 +497,7 @@
             @endif
         </div>
     </div>
+</div>
 
     <script>
         function marcarPagado(btn, staffId) {

@@ -1,6 +1,6 @@
 <aside id="sidebar"
        class="w-72 shrink-0 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col
-       fixed inset-y-0 left-0 z-30 shadow-sm">
+       fixed inset-y-0 left-0 z-50 shadow-sm transition-transform duration-300 transform -translate-x-full md:translate-x-0">
 
     <div class="sb-brand-wrap flex items-center gap-3 px-5 py-5 border-b border-gray-100 dark:border-gray-800">
         <img src="{{ asset('img/logo_principal.png') }}"

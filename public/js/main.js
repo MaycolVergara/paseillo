@@ -1,25 +1,51 @@
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
     const mainArea = document.getElementById("main-area");
-    const collapsed = sidebar.classList.toggle("collapsed");
-    mainArea.style.marginLeft = collapsed ? "80px" : "288px"; // Ajustado para el nuevo ancho
-    if (collapsed) {
-        document
-            .querySelectorAll(".submenu-wrapper.open")
-            .forEach((el) => el.classList.remove("open"));
-        document
-            .querySelectorAll(".nav-parent.open")
-            .forEach((el) => el.classList.remove("open"));
+    const backdrop = document.getElementById("sidebar-backdrop");
+    const isMobile = window.innerWidth < 1024; // Usando 1024 como break de LG para mayor seguridad
+
+    if (isMobile) {
+        // Toggle mobile visibility only
+        const isHidden = sidebar.classList.contains("-translate-x-full");
+        if (isHidden) {
+            sidebar.classList.remove("-translate-x-full");
+            sidebar.classList.add("translate-x-0");
+            // Show backdrop
+            if(backdrop) {
+                backdrop.classList.remove("hidden", "opacity-0", "pointer-events-none");
+                backdrop.classList.add("opacity-100");
+            }
+        } else {
+            sidebar.classList.add("-translate-x-full");
+            sidebar.classList.remove("translate-x-0");
+            // Hide backdrop
+            if(backdrop) {
+                backdrop.classList.add("opacity-0", "pointer-events-none");
+                setTimeout(() => backdrop.classList.add("hidden"), 300);
+            }
+        }
+    } else {
+        const collapsed = sidebar.classList.toggle("collapsed");
+        mainArea.style.marginLeft = collapsed ? "80px" : "288px"; // Ajustado para el nuevo ancho
+        if (collapsed) {
+            document
+                .querySelectorAll(".submenu-wrapper.open")
+                .forEach((el) => el.classList.remove("open"));
+            document
+                .querySelectorAll(".nav-parent.open")
+                .forEach((el) => el.classList.remove("open"));
+        }
+        localStorage.setItem(
+            "paseillo-sidebar",
+            collapsed ? "collapsed" : "expanded",
+        );
     }
-    localStorage.setItem(
-        "paseillo-sidebar",
-        collapsed ? "collapsed" : "expanded",
-    );
 }
 
 (function () {
     const state = localStorage.getItem("paseillo-sidebar");
-    if (state === "collapsed") {
+    const isMobile = window.innerWidth < 768;
+    if (state === "collapsed" && !isMobile) {
         document.getElementById("sidebar").classList.add("collapsed");
         const m = document.getElementById("main-area");
         if (m) m.style.marginLeft = "80px";

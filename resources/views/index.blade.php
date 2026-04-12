@@ -62,7 +62,7 @@
         {{-- ══════════════════════════
              2. STATS GRID (Tarjetas)
         ══════════════════════════ --}}
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 lg:gap-5">
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 lg:gap-5">
             {{-- Ventas Hoy (Tarjeta Hero) --}}
             <div
                 class="col-span-2 relative bg-gradient-to-br from-orange-500 via-red-500 to-rose-600 rounded-3xl p-6 shadow-lg shadow-orange-500/20 overflow-hidden group">
@@ -279,7 +279,8 @@
                     </div>
                 </div>
 
-                <div class="p-4" style="display:grid; grid-template-columns: repeat(10, 1fr); gap: 8px;">
+                <div
+                    class="p-4 grid grid-cols-[repeat(auto-fill,minmax(60px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-3">
                     @foreach ($tables as $table)
                         <button
                             class="relative aspect-square flex flex-col items-center justify-center gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
@@ -377,7 +378,8 @@
                     </div>
                 </div>
 
-                <div class="p-4" style="display:grid; grid-template-columns: repeat(10, 1fr); gap: 8px;">
+                <div
+                    class="p-4 grid grid-cols-[repeat(auto-fill,minmax(60px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-3">
                     @foreach ($tableDelivery as $table)
                         <button
                             class="relative aspect-square flex flex-col items-center justify-center gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
