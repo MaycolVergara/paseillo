@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- Header de la página --}}
-    <div class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-card border border-gray-100/80 dark:border-gray-800 relative overflow-hidden group mb-6">
+    <div class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-6 shadow-card border border-gray-100/80 dark:border-gray-800 relative overflow-hidden group mb-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div class="flex items-center gap-4">
                 <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-sm">
@@ -13,7 +13,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight italic">Registrar Producto</h2>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight italic">Registrar</h2>
                     <div class="flex items-center gap-2 mt-1">
                         <span class="flex items-center gap-1 text-xs font-bold px-2 py-0.5 bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 rounded-full">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -24,15 +24,15 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
-                <a href="{{ url('/dashboard/productList') }}" class="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all active:scale-95">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="flex items-center gap-2 sm:gap-3">
+                <a href="{{ url('/dashboard/productList') }}" class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl text-[12px] sm:text-sm font-bold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all active:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m15 18-6-6 6-6"/>
                     </svg>
-                    Volver al Listado
+                    Volver
                 </a>
-                <a href="{{ url('/dashboard/categoryRegistration') }}" class="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 shadow-lg shadow-orange-500/25 transition-all transform hover:scale-[1.03] active:scale-95">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <a href="{{ url('/dashboard/categoryRegistration') }}" class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl text-[12px] sm:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 shadow-lg shadow-orange-500/25 transition-all transform hover:scale-[1.03] active:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M5 12h14"/><path d="M12 5v14"/>
                     </svg>
                     Nueva Categoría
@@ -43,12 +43,12 @@
 
     {{-- Card del Formulario --}}
     <div class="animate-in delay-2 bg-white dark:bg-gray-900 rounded-3xl shadow-card border border-gray-100/80 dark:border-gray-800 overflow-hidden max-w-4xl mx-auto">
-        <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
+        <div class="px-4 sm:px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
             <h3 class="text-lg font-black text-gray-800 dark:text-white">Información del Nuevo Producto</h3>
             <p class="text-sm text-gray-500 mt-1">Completa los datos requeridos para registrar el plato en el sistema.</p>
         </div>
 
-        <form action="{{ url('/dashboard/productRegistration') }}" method="POST" enctype="multipart/form-data" class="p-8">
+        <form action="{{ url('/dashboard/productRegistration') }}" method="POST" enctype="multipart/form-data" class="p-4 sm:p-8">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

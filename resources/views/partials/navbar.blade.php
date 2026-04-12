@@ -17,7 +17,7 @@
 
 <header
     class="sticky top-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm">
-    <div class="flex items-center h-[62px] px-6 gap-4">
+    <div class="flex items-center h-[62px] px-3 sm:px-4 md:px-6 gap-2 sm:gap-4">
         <div class="flex items-center gap-3">
             <button onclick="toggleSidebar()" title="Colapsar menú"
                 class="flex items-center justify-center w-8 h-8 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-500 transition-all duration-200">
@@ -27,7 +27,7 @@
                         clip-rule="evenodd" />
                 </svg>
             </button>
-            <div class="flex items-center gap-2.5">
+            <div class="flex items-center gap-2 sm:gap-2.5 hidden lg:flex">
                 <div class="w-1 h-5 rounded-full bg-gradient-to-b from-red-500 to-orange-400"></div>
                 <h1 class="font-bold text-[15px] text-gray-800 dark:text-gray-100 tracking-tight">Panel Principal</h1>
             </div>
@@ -105,7 +105,7 @@
         <div class="w-px h-6 bg-gray-200 dark:bg-gray-700 mx-1"></div>
 
         {{-- Mantenemos el JS original: toggleTheme() --}}
-        <div class="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg px-2 py-1.5 cursor-pointer select-none"
+        <div class="flex items-center gap-0.5 sm:gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg px-1 sm:px-2 py-1.5 cursor-pointer select-none"
             onclick="toggleTheme()" title="Cambiar tema">
             <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                 class="w-3.5 h-3.5 text-orange-500">
@@ -125,20 +125,20 @@
 
         <div class="w-px h-6 bg-gray-200 dark:bg-gray-700"></div>
 
-        <div class="text-right select-none hidden sm:block">
+        <div class="text-right select-none hidden lg:block">
             <p id="clock-time"
                 class="font-bold text-[14px] text-gray-800 dark:text-gray-100 tabular-nums leading-none tracking-tight">
             </p>
             <p id="clock-date" class="text-[10px] text-gray-400 dark:text-gray-500 font-medium mt-0.5 leading-none"></p>
         </div>
 
-        <div class="w-px h-6 bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
+        <div class="w-px h-6 bg-gray-200 dark:bg-gray-700 hidden lg:block"></div>
 
         <div class="relative" id="profile-wrap">
             <button
-                class="flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 cursor-pointer select-none"
+                class="flex items-center gap-1.5 sm:gap-2.5 px-1 sm:px-2.5 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 cursor-pointer select-none shrink-0"
                 onclick="toggleDropdown()">
-                <span class="w-8 h-8 flex items-center justify-center text-lg bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0">
+                <span class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-lg bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0">
                     {{ Auth::user()->role_id == 1 ? '🤵‍' : '🧑‍🍳' }}
                 </span>
                 <div class="text-left hidden md:block">

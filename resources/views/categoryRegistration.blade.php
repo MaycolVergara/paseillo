@@ -3,19 +3,18 @@
 @section('content')
     {{-- Header de Inventario --}}
     <div
-        class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-card border border-gray-100/80 dark:border-gray-800 mb-6">
+        class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-6 shadow-card border border-gray-100/80 dark:border-gray-800 mb-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-                <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight italic flex items-center gap-2">
+                <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight italic flex items-center gap-2">
                     <span class="text-orange-500">
-                        </span> Inventario Paseillo
+                        </span> Inventario
                 </h2>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Gestión de productos, categorías y precios en
-                    tiempo real.</p>
+                <p class="text-[12px] sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Gestión de menú Paseillo.</p>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 sm:gap-3">
                 <a href="{{ url('/dashboard/productRegistration') }}"
-                   class="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-black text-white bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 shadow-lg shadow-orange-500/25 transition-all active:scale-95">
+                   class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[12px] sm:text-sm font-black text-white bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 shadow-lg shadow-orange-500/25 transition-all active:scale-95">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="12" y1="5" x2="12" y2="19"/>
@@ -109,7 +108,7 @@
                 <p id="cat-form-subtitulo" class="text-xs text-gray-500 mt-1">Organiza tu menú por grupos</p>
             </div>
 
-            <form id="form-categoria" action="{{ url('/dashboard/categoryRegistration') }}" method="POST" class="p-6">
+            <form id="form-categoria" action="{{ url('/dashboard/categoryRegistration') }}" method="POST" class="p-4 sm:p-6">
                 @csrf
                 {{-- Contenedor para inyectar el @method('PUT') vía JS --}}
                 <div id="cat-metodo-adicional"></div>

@@ -2,7 +2,7 @@
 
 @section('content')
     <div
-        class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-card border border-gray-100/80 dark:border-gray-800 relative overflow-hidden group mb-6">
+        class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-6 shadow-card border border-gray-100/80 dark:border-gray-800 relative overflow-hidden group mb-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div class="flex items-center gap-4">
                 <div
@@ -16,8 +16,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight italic">Registrar
-                        Personal</h2>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight italic">Registrar Personal</h2>
                     <div class="flex items-center gap-2 mt-1">
                         <span
                             class="flex items-center gap-1 text-xs font-bold px-2 py-0.5 bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 rounded-full">
@@ -27,14 +26,14 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 sm:gap-3">
                 <a href="{{ url('/dashboard/staffList') }}"
-                    class="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all active:scale-95">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl text-[12px] sm:text-sm font-bold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all active:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m15 18-6-6 6-6" />
                     </svg>
-                    Volver al Listado
+                    Volver
                 </a>
             </div>
         </div>
@@ -42,7 +41,7 @@
 
     <div
         class="animate-in delay-2 bg-white dark:bg-gray-900 rounded-3xl shadow-card border border-gray-100/80 dark:border-gray-800 overflow-hidden max-w-4xl mx-auto">
-        <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
+        <div class="px-4 sm:px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
             <h3 class="text-lg font-black text-gray-800 dark:text-white italic">Información del Trabajador</h3>
             <p class="text-sm text-gray-500 mt-1">Completa los datos administrativos del nuevo personal.</p>
         </div>
@@ -58,7 +57,7 @@
             </div>
         @endif
 
-        <form action="{{ url('/dashboard/staff/store') }}" method="POST" class="p-8">
+        <form action="{{ url('/dashboard/staff/store') }}" method="POST" class="p-4 sm:p-8">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 

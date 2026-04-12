@@ -3,7 +3,7 @@
 @section('content')
     {{-- Encabezado Compacto --}}
     <div
-        class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-800 mb-6">
+        class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800 mb-6">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div class="flex items-center gap-3">
                 <div
@@ -16,9 +16,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Catálogo
-                        Paseillo</h2>
-                    <p class="text-xs text-gray-500 font-medium">Gestión rápida de menú y stock.</p>
+                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Catálogo</h2>
+                    <p class="text-[11px] sm:text-xs text-gray-500 font-medium leading-none">Menú Paseillo.</p>
                 </div>
             </div>
 
@@ -34,12 +33,12 @@
                 </div>
                 {{-- Ruta: productoRegistro -> productRegistration --}}
                 <a href="{{ url('/dashboard/productRegistration') }}"
-                   class="whitespace-nowrap flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-black text-white bg-gradient-to-r from-orange-500 to-red-600 hover:shadow-orange-500/40 shadow-lg transition-all active:scale-95">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                   class="whitespace-nowrap flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl text-[12px] sm:text-sm font-black text-white bg-gradient-to-r from-orange-500 to-red-600 hover:shadow-orange-500/40 shadow-lg transition-all active:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 5v14M5 12h14"/>
                     </svg>
-                    Nuevo Producto
+                    Nuevo
                 </a>
             </div>
         </div>
