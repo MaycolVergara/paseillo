@@ -134,7 +134,7 @@
             </div>
 
             <div class="flex flex-col md:flex-row items-end gap-4 w-full lg:w-auto">
-                <a href="{{ url('/dashboard/issueReceipt/' . $id) }}" target="_blank" class="w-full md:w-auto px-6 py-3 bg-red-500 text-white text-sm font-bold rounded-xl shadow-lg text-center flex items-center justify-center h-[46px]">Emitir Boleta</a>
+                <a href="{{ url('/dashboard/issueReceiptDelivery/' . $id) }}" target="_blank" class="w-full md:w-auto px-6 py-3 bg-red-500 text-white text-sm font-bold rounded-xl shadow-lg text-center flex items-center justify-center h-[46px]">Emitir Boleta</a>
 
                 {{-- FORMULARIO FINALIZAR (Corregido con /dashboard/finalizeSaleDelivery/) --}}
                 <form action="{{ url('/dashboard/finalizeSaleDelivery/' . $id) }}" method="POST" class="flex flex-col md:flex-row items-end gap-4 w-full md:w-auto">

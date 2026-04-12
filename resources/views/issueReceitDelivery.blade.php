@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket Mesa {{ $sale->table_number }} - Paseillo</title>
+    <title>Ticket Delivery #{{ $id }} - Paseillo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print {
@@ -18,25 +18,25 @@
     {{-- Botón de Imprimir (Solo visible en pantalla) --}}
     <div class="mb-6 no-print">
         <button onclick="window.print()"
-            class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl shadow-lg transition-all flex items-center gap-2">
+            class="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-black rounded-xl shadow-lg transition-all flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 6 2 18 2 18 9" />
                 <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
                 <rect width="12" height="8" x="6" y="14" />
             </svg>
-            IMPRIMIR TICKET
+            IMPRIMIR DELIVERY
         </button>
     </div>
 
     {{-- Contenedor del Ticket (Diseño tipo rollo de papel) --}}
-    <div class="ticket-container bg-white p-6 rounded-sm shadow-xl w-[320px] text-sm border-t-8 border-amber-500">
+    <div class="ticket-container bg-white p-6 rounded-sm shadow-xl w-[320px] text-sm border-t-8 border-red-500">
 
         {{-- Cabecera --}}
         <div class="text-center mb-5">
             <h1 class="font-black text-2xl mb-1">PASEILLO</h1>
-            <p class="text-xs font-bold uppercase tracking-widest text-amber-600">Servicio Mesa</p>
-            <p class="text-xs mt-3 bg-gray-100 py-1 rounded-md font-black italic">MESA: #{{ $sale->table_number }}</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-red-600">Servicio Delivery</p>
+            <p class="text-xs mt-3 bg-gray-100 py-1 rounded-md font-black italic">DELIVERY: #{{ $id }}</p>
             <p class="text-[10px] text-gray-500 mt-2">Fecha: {{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y H:i') }}</p>
         </div>
 
@@ -80,8 +80,9 @@
 
         {{-- Pie de Ticket --}}
         <div class="text-center text-[10px] text-gray-500 border-t border-gray-200 pt-4">
-            <p>¡Gracias por tu preferencia!</p>
-            <p class="mt-1 font-bold italic underline">Vuelve pronto a Paseillo</p>
+            <p>*** TICKET DE DELIVERY ***</p>
+            <p class="mt-1 font-bold italic underline">¡Gracias por tu pedido!</p>
+            <p class="mt-1 uppercase">Paseillo Burger & Pizzas</p>
             <p class="mt-2 uppercase text-[8px] tracking-tighter opacity-70">Desarrollado por Antigravity</p>
         </div>
     </div>

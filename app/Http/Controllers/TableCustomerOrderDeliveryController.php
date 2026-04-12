@@ -92,6 +92,7 @@ class TableCustomerOrderDeliveryController extends Controller
         return redirect()->back()->with('success', 'Producto agregado al pedido delivery');
     }
 
+
     /**
      * Finaliza la venta delivery, guarda el método de pago y libera el slot.
      */
@@ -112,5 +113,21 @@ class TableCustomerOrderDeliveryController extends Controller
             }
         }
         return redirect('/dashboard/customerTableDelyveryView')->with('success', 'Pedido delivery finalizado');
+    }
+
+    /**
+     * Prepara la información para imprimir la boleta o el pre-ticket del DELIVERY.
+     */
+    public function generateReceipt($id)
+    {
+        $sale = SaleModel::where('table_delivery_id', $id)->where('status', 'Pending')->first();
+
+        if (!$sale) {
+            return redirect()->back();
+        }
+
+        $saleDetails = SaleDetailModel::with('product')->where('sale_id', $sale->id)->get();
+
+        return view('issueReceitDelivery', compact('sale', 'saleDetails', 'id'));
     }
 }

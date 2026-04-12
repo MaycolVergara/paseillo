@@ -12,7 +12,7 @@ class StaffReportController extends Controller
 {
     public function index(){
         $staffMembers = StaffModel::all();
-        
+
         $totalNomina = 0;
         $totalAdelantos = 0;
         $totalDescuentosFaltas = 0;
@@ -32,7 +32,7 @@ class StaffReportController extends Controller
             $staff->absence_discount = $dailyWage * $staff->pending_absences_count;
 
             $pos = mb_strtolower($staff->position);
-            
+
             $key = 'Administrativo';
             if (str_contains($pos, 'mozo')) $key = 'Atención (Mozos)';
             elseif (str_contains($pos, 'cocin')) $key = 'Cocina';
@@ -97,7 +97,7 @@ class StaffReportController extends Controller
         $pendingAbsencesCount = $staff->absences()->where('status', 'pending')->count();
         $dailyWage = round($staff->salary / 30, 2);
         $absenceDiscount = $dailyWage * $pendingAbsencesCount;
-        
+
         $netPaid = $staff->salary - $staff->advance_payment - $absenceDiscount;
 
         StaffPaymentModel::create([
@@ -136,7 +136,7 @@ class StaffReportController extends Controller
         ]);
 
         $staff = StaffModel::findOrFail($request->staff_id);
-        
+
         // Sumamos el adelanto al adelanto existente
         $staff->advance_payment += $request->amount;
         $staff->save();
@@ -167,6 +167,7 @@ class StaffReportController extends Controller
             'notes' => $request->notes
         ]);
 
-        return redirect('/dashboard/staffreport')->with('success', 'Inasistencia registrada correctamente para ' . $staff->name);
+        return redirect('/dashboard/staffreport')
+            ->with('success', 'Inasistencia registrada correctamente para ' . $staff->name);
     }
 }

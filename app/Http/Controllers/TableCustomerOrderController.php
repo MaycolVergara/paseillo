@@ -102,7 +102,7 @@ class TableCustomerOrderController extends Controller
         $sale = SaleModel::where('table_id', $table_id)->where('status', 'Pending')->first();
 
         if (!$sale) {
-            return redirect()->back()->with('error', 'No orders to generate receipt.');
+            return redirect()->back();
         }
 
         $saleDetails = SaleDetailModel::with('product')->where('sale_id', $sale->id)->get();

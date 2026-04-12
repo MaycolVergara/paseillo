@@ -83,6 +83,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         // ------------------------------------------------------
         // He cambiado las URLs para que NO CHOCEN con las del salón
         Route::get('/tableOrderDetailsDelyvery/{id}', [TableCustomerOrderDeliveryController::class, 'index']);
+        Route::get('/issueReceiptDelivery/{id}', [TableCustomerOrderDeliveryController::class, 'generateReceipt']);
 
         Route::post('/saveOrderDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'saveOrder']);
         Route::post('/finalizeSaleDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'finalizeSale']);
