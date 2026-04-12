@@ -136,9 +136,8 @@
                 </button>
                 <div class="faq-body duration-400 max-h-0 overflow-hidden transition-[max-height]">
                     <p class="font-barlow px-6 pb-5 text-sm leading-relaxed text-gray-500">
-                        Aceptamos <strong class="text-gray-900">efectivo</strong>,
-                        <strong class="text-gray-900">Yape</strong> y
-                        <strong class="text-gray-900">tarjeta (POS)</strong>. Al
+                        Aceptamos <strong class="text-gray-900">efectivo</strong> y
+                        <strong class="text-gray-900">transferencias bancarias / Yape / Plin</strong>. Al
                         confirmar tu pedido te indicamos los datos para el pago según tu preferencia.
                     </p>
                 </div>
