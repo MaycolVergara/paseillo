@@ -26,11 +26,11 @@
     {{-- Backdrop para móvil --}}
     <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-40 hidden md:hidden transition-opacity duration-300 opacity-0 pointer-events-none"></div>
 
-    <div id="main-area" class="md:ml-72 transition-all duration-300 flex-1 flex flex-col min-h-screen w-full relative">
+    <div id="main-area" class="flex-1 flex flex-col min-h-screen transition-all duration-300 md:ml-72 w-full relative">
 
         @include('partials.navbar')
 
-        <main class="flex-1 p-6">
+        <main class="flex-1 p-4 md:p-6">
             @yield('content')
         </main>
 

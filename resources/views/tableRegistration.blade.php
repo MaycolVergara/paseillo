@@ -60,12 +60,12 @@
                     @foreach($table_config as $table)
                         {{-- He aumentado el padding (p-10) y el redondeado para que el botón sea masivo --}}
                         <button
-                           class="aspect-square flex flex-col items-center justify-center gap-3 p-10 rounded-[3rem] border-4
+                           class="aspect-square flex flex-col items-center justify-center gap-2 p-4 sm:p-6 md:p-10 rounded-2xl sm:rounded-[2rem] md:rounded-[3rem] border-2 md:border-4
                            {{ $table->status == 'disponible' ? 'border-emerald-100 bg-emerald-50 text-emerald-600' :
                                 'border-red-100 bg-red-50 text-red-600' }} hover:scale-105 transition-all shadow-xl">
 
                             {{-- Número GIGANTE (text-6xl) --}}
-                            <span class="text-6xl font-black tracking-tighter">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+                            <span class="text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
 
                             {{-- Texto del estado más legible --}}
                             <span class="text-xs font-black uppercase tracking-widest">{{ $table->status }}</span>

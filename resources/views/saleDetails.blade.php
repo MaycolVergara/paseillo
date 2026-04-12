@@ -182,181 +182,187 @@
                     </span>
                 </div>
 
-                {{-- Encabezado columnas --}}
-                @if ($sales->count() > 0)
-                    <div
-                        class="grid grid-cols-12 px-6 py-2.5 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700 text-[10px] font-black uppercase tracking-widest text-gray-400">
-                        <div class="col-span-1">#</div>
-                        <div class="col-span-2">Mesa</div>
-                        <div class="col-span-3">Fecha y Hora</div>
-                        <div class="col-span-2">Tipo</div>
-                        <div class="col-span-2">Método Pago</div>
-                        <div class="col-span-1 text-right">Total</div>
-                        <div class="col-span-1 text-center">Ver</div>
-                    </div>
-                @endif
-
-                <div class="divide-y divide-gray-50 dark:divide-gray-800">
-                    @forelse($sales as $sale)
-                        @php
-                            $esDelivery = !is_null($sale->table_delivery_id);
-                            $metodo = $sale->payment_method ?? 'Cash';
-                            $metodoBadge = match (strtolower($metodo)) {
-                                'yape' => [
-                                    'label' => 'Yape',
-                                    'color' =>
-                                        'bg-teal-50 text-teal-600 border border-teal-200 dark:bg-teal-900/20 dark:border-teal-800',
-                                ],
-
-                                'card' => [
-                                    'label' => 'Tarjeta',
-                                    'color' =>
-                                        'bg-blue-50 text-blue-600 border border-blue-200 dark:bg-blue-900/20 dark:border-blue-800',
-                                ],
-                                'cash' => [
-                                    'label' => 'Efectivo',
-                                    'color' =>
-                                        'bg-emerald-50 text-emerald-600 border border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800',
-                                ],
-                                default => [
-                                    'label' => $metodo,
-                                    'color' => 'bg-gray-100 text-gray-500 border border-gray-200',
-                                ],
-                            };
-                        @endphp
-
-                        <div class="hover:bg-orange-50/30 dark:hover:bg-gray-800/30 transition-colors">
-
-                            {{-- Fila principal clickeable --}}
-                            <button type="button" onclick="toggleDetalle({{ $sale->id }})"
-                                class="w-full grid grid-cols-12 items-center px-6 py-3.5 text-left">
-
-                                <div class="col-span-1">
-                                    <span class="text-[11px] font-black text-gray-400">#{{ $sale->id }}</span>
-                                </div>
-
-                                <div class="col-span-2">
-                                    <span class="text-[12px] font-bold text-gray-700 dark:text-gray-200">
-                                        {{ $esDelivery ? 'DLV' : 'SAL' }}
-                                        Mesa {{ str_pad($sale->table_number, 2, '0', STR_PAD_LEFT) }}
-                                    </span>
-                                </div>
-
-                                <div class="col-span-3">
-                                    <p class="text-[12px] font-semibold text-gray-700 dark:text-gray-300">
-                                        {{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y') }}
-                                    </p>
-                                    <p class="text-[10px] text-gray-400">
-                                        {{ \Carbon\Carbon::parse($sale->date)->format('H:i:s') }}
-                                    </p>
-                                </div>
-
-                                <div class="col-span-2">
-                                    <span
-                                        class="text-[10px] font-black px-2.5 py-1 rounded-lg
-                                {{ $esDelivery
-                                    ? 'bg-red-50 text-red-600 border border-red-200 dark:bg-red-900/20 dark:border-red-800'
-                                    : 'bg-emerald-50 text-emerald-600 border border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800' }}">
-                                        {{ $esDelivery ? 'Delivery' : 'Salón' }}
-                                    </span>
-                                </div>
-
-                                <div class="col-span-2">
-                                    <span
-                                        class="text-[10px] font-black px-2.5 py-1 rounded-lg {{ $metodoBadge['color'] }}">
-                                        {{ $metodoBadge['label'] }}
-                                    </span>
-                                </div>
-
-                                <div class="col-span-1 text-right">
-                                    <span class="text-[13px] font-black text-gray-900 dark:text-white">
-                                        S/ {{ number_format($sale->total, 2) }}
-                                    </span>
-                                </div>
-
-                                <div class="col-span-1 flex justify-center">
-                                    <svg id="icon-{{ $sale->id }}"
-                                        class="w-4 h-4 text-gray-400 transition-transform duration-300" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </div>
-                            </button>
-
-                            {{-- Detalle expandible --}}
-                            <div id="detalle-{{ $sale->id }}" class="hidden px-6 pb-4">
-                                <div
-                                    class="bg-gray-50 dark:bg-gray-800/40 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
-                                    <div
-                                        class="px-4 py-2.5 bg-gray-100/70 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                                        <p class="text-[11px] font-black uppercase tracking-widest text-gray-500">
-                                            Productos
-                                            del pedido</p>
-                                    </div>
-                                    <table class="w-full text-left">
-                                        <thead
-                                            class="text-[10px] uppercase tracking-wider text-gray-400 bg-white/50 dark:bg-gray-800/30">
-                                            <tr>
-                                                <th class="px-4 py-2.5 font-black">Producto</th>
-                                                <th class="px-4 py-2.5 font-black text-center">Cant.</th>
-                                                <th class="px-4 py-2.5 font-black text-right">P. Unit.</th>
-                                                <th class="px-4 py-2.5 font-black text-right">Subtotal</th>
-                                                <th class="px-4 py-2.5 font-black">Personalización</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
-                                            @php $details = \App\Models\SaleDetailModel::where('sale_id', $sale->id)->get(); @endphp
-                                            @foreach ($details as $detail)
-                                                @php $product = \App\Models\ProductModel::find($detail->product_id); @endphp
-                                                <tr class="hover:bg-white dark:hover:bg-gray-800/50 transition-colors">
-                                                    <td
-                                                        class="px-4 py-2.5 text-[12px] font-bold text-gray-800 dark:text-gray-200">
-                                                        {{ $product ? $product->name : '— Producto eliminado —' }}
-                                                    </td>
-                                                    <td class="px-4 py-2.5 text-center">
-                                                        <span
-                                                            class="text-[11px] font-black bg-orange-100 dark:bg-orange-900/30 text-orange-600 px-2 py-0.5 rounded-lg">
-                                                            x{{ $detail->quantity }}
-                                                        </span>
-                                                    </td>
-                                                    <td
-                                                        class="px-4 py-2.5 text-right text-[12px] text-gray-500 dark:text-gray-400 font-semibold">
-                                                        S/ {{ number_format($detail->unit_price, 2) }}
-                                                    </td>
-                                                    <td
-                                                        class="px-4 py-2.5 text-right text-[12px] font-black text-gray-900 dark:text-white">
-                                                        S/ {{ number_format($detail->subtotal, 2) }}
-                                                    </td>
-                                                    <td class="px-4 py-2.5 text-[11px] text-gray-400 italic">
-                                                        {{ $detail->customization ?? '—' }}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                            <tr class="bg-orange-50/60 dark:bg-orange-900/10">
-                                                <td colspan="3"
-                                                    class="px-4 py-2.5 text-[11px] font-black uppercase tracking-widest text-gray-400 text-right">
-                                                    Total
-                                                </td>
-                                                <td class="px-4 py-2.5 text-right text-[14px] font-black text-orange-600">
-                                                    S/ {{ number_format($sale->total, 2) }}
-                                                </td>
-                                                <td></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                <div class="overflow-x-auto">
+                    <div class="min-w-[900px]">
+                        {{-- Encabezado columnas --}}
+                        @if ($sales->count() > 0)
+                            <div
+                                class="grid grid-cols-12 px-6 py-2.5 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700 text-[10px] font-black uppercase tracking-widest text-gray-400">
+                                <div class="col-span-1">#</div>
+                                <div class="col-span-2">Mesa</div>
+                                <div class="col-span-3">Fecha y Hora</div>
+                                <div class="col-span-2">Tipo</div>
+                                <div class="col-span-2">Método Pago</div>
+                                <div class="col-span-1 text-right">Total</div>
+                                <div class="col-span-1 text-center">Ver</div>
                             </div>
-                        </div>
+                        @endif
 
-                    @empty
-                        <div class="flex flex-col items-center justify-center py-16 text-center">
-                            <span class="text-sm font-black text-gray-300 opacity-40 mb-4">SIN RESULTADOS</span>
-                            <p class="text-sm font-bold text-gray-500">No se encontraron ventas en este rango</p>
-                            <p class="text-xs text-gray-400 mt-1">Intenta con un rango de fechas diferente</p>
+                        <div class="divide-y divide-gray-50 dark:divide-gray-800">
+                            @forelse($sales as $sale)
+                                @php
+                                    $esDelivery = !is_null($sale->table_delivery_id);
+                                    $metodo = $sale->payment_method ?? 'Cash';
+                                    $metodoBadge = match (strtolower($metodo)) {
+                                        'yape' => [
+                                            'label' => 'Yape',
+                                            'color' =>
+                                                'bg-teal-50 text-teal-600 border border-teal-200 dark:bg-teal-900/20 dark:border-teal-800',
+                                        ],
+
+                                        'card' => [
+                                            'label' => 'Tarjeta',
+                                            'color' =>
+                                                'bg-blue-50 text-blue-600 border border-blue-200 dark:bg-blue-900/20 dark:border-blue-800',
+                                        ],
+                                        'cash' => [
+                                            'label' => 'Efectivo',
+                                            'color' =>
+                                                'bg-emerald-50 text-emerald-600 border border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800',
+                                        ],
+                                        default => [
+                                            'label' => $metodo,
+                                            'color' => 'bg-gray-100 text-gray-500 border border-gray-200',
+                                        ],
+                                    };
+                                @endphp
+
+                                <div class="hover:bg-orange-50/30 dark:hover:bg-gray-800/30 transition-colors">
+
+                                    {{-- Fila principal clickeable --}}
+                                    <button type="button" onclick="toggleDetalle({{ $sale->id }})"
+                                        class="w-full grid grid-cols-12 items-center px-6 py-3.5 text-left">
+
+                                        <div class="col-span-1">
+                                            <span class="text-[11px] font-black text-gray-400">#{{ $sale->id }}</span>
+                                        </div>
+
+                                        <div class="col-span-2">
+                                            <span class="text-[12px] font-bold text-gray-700 dark:text-gray-200">
+                                                {{ $esDelivery ? 'DLV' : 'SAL' }}
+                                                Mesa {{ str_pad($sale->table_number, 2, '0', STR_PAD_LEFT) }}
+                                            </span>
+                                        </div>
+
+                                        <div class="col-span-3">
+                                            <p class="text-[12px] font-semibold text-gray-700 dark:text-gray-300">
+                                                {{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y') }}
+                                            </p>
+                                            <p class="text-[10px] text-gray-400">
+                                                {{ \Carbon\Carbon::parse($sale->date)->format('H:i:s') }}
+                                            </p>
+                                        </div>
+
+                                        <div class="col-span-2">
+                                            <span
+                                                class="text-[10px] font-black px-2.5 py-1 rounded-lg
+                                        {{ $esDelivery
+                                            ? 'bg-red-50 text-red-600 border border-red-200 dark:bg-red-900/20 dark:border-red-800'
+                                            : 'bg-emerald-50 text-emerald-600 border border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800' }}">
+                                                {{ $esDelivery ? 'Delivery' : 'Salón' }}
+                                            </span>
+                                        </div>
+
+                                        <div class="col-span-2">
+                                            <span
+                                                class="text-[10px] font-black px-2.5 py-1 rounded-lg {{ $metodoBadge['color'] }}">
+                                                {{ $metodoBadge['label'] }}
+                                            </span>
+                                        </div>
+
+                                        <div class="col-span-1 text-right">
+                                            <span class="text-[13px] font-black text-gray-900 dark:text-white">
+                                                S/ {{ number_format($sale->total, 2) }}
+                                            </span>
+                                        </div>
+
+                                        <div class="col-span-1 flex justify-center">
+                                            <svg id="icon-{{ $sale->id }}"
+                                                class="w-4 h-4 text-gray-400 transition-transform duration-300" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </div>
+                                    </button>
+
+                                    {{-- Detalle expandible --}}
+                                    <div id="detalle-{{ $sale->id }}" class="hidden px-6 pb-4">
+                                        <div
+                                            class="bg-gray-50 dark:bg-gray-800/40 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
+                                            <div
+                                                class="px-4 py-2.5 bg-gray-100/70 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                                                <p class="text-[11px] font-black uppercase tracking-widest text-gray-500">
+                                                    Productos
+                                                    del pedido</p>
+                                            </div>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-left min-w-[600px]">
+                                                    <thead
+                                                        class="text-[10px] uppercase tracking-wider text-gray-400 bg-white/50 dark:bg-gray-800/30">
+                                                        <tr>
+                                                            <th class="px-4 py-2.5 font-black">Producto</th>
+                                                            <th class="px-4 py-2.5 font-black text-center">Cant.</th>
+                                                            <th class="px-4 py-2.5 font-black text-right">P. Unit.</th>
+                                                            <th class="px-4 py-2.5 font-black text-right">Subtotal</th>
+                                                            <th class="px-4 py-2.5 font-black">Personalización</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                                                        @php $details = \App\Models\SaleDetailModel::where('sale_id', $sale->id)->get(); @endphp
+                                                        @foreach ($details as $detail)
+                                                            @php $product = \App\Models\ProductModel::find($detail->product_id); @endphp
+                                                            <tr class="hover:bg-white dark:hover:bg-gray-800/50 transition-colors">
+                                                                <td
+                                                                    class="px-4 py-2.5 text-[12px] font-bold text-gray-800 dark:text-gray-200">
+                                                                    {{ $product ? $product->name : '— Producto eliminado —' }}
+                                                                </td>
+                                                                <td class="px-4 py-2.5 text-center">
+                                                                    <span
+                                                                        class="text-[11px] font-black bg-orange-100 dark:bg-orange-900/30 text-orange-600 px-2 py-0.5 rounded-lg">
+                                                                        x{{ $detail->quantity }}
+                                                                    </span>
+                                                                </td>
+                                                                <td
+                                                                    class="px-4 py-2.5 text-right text-[12px] text-gray-500 dark:text-gray-400 font-semibold">
+                                                                    S/ {{ number_format($detail->unit_price, 2) }}
+                                                                </td>
+                                                                <td
+                                                                    class="px-4 py-2.5 text-right text-[12px] font-black text-gray-900 dark:text-white">
+                                                                    S/ {{ number_format($detail->subtotal, 2) }}
+                                                                </td>
+                                                                <td class="px-4 py-2.5 text-[11px] text-gray-400 italic">
+                                                                    {{ $detail->customization ?? '—' }}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr class="bg-orange-50/60 dark:bg-orange-900/10">
+                                                            <td colspan="3"
+                                                                class="px-4 py-2.5 text-[11px] font-black uppercase tracking-widest text-gray-400 text-right">
+                                                                Total
+                                                            </td>
+                                                            <td class="px-4 py-2.5 text-right text-[14px] font-black text-orange-600">
+                                                                S/ {{ number_format($sale->total, 2) }}
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            @empty
+                                <div class="flex flex-col items-center justify-center py-16 text-center">
+                                    <span class="text-sm font-black text-gray-300 opacity-40 mb-4">SIN RESULTADOS</span>
+                                    <p class="text-sm font-bold text-gray-500">No se encontraron ventas en este rango</p>
+                                    <p class="text-xs text-gray-400 mt-1">Intenta con un rango de fechas diferente</p>
+                                </div>
+                            @endforelse
                         </div>
-                    @endforelse
+                    </div>
                 </div>
 
                 {{-- Footer total --}}

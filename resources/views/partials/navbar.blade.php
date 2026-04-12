@@ -58,7 +58,7 @@
 
             {{-- Menú desplegable de notificaciones --}}
             <div
-                class="absolute right-0 top-[calc(100%+5px)] w-72 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl z-[100] invisible group-hover/bell:visible opacity-0 group-hover/bell:opacity-100 transition-all duration-200 transform origin-top-right scale-95 group-hover/bell:scale-100 overflow-hidden">
+                class="absolute right-[-70px] sm:right-0 top-[calc(100%+10px)] w-72 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl z-[100] invisible group-hover/bell:visible opacity-0 group-hover/bell:opacity-100 transition-all duration-200 transform origin-top-right scale-95 group-hover/bell:scale-100 overflow-hidden">
                 <div
                     class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 flex justify-between items-center">
                     <h3 class="text-[13px] font-black text-gray-800 dark:text-white">Notificaciones</h3>
@@ -138,10 +138,10 @@
             <button
                 class="flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 cursor-pointer select-none"
                 onclick="toggleDropdown()">
-                <span class="text-lg">
+                <span class="w-8 h-8 flex items-center justify-center text-lg bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0">
                     {{ Auth::user()->role_id == 1 ? '🤵‍' : '🧑‍🍳' }}
                 </span>
-                <div class="text-left">
+                <div class="text-left hidden md:block">
                     <p class="text-[13px] font-semibold text-gray-800 dark:text-gray-100 leading-none">
                         {{ Auth::user()->staff->name ?? Auth::user()->username }}
                         {{ Auth::user()->staff->surname ?? '' }}

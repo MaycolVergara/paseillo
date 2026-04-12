@@ -40,7 +40,8 @@
         @endif
 
         <div class="min-w-full inline-block align-middle">
-            <table class="w-full text-left border-collapse table-auto">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse table-auto border-spacing-0 min-w-[800px] md:min-w-full">
                 <thead>
                 <tr class="bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
                     <th class="px-6 py-5 text-[11px] font-black uppercase tracking-wider text-gray-400">Trabajador</th>
@@ -134,6 +135,7 @@
                 @endforeach
                 </tbody>
             </table>
+        </div>
         </div>
 
         <div id="paginacion-contenedor" class="px-6 py-4 border-t border-gray-100 dark:border-gray-800 flex justify-center items-center bg-gray-50/30 dark:bg-gray-800/20">

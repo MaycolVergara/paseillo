@@ -62,7 +62,7 @@
         {{-- ══════════════════════════
              2. STATS GRID (Tarjetas)
         ══════════════════════════ --}}
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 lg:gap-5">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4 lg:gap-5">
             {{-- Ventas Hoy (Tarjeta Hero) --}}
             <div
                 class="col-span-2 relative bg-gradient-to-br from-orange-500 via-red-500 to-rose-600 rounded-3xl p-6 shadow-lg shadow-orange-500/20 overflow-hidden group">
@@ -379,7 +379,7 @@
                 </div>
 
                 <div
-                    class="p-4 grid grid-cols-[repeat(auto-fill,minmax(60px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-3">
+                    class="p-4 grid grid-cols-[repeat(auto-fill,minmax(70px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-4 sm:gap-5">
                     @foreach ($tableDelivery as $table)
                         <button
                             class="relative aspect-square flex flex-col items-center justify-center gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
@@ -421,12 +421,12 @@
                 </div>
 
                 {{-- 3 cards en fila horizontal --}}
-                <div class="p-3 grid grid-cols-3 gap-2">
+                <div class="p-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
 
                     {{-- Efectivo --}}
                     @php $pctCash = ($totalDay ?? 0) > 0 ? ($cashPayment / $totalDay) * 100 : 0; @endphp
                     <div
-                        class="bg-emerald-50/60 dark:bg-emerald-900/10 rounded-2xl p-3 border border-emerald-100 dark:border-emerald-800/30 flex flex-col gap-1.5">
+                        class="bg-emerald-50/60 dark:bg-emerald-900/10 rounded-2xl p-4 border border-emerald-100 dark:border-emerald-800/30 flex flex-col gap-1.5">
                         <div class="flex items-center justify-between">
                             <span class="text-base">💵</span>
                             <span class="text-[10px] font-black text-emerald-600">{{ number_format($pctCash, 0) }}%</span>
