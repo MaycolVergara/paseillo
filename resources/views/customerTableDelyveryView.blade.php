@@ -38,19 +38,19 @@
                     </div>
                 </div>
 
-                {{-- GRID DE 5 COLUMNAS: Aquí es donde forzamos las 5 mesas por fila y que sean GRANDES --}}
-                <div id="contenedor-mesas" class="grid grid-cols-5 gap-8">
+                {{-- GRID RESPONSIVO: De 2 columnas en móvil progresando hasta 5 en desktop --}}
+                <div id="contenedor-mesas" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
 
                     @foreach($table_config as $table)
                         {{-- He aumentado el padding (p-10) y el redondeado para que el botón sea masivo --}}
                         <a href="{{ url('/dashboard/tableOrderDetailsDelyvery/'.$table->id) }}"
-                           class="aspect-square flex flex-col items-center justify-center gap-3 p-10 rounded-[3rem] border-4
+                           class="aspect-square flex flex-col items-center justify-center gap-2 sm:gap-3 p-4 sm:p-6 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-[3.5rem] border-4
                                {{ $table->status == 'disponible' ? 'border-red-400 bg-red-100 text-red-700' :
-                                    'border-red-800 bg-red-900 text-white' }} hover:scale-105 transition-all shadow-xl">
+                                    'border-red-800 bg-red-900 text-white' }} hover:scale-105 transition-all shadow-xl shadow-red-500/10">
 
-                            {{-- Número GIGANTE (text-6xl) --}}
+                            {{-- Número RESPONSIVO (text-3xl progresando a text-6xl) --}}
                             <span
-                                class="text-6xl font-black tracking-tighter">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+                                class="text-3xl sm:text-4xl lg:text-7xl font-black tracking-tighter leading-none">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
 
                             {{-- Texto del estado más legible --}}
                             <span class="text-xs font-black uppercase tracking-widest">{{ $table->status }}</span>

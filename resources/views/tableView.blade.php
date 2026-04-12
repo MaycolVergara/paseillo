@@ -38,8 +38,8 @@
                     </div>
                 </div>
 
-                {{-- GRID DE 5 COLUMNAS --}}
-                <div id="contenedor-mesas" class="grid grid-cols-5 gap-8">
+                {{-- GRID RESPONSIVO: Adaptable a móviles y tablets --}}
+                <div id="contenedor-mesas" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
 
                     @foreach($table_config as $table)
                         @php
@@ -60,10 +60,10 @@
                         @endphp
 
                         <a href="{{ url('/dashboard/tableOrderDetails/'.$table->table_number) }}"
-                           class="aspect-square flex flex-col items-center justify-center gap-3 p-4 rounded-[3rem] border-4 {{ $cardClass }} hover:scale-105 transition-all shadow-xl">
+                           class="aspect-square flex flex-col items-center justify-center gap-2 sm:gap-3 p-4 sm:p-6 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-[3.5rem] border-4 {{ $cardClass }} hover:scale-105 transition-all shadow-xl">
 
-                            {{-- Número GIGANTE --}}
-                            <span class="text-6xl font-black tracking-tighter">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+                            {{-- Número RESPONSIVO --}}
+                            <span class="text-3xl sm:text-4xl lg:text-7xl font-black tracking-tighter leading-none">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
 
                             {{-- Nombre de quién atiende o estado --}}
                             <span class="text-xs font-black uppercase tracking-widest text-center leading-tight">{{ $labelText }}</span>

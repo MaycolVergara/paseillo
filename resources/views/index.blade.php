@@ -280,17 +280,17 @@
                 </div>
 
                 <div
-                    class="p-4 grid grid-cols-[repeat(auto-fill,minmax(60px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-3">
+                    class="p-4 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-2 sm:gap-3">
                     @foreach ($tables as $table)
                         <button
-                            class="relative aspect-square flex flex-col items-center justify-center gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
+                            class="relative aspect-square flex flex-col items-center justify-center gap-0.5 sm:gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
                            {{ $table->status == 'disponible'
                                ? 'border-emerald-100 bg-emerald-50/50 text-emerald-600 hover:shadow-md hover:shadow-emerald-500/20'
                                : 'border-rose-100 bg-rose-50/50 text-rose-600 hover:shadow-md hover:shadow-rose-500/20' }}">
                             <span class="font-black tracking-tighter leading-none"
-                                style="font-size: clamp(12px, 2vw, 22px);">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+                                style="font-size: clamp(14px, 4vw, 24px);">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
                             <span class="font-black uppercase tracking-widest opacity-70 leading-none"
-                                style="font-size: 8px;">{{ $table->status }}</span>
+                                style="font-size: clamp(6px, 1.5vw, 8px);">{{ $table->status }}</span>
                         </button>
                     @endforeach
                 </div>
