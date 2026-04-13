@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paseillo Pizzas & Burger — Huanta</title>
-    {{-- Lucide Icons & localized assets --}}
-    <script src="{{ asset('js/lucide_icon/lucide.min.js') }}"></script>
+    
+    {{-- Assets Localizados (Vite) --}}
     @vite(['resources/css/web/web.css', 'resources/js/web/web.js'])
 </head>
 
@@ -22,6 +22,19 @@
 {{-- FOOTER --}}
 @include('partials.webPartials.footer')
 
-</body>
+{{-- Scripts al Final para Estabilidad --}}
+<script src="{{ asset('js/lucide_icon/lucide.min.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+    });
+    // Fallback inmediato
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+</script>
+
 </body>
 </html>

@@ -12,18 +12,12 @@
             <nav class="hidden items-center gap-5 lg:flex">
                 <a href="#inicio"
                     class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors">Inicio</a>
-
-
-
                 <a href="#carta"
                     class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors">Platos</a>
-
                 <a href="#galeria"
                     class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors">Galería</a>
                 <a href="#nosotros"
                     class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors">Nosotros</a>
-                <a href="#preguntas"
-                    class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors">Preguntas</a>
             </nav>
 
             <!-- CTA + hamburger -->
@@ -57,9 +51,6 @@
 
             <a href="#nosotros" onclick="closeNav()"
                 class="font-condensed font-700 hover:text-brand hover:bg-brand/5 rounded-lg px-3 py-2.5 text-base uppercase tracking-wide text-gray-800 transition-all">Nosotros</a>
-
-            <a href="#preguntas"
-                class="nav-link font-condensed font-700 hover:text-brand text-sm uppercase tracking-wide text-gray-700 transition-colors">Preguntas</a>
 
             <a href="https://wa.me/51000000000" target="_blank"
                 class="bg-brand font-condensed font-800 mt-2 flex items-center justify-center gap-2 rounded-xl py-3 text-sm uppercase tracking-wide text-white shadow-[0_4px_16px_rgba(227,6,19,0.35)]">

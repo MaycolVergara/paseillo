@@ -1,3 +1,6 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@300;400;500;600;700;800&display=swap');
+
 @import "tailwindcss";
 
 @theme {
@@ -7,17 +10,12 @@
     --color-brand-black: #0d0d0d;
     --color-brand-gray: #F5F5F5;
 
-    /* Fonts */
-    --font-anton: "Anton", sans-serif;
-    --font-barlow: "Barlow", sans-serif;
-    --font-condensed: "Barlow Condensed", sans-serif;
-
     /* Animations */
-    --animation-float: float 4s ease-in-out infinite;
-    --animation-float2: float 4s ease-in-out 2s infinite;
-    --animation-ticker: ticker 20s linear infinite;
-    --animation-pulse-ring: pulse-ring 2s ease-out infinite;
-    --animation-slide-up: slideUp 0.6s ease forwards;
+    --animate-float: float 4s ease-in-out infinite;
+    --animate-float2: float 4s ease-in-out 2s infinite;
+    --animate-ticker: ticker 20s linear infinite;
+    --animate-pulse-ring: pulse-ring 2s ease-out infinite;
+    --animate-slide-up: slideUp 0.6s ease forwards;
 
     @keyframes float {
         0%, 100% { transform: translateY(0px) }
@@ -39,9 +37,28 @@
 
 /* Custom Web Styles */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-barlow); overflow-x: hidden; }
+body { font-family: "Barlow", sans-serif; overflow-x: hidden; }
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-thumb { background: var(--color-brand); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #E30613; border-radius: 3px; }
+
+/* Font utilities */
+.font-anton { font-family: "Anton", sans-serif; }
+.font-barlow { font-family: "Barlow", sans-serif; }
+.font-condensed { font-family: "Barlow Condensed", sans-serif; }
+.font-700 { font-weight: 700; }
+.font-800 { font-weight: 800; }
+
+/* Color utilities */
+.text-brand { color: #E30613; }
+.text-brand\/90 { color: rgb(227 6 19 / 0.9); }
+.bg-brand { background-color: #E30613; }
+.bg-brand\/20 { background-color: rgb(227 6 19 / 0.2); }
+.bg-brand-dark { background-color: #b80510; }
+.hover\:bg-brand-dark:hover { background-color: #b80510; }
+.hover\:text-brand:hover { color: #E30613; }
+.hover\:bg-brand\/5:hover { background-color: rgb(227 6 19 / 0.05); }
+.border-brand { border-color: #E30613; }
+.border-brand\/50 { border-color: rgb(227 6 19 / 0.5); }
 
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
@@ -57,7 +74,7 @@ body { font-family: var(--font-barlow); overflow-x: hidden; }
 
 /* Ticker */
 .ticker-wrap { overflow: hidden; white-space: nowrap; }
-.ticker-inner { display: inline-flex; animation: var(--animation-ticker); }
+.ticker-inner { display: inline-flex; animation: ticker 20s linear infinite; }
 
 /* Hover zoom image */
 .img-zoom { overflow: hidden; }
@@ -66,7 +83,7 @@ body { font-family: var(--font-barlow); overflow-x: hidden; }
 
 /* Nav underline */
 .nav-link { position: relative; }
-.nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--color-brand); transition: width .3s ease; }
+.nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #E30613; transition: width .3s ease; }
 .nav-link:hover::after { width: 100%; }
 
 /* Card shine */
@@ -82,4 +99,7 @@ body { font-family: var(--font-barlow); overflow-x: hidden; }
 .card-shine:hover::before { left: 125%; }
 
 /* Carta tabs */
-.carta-tab.active-carta { background: var(--color-brand) !important; color: #fff !important; }
+.carta-tab.active-carta { background: #E30613 !important; color: #fff !important; }
+
+/* Animation utilities */
+.animate-float { animation: float 4s ease-in-out infinite; }

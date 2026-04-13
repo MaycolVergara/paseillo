@@ -33,8 +33,18 @@
     </div>
 </div>
 
-    {{-- Lucide Icons --}}
+    {{-- Scripts al final --}}
     <script src="{{ asset('js/lucide_icon/lucide.min.js') }}"></script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        });
+        // Segundo intento por si el DOM ya estaba listo
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+    </script>
 </body>
 </html>

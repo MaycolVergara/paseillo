@@ -1,47 +1,46 @@
 // resources/js/admin/admin.js
 
-/**
- * Sidebar and Layout management
- */
 window.toggleSidebar = function() {
     const sidebar = document.getElementById("sidebar");
     const mainArea = document.getElementById("main-area");
     const backdrop = document.getElementById("sidebar-backdrop");
     const isMobile = window.innerWidth < 1024;
 
-    if (isMobile) {
-        const isHidden = sidebar.classList.contains("-translate-x-full");
-        if (isHidden) {
-            sidebar.classList.remove("-translate-x-full");
-            sidebar.classList.add("translate-x-0");
-            if(backdrop) {
-                backdrop.classList.remove("hidden", "opacity-0", "pointer-events-none");
-                backdrop.classList.add("opacity-100");
+    if (sidebar) {
+        if (isMobile) {
+            const isHidden = sidebar.classList.contains("-translate-x-full");
+            if (isHidden) {
+                sidebar.classList.remove("-translate-x-full");
+                sidebar.classList.add("translate-x-0");
+                if(backdrop) {
+                    backdrop.classList.remove("hidden", "opacity-0", "pointer-events-none");
+                    backdrop.classList.add("opacity-100");
+                }
+            } else {
+                sidebar.classList.add("-translate-x-full");
+                sidebar.classList.remove("translate-x-0");
+                if(backdrop) {
+                    backdrop.classList.add("opacity-0", "pointer-events-none");
+                    setTimeout(() => backdrop.classList.add("hidden"), 300);
+                }
             }
         } else {
-            sidebar.classList.add("-translate-x-full");
-            sidebar.classList.remove("translate-x-0");
-            if(backdrop) {
-                backdrop.classList.add("opacity-0", "pointer-events-none");
-                setTimeout(() => backdrop.classList.add("hidden"), 300);
+            const collapsed = sidebar.classList.toggle("collapsed");
+            if (mainArea) mainArea.style.marginLeft = collapsed ? "80px" : "288px";
+            if (collapsed) {
+                document.querySelectorAll(".submenu-wrapper.open").forEach((el) => el.classList.remove("open"));
+                document.querySelectorAll(".nav-parent.open").forEach((el) => el.classList.remove("open"));
             }
+            localStorage.setItem("paseillo-sidebar", collapsed ? "collapsed" : "expanded");
         }
-    } else {
-        const collapsed = sidebar.classList.toggle("collapsed");
-        if (mainArea) mainArea.style.marginLeft = collapsed ? "80px" : "288px";
-        if (collapsed) {
-            document.querySelectorAll(".submenu-wrapper.open").forEach((el) => el.classList.remove("open"));
-            document.querySelectorAll(".nav-parent.open").forEach((el) => el.classList.remove("open"));
-        }
-        localStorage.setItem("paseillo-sidebar", collapsed ? "collapsed" : "expanded");
     }
-}
+};
 
 // Initial sidebar state
 (function () {
     const state = localStorage.getItem("paseillo-sidebar");
     const isMobile = window.innerWidth < 1024;
-    
+
     function initSidebar() {
         const sidebar = document.getElementById("sidebar");
         const mainArea = document.getElementById("main-area");
@@ -66,7 +65,7 @@ window.toggleTheme = function() {
     const isDark = html.classList.toggle("dark");
     html.classList.toggle("light", !isDark);
     localStorage.setItem("paseillo-theme", isDark ? "dark" : "light");
-}
+};
 
 (function () {
     const saved = localStorage.getItem("paseillo-theme") || "light";
@@ -78,14 +77,16 @@ window.toggleTheme = function() {
  */
 window.toggleAccordion = function(btn) {
     const wrapper = btn.nextElementSibling;
-    const isOpen = wrapper.classList.contains("open");
-    document.querySelectorAll(".submenu-wrapper.open").forEach((el) => {
-        el.classList.remove("open");
-        el.previousElementSibling.classList.remove("open");
-    });
-    if (!isOpen) {
-        wrapper.classList.add("open");
-        btn.classList.add("open");
+    if (wrapper) {
+        const isOpen = wrapper.classList.contains("open");
+        document.querySelectorAll(".submenu-wrapper.open").forEach((el) => {
+            el.classList.remove("open");
+            el.previousElementSibling.classList.remove("open");
+        });
+        if (!isOpen) {
+            wrapper.classList.add("open");
+            btn.classList.add("open");
+        }
     }
 }
 
@@ -112,12 +113,12 @@ window.updateClock = function() {
 
     const DAYS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
     const MONTHS = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
-    
+
     const now = new Date();
     const hh = String(now.getHours()).padStart(2, "0");
     const mm = String(now.getMinutes()).padStart(2, "0");
     const ss = String(now.getSeconds()).padStart(2, "0");
-    
+
     clockTime.textContent = `${hh}:${mm}:${ss}`;
     clockDate.textContent = `${DAYS[now.getDay()]}, ${now.getDate()} ${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
 }
@@ -125,16 +126,14 @@ window.updateClock = function() {
 /**
  * Initialization
  */
-function initLucide() {
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    }
-}
-
 function initAll() {
     updateClock();
     setInterval(updateClock, 1000);
-    initLucide();
+
+    // Lucide initialization is now handled in the layout for better stability
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
 
     // Active Link Highlighting
     let currentPath = window.location.pathname.split("/").pop();
@@ -162,30 +161,28 @@ if (document.readyState === "loading") {
     initAll();
 }
 
-// Fallback for icons if they load late
-setTimeout(initLucide, 500);
-
 /**
  * Helpers / Global functions
  */
 window.prepararEdicionCategoria = function(id, nombre) {
     const form = document.getElementById('form-categoria');
+    const inputNombre = document.getElementById('cat_input_name');
+    if (!form || !inputNombre) return;
+
+    form.action = '/dashboard/categoryRegistration/' + id + '/update';
+    const metodoDiv = document.getElementById('cat-metodo-adicional');
+    if (metodoDiv) metodoDiv.innerHTML = '<input type="hidden" name="_method" value="PUT">';
+    inputNombre.value = nombre;
+
     const titulo = document.getElementById('cat-form-titulo');
     const subtitulo = document.getElementById('cat-form-subtitulo');
-    const inputNombre = document.getElementById('cat_input_name');
-    const metodoDiv = document.getElementById('cat-metodo-adicional');
     const btnSubmit = document.getElementById('cat-btn-submit');
     const btnCancelar = document.getElementById('cat-btn-cancelar');
 
-    if (!form) return;
-
-    form.action = '/dashboard/categoryRegistration/' + id + '/update';
-    metodoDiv.innerHTML = '<input type="hidden" name="_method" value="PUT">';
-    inputNombre.value = nombre;
-    titulo.innerText = 'Editar Categoría';
-    subtitulo.innerText = 'Modificando el nombre de la sección';
-    btnSubmit.innerText = 'Actualizar Categoría';
-    btnCancelar.classList.remove('hidden');
+    if (titulo) titulo.innerText = 'Editar Categoría';
+    if (subtitulo) subtitulo.innerText = 'Modificando el nombre de la sección';
+    if (btnSubmit) btnSubmit.innerText = 'Actualizar Categoría';
+    if (btnCancelar) btnCancelar.classList.remove('hidden');
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
@@ -198,21 +195,35 @@ window.editarUsuario = function(id, name, email, username, role_id) {
     if (!form) return;
 
     form.action = '/dashboard/userRegistration/' + id + '/update';
-    document.getElementById('metodo-adicional').innerHTML = '<input type="hidden" name="_method" value="PUT">';
-    form.querySelector('input[name="name"]').value = name;
-    form.querySelector('input[name="email"]').value = email;
-    form.querySelector('input[name="username"]').value = username;
-    form.querySelector('select[name="role_id"]').value = role_id;
+    const metodoDiv = document.getElementById('metodo-adicional');
+    if (metodoDiv) metodoDiv.innerHTML = '<input type="hidden" name="_method" value="PUT">';
+
+    const inputName = form.querySelector('input[name="name"]');
+    const inputEmail = form.querySelector('input[name="email"]');
+    const inputUser = form.querySelector('input[name="username"]');
+    const selectRole = form.querySelector('select[name="role_id"]');
+
+    if (inputName) inputName.value = name;
+    if (inputEmail) inputEmail.value = email;
+    if (inputUser) inputUser.value = username;
+    if (selectRole) selectRole.value = role_id;
 
     let inputPass = form.querySelector('input[name="password"]');
-    inputPass.value = "";
-    inputPass.removeAttribute('required');
-    inputPass.placeholder = "Dejar en blanco para no cambiar";
+    if (inputPass) {
+        inputPass.value = "";
+        inputPass.removeAttribute('required');
+        inputPass.placeholder = "Dejar en blanco para no cambiar";
+    }
 
-    document.getElementById('form-titulo').innerText = 'Editar Usuario';
-    document.getElementById('form-subtitulo').innerText = 'Modificando a: ' + name;
-    document.getElementById('btn-submit').innerText = 'Actualizar Cambios';
-    document.getElementById('btn-cancelar').classList.remove('hidden');
+    const titulo = document.getElementById('form-titulo');
+    const subtitulo = document.getElementById('form-subtitulo');
+    const btnSubmit = document.getElementById('btn-submit');
+    const btnCancelar = document.getElementById('btn-cancelar');
+
+    if (titulo) titulo.innerText = 'Editar Usuario';
+    if (subtitulo) subtitulo.innerText = 'Modificando a: ' + name;
+    if (btnSubmit) btnSubmit.innerText = 'Actualizar Cambios';
+    if (btnCancelar) btnCancelar.classList.remove('hidden');
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
 

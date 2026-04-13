@@ -25,10 +25,11 @@
             </a>
         </div>
 
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4" id="menu-grid">
 
             <div
-                class="reveal d1 card-shine hover:border-brand/50 duration-400 group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition-all hover:-translate-y-2 hover:bg-white/[0.07] hover:shadow-[0_20px_50px_rgba(227,6,19,0.2)]">
+                class="reveal d1 card-shine hover:border-brand/50 duration-400 group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition-all hover:-translate-y-2 hover:bg-white/[0.07] hover:shadow-[0_20px_50px_rgba(227,6,19,0.2)]"
+                data-cat="burger">
                 <div class="img-zoom relative aspect-[3/2] overflow-hidden">
                     <img src="https://img.freepik.com/premium-photo/hamburger-with-cheese-bun-wooden-table_858955-918.jpg"
                         alt="Hamburguesa Paseillo" class="h-full w-full object-cover" />
@@ -59,7 +60,8 @@
             </div>
 
             <div
-                class="reveal d2 card-shine hover:border-brand/50 duration-400 group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition-all hover:-translate-y-2 hover:bg-white/[0.07] hover:shadow-[0_20px_50px_rgba(227,6,19,0.2)]">
+                class="reveal d2 card-shine hover:border-brand/50 duration-400 group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition-all hover:-translate-y-2 hover:bg-white/[0.07] hover:shadow-[0_20px_50px_rgba(227,6,19,0.2)]"
+                data-cat="pizza">
                 <div class="img-zoom relative aspect-[3/2] overflow-hidden">
                     <img src="https://img.freepik.com/free-photo/top-view-sausage-pizza-with-tomato-red-bell-pepper-cheese-top-view_140725-7089.jpg"
                         alt="Pizza Paseillo" class="h-full w-full object-cover" />
@@ -88,7 +90,8 @@
             </div>
 
             <div
-                class="reveal d3 card-shine hover:border-brand/50 duration-400 group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition-all hover:-translate-y-2 hover:bg-white/[0.07] hover:shadow-[0_20px_50px_rgba(227,6,19,0.2)]">
+                class="reveal d3 card-shine hover:border-brand/50 duration-400 group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition-all hover:-translate-y-2 hover:bg-white/[0.07] hover:shadow-[0_20px_50px_rgba(227,6,19,0.2)]"
+                data-cat="krispy">
                 <div class="img-zoom relative aspect-[3/2] overflow-hidden">
                     <img src="https://img.freepik.com/premium-photo/breaded-chicken-strips-chicken-fingers_434193-10496.jpg"
                         alt="Pollo Krispy" class="h-full w-full object-cover" />
@@ -117,7 +120,8 @@
             </div>
 
             <div
-                class="reveal d4 card-shine hover:border-brand/50 duration-400 group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition-all hover:-translate-y-2 hover:bg-white/[0.07] hover:shadow-[0_20px_50px_rgba(227,6,19,0.2)]">
+                class="reveal d4 card-shine hover:border-brand/50 duration-400 group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition-all hover:-translate-y-2 hover:bg-white/[0.07] hover:shadow-[0_20px_50px_rgba(227,6,19,0.2)]"
+                data-cat="salchi">
                 <div class="img-zoom relative aspect-[3/2] overflow-hidden">
                     <img src="https://img.freepik.com/premium-photo/pile-french-fries-with-pile-cheese-ketchup_1169880-275406.jpg?w=1060"
                         alt="Salchipapa Especial" class="h-full w-full object-cover" />
