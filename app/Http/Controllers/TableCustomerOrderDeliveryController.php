@@ -7,6 +7,7 @@ use App\Models\CategoryModel;
 use App\Models\SaleModel;
 use App\Models\SaleDetailModel;
 use App\Models\TableDeliveryModel;
+use App\Models\StoreModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -104,6 +105,18 @@ class TableCustomerOrderDeliveryController extends Controller
             $sale->status = 'Finalizado';
             $sale->payment_method = $request->input('payment_method', 'cash');
             $sale->save();
+
+            // --- LOGICA DE DESCUENTO DE STOCK ---
+            $details = SaleDetailModel::with('product')->where('sale_id', $sale->id)->get();
+            foreach ($details as $detail) {
+                if ($detail->product && $detail->product->stores_id) {
+                    $store = StoreModel::find($detail->product->stores_id);
+                    if ($store) {
+                        $store->decrement('current_stock', $detail->quantity);
+                    }
+                }
+            }
+            // ------------------------------------
 
             $table = TableDeliveryModel::find($table_id);
             if ($table) {
