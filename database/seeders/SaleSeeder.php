@@ -49,8 +49,8 @@ class SaleSeeder extends Seeder
         SaleModel::truncate();
         \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
 
-        // 2. Generar ventas en una línea de tiempo (últimos 14 días)
-        for ($i = 10; $i >= 0; $i--) {
+        // 2. Generar ventas en una línea de tiempo (últimos 450 días para cubrir más de un año)
+        for ($i = 450; $i >= 0; $i--) {
             $date = Carbon::today()->subDays($i);
             
             // LÓGICA DE REALISMO EMPRESARIAL (Altos tickets en mesa y delivery)
@@ -63,6 +63,11 @@ class SaleSeeder extends Seeder
             } else {
                 // Día Medio: Meta S/ 1000 a 1700 (Aprox 20 ventas)
                 $numberOfSales = rand(18, 25);
+            }
+
+            // Reducir un poco el volumen de ventas en meses pasados para simular crecimiento
+            if ($i > 365) {
+                $numberOfSales = round($numberOfSales * 0.7);
             }
 
             for ($j = 0; $j < $numberOfSales; $j++) {

@@ -16,11 +16,39 @@
             </div>
         </div>
         
-        <div class="flex items-center gap-2">
-            <span class="px-4 py-1.5 bg-orange-50 dark:bg-orange-950/20 text-orange-600 dark:text-orange-400 text-[10px] font-black rounded-xl uppercase tracking-widest border border-orange-100 dark:border-orange-900/40">
-                Reporte de Análisis
-            </span>
-        </div>
+        {{-- FILTRADO DINÁMICO --}}
+        <form action="{{ url()->current() }}" method="GET" class="flex flex-wrap items-center gap-3 bg-gray-50 dark:bg-gray-800/50 p-2 rounded-2xl border border-gray-100 dark:border-gray-700">
+            
+            @if(Str::contains($title, 'Anual'))
+                <select name="year" class="bg-white dark:bg-gray-900 border-none rounded-xl text-xs font-black uppercase tracking-widest focus:ring-2 focus:ring-orange-500/20 py-2 px-4 shadow-sm cursor-pointer dark:text-gray-200">
+                    @for($y = 2024; $y <= date('Y'); $y++)
+                        <option value="{{ $y }}" {{ ($year ?? date('Y')) == $y ? 'selected' : '' }}>Año {{ $y }}</option>
+                    @endfor
+                </select>
+            @endif
+
+            @if(Str::contains($title, 'Mensual'))
+                <select name="month" class="bg-white dark:bg-gray-900 border-none rounded-xl text-xs font-black uppercase tracking-widest focus:ring-2 focus:ring-orange-500/20 py-2 px-4 shadow-sm cursor-pointer dark:text-gray-200">
+                    @php $months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']; @endphp
+                    @foreach($months as $index => $name)
+                        <option value="{{ $index + 1 }}" {{ ($month ?? date('n')) == ($index + 1) ? 'selected' : '' }}>{{ $name }}</option>
+                    @endforeach
+                </select>
+                <select name="year" class="bg-white dark:bg-gray-900 border-none rounded-xl text-xs font-black uppercase tracking-widest focus:ring-2 focus:ring-orange-500/20 py-2 px-4 shadow-sm cursor-pointer dark:text-gray-200">
+                    @for($y = 2024; $y <= date('Y'); $y++)
+                        <option value="{{ $y }}" {{ ($year ?? date('Y')) == $y ? 'selected' : '' }}>{{ $y }}</option>
+                    @endfor
+                </select>
+            @endif
+
+            @if(Str::contains($title, 'Semanal'))
+                <input type="date" name="date" value="{{ ($targetDate ?? now())->format('Y-m-d') }}" class="bg-white dark:bg-gray-900 border-none rounded-xl text-xs font-black uppercase tracking-widest focus:ring-2 focus:ring-orange-500/20 py-2 px-4 shadow-sm cursor-pointer dark:text-gray-200">
+            @endif
+
+            <button type="submit" class="bg-gradient-to-r from-orange-500 to-red-600 text-white p-2.5 rounded-xl hover:scale-105 active:scale-95 transition-all shadow-md shadow-orange-500/20">
+                <i data-lucide="filter" class="w-4 h-4"></i>
+            </button>
+        </form>
     </div>
 
     {{-- ══════════════════════════════════════════════

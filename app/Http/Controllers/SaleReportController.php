@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SaleModel;
 use App\Models\SaleDetailModel;
-use App\Models\ProductModel;
+use App\Models\ProductModel;    
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,12 +14,13 @@ class SaleReportController extends Controller
     /**
      * Reporte Semanal de Ventas (Dashboard Visual).
      */
-    public function weekly()
+    public function weekly(Request $request)
     {
-        $startOfWeek = Carbon::now()->startOfWeek();
-        $endOfWeek = Carbon::now()->endOfWeek();
+        $targetDate = $request->date ? Carbon::parse($request->date) : Carbon::now();
+        $startOfWeek = $targetDate->copy()->startOfWeek();
+        $endOfWeek = $targetDate->copy()->endOfWeek();
 
-        // 1. Datos para el gráfico (Día por día de la semana actual)
+        // 1. Datos para el gráfico (Día por día de la semana seleccionada)
         $chartLabels = [];
         $chartData = [];
         for ($i = 0; $i < 7; $i++) {
@@ -51,23 +52,26 @@ class SaleReportController extends Controller
             ->first();
 
         $title = "Dashboard Semanal";
-        $subtitle = $startOfWeek->format('d/m') . ' al ' . $endOfWeek->format('d/m/Y');
+        $subtitle = "Semana del " . $startOfWeek->format('d/m') . ' al ' . $endOfWeek->format('d/m/Y');
 
-        return view('salesReport', compact('chartLabels', 'chartData', 'totalRevenue', 'orderCount', 'avgTicket', 'topProduct', 'title', 'subtitle'));
+        return view('salesReport', compact('chartLabels', 'chartData', 'totalRevenue', 'orderCount', 'avgTicket', 'topProduct', 'title', 'subtitle', 'targetDate'));
     }
 
     /**
      * Reporte Mensual de Ventas (Dashboard Visual).
      */
-    public function monthly()
+    public function monthly(Request $request)
     {
-        $startOfMonth = Carbon::now()->startOfMonth();
-        $endOfMonth = Carbon::now()->endOfMonth();
+        $year = $request->year ?? Carbon::now()->year;
+        $month = $request->month ?? Carbon::now()->month;
+        
+        $startOfMonth = Carbon::createFromDate($year, $month, 1)->startOfMonth();
+        $endOfMonth = $startOfMonth->copy()->endOfMonth();
 
         // 1. Datos para el gráfico (Agrupado por días del mes)
         $chartLabels = [];
         $chartData = [];
-        $daysInMonth = Carbon::now()->daysInMonth;
+        $daysInMonth = $startOfMonth->daysInMonth;
         for ($i = 1; $i <= $daysInMonth; $i++) {
             $date = $startOfMonth->copy()->day($i);
             $chartLabels[] = $i;
@@ -97,26 +101,27 @@ class SaleReportController extends Controller
             ->first();
 
         $title = "Dashboard Mensual";
-        $subtitle = Carbon::now()->translatedFormat('F Y');
+        $subtitle = $startOfMonth->translatedFormat('F Y');
 
-        return view('salesReport', compact('chartLabels', 'chartData', 'totalRevenue', 'orderCount', 'avgTicket', 'topProduct', 'title', 'subtitle'));
+        return view('salesReport', compact('chartLabels', 'chartData', 'totalRevenue', 'orderCount', 'avgTicket', 'topProduct', 'title', 'subtitle', 'year', 'month'));
     }
 
     /**
      * Reporte Anual de Ventas (Dashboard Visual).
      */
-    public function annual()
+    public function annual(Request $request)
     {
-        $startOfYear = Carbon::now()->startOfYear();
-        $endOfYear = Carbon::now()->endOfYear();
+        $year = $request->year ?? Carbon::now()->year;
+        $startOfYear = Carbon::createFromDate($year, 1, 1)->startOfYear();
+        $endOfYear = $startOfYear->copy()->endOfYear();
 
         // 1. Datos para el gráfico (Mes a mes)
         $chartLabels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
         $chartData = [];
-        for ($i = 1; $i <= 12; $i++) {
+        for ($m = 1; $m <= 12; $m++) {
             $chartData[] = SaleModel::where('status', 'Finalizado')
-                ->whereMonth('date', $i)
-                ->whereYear('date', Carbon::now()->year)
+                ->whereMonth('date', $m)
+                ->whereYear('date', $year)
                 ->sum('total');
         }
 
@@ -141,8 +146,8 @@ class SaleReportController extends Controller
             ->first();
 
         $title = "Dashboard Anual";
-        $subtitle = Carbon::now()->format('Y');
+        $subtitle = "Periodo " . $year;
 
-        return view('salesReport', compact('chartLabels', 'chartData', 'totalRevenue', 'orderCount', 'avgTicket', 'topProduct', 'title', 'subtitle'));
+        return view('salesReport', compact('chartLabels', 'chartData', 'totalRevenue', 'orderCount', 'avgTicket', 'topProduct', 'title', 'subtitle', 'year'));
     }
 }
