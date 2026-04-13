@@ -75,10 +75,11 @@ class StaffReportController extends Controller
             return $staff->payment_day == $diaActual && !in_array($staff->id, $paidStaffIds);
         })->take(5);
 
-        return view('staffReport', compact(
+        return view('staffreport', compact(
             'staffMembers',
             'totalNomina',
             'totalAdelantos',
+            'totalDescuentosFaltas',
             'saldoPagar',
             'totalEmpleados',
             'areas',
