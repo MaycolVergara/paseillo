@@ -58,6 +58,8 @@
                                     <th class="px-6 py-3 text-[10px] font-black text-gray-400 uppercase tracking-widest">
                                         Stock Actual</th>
                                     <th class="px-6 py-3 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                                        Unidad</th>
+                                    <th class="px-6 py-3 text-[10px] font-black text-gray-400 uppercase tracking-widest">
                                         Estado</th>
                                     <th
                                         class="px-6 py-3 text-right text-[10px] font-black text-gray-400 uppercase tracking-widest">
@@ -81,6 +83,11 @@
                                         </td>
                                         <td class="px-6 py-4 font-black text-base text-gray-800 dark:text-gray-100">
                                             {{ $supply->current_stock }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="text-xs font-bold text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-lg">
+                                                {{ $supply->unit ?: 'unidad' }}
+                                            </span>
                                         </td>
                                         <td class="px-6 py-4">
                                             @if ($supply->current_stock <= $supply->minimum_stock)
@@ -187,6 +194,20 @@
                     <input type="text" name="name" required
                         class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-bold text-gray-800 dark:text-white focus:ring-2 focus:ring-red-500/20 outline-none transition-all"
                         placeholder="Ej: Pan Molde">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2">Unidad de
+                        Medida</label>
+                    <select name="unit" required
+                        class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-bold text-gray-800 dark:text-white focus:ring-2 focus:ring-red-500/20 outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="unidad">Unidad</option>
+                        <option value="kg">Kilogramo</option>
+                        <option value="litro">Litro</option>
+                        <option value="paquete">Paquete</option>
+                        <option value="caja">Caja</option>
+                        <option value="bolsa">Bolsa</option>
+                    </select>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>

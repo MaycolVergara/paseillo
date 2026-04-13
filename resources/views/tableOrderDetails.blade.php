@@ -66,7 +66,10 @@
                 <div class="lg:col-span-1">
                     <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Personalizado</label>
                     <input type="text" name="customization" placeholder="Sin cremas..."
-                           class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 focus:outline-none focus:border-orange-500">
+                           class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-800 border
+                            border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium 
+                            text-gray-700 dark:text-gray-300 focus:outline-none
+                             focus:border-orange-500">
                 </div>
 
 
@@ -74,14 +77,19 @@
                     <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Precio
                         Unid.</label>
                     <input type="number" id="input-precio-unidad" readonly
-                           class="w-full px-3 py-2.5 bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-bold text-gray-500 dark:text-gray-400 outline-none cursor-not-allowed">
-                </div>
+                           class="w-full px-3 py-2.5 bg-gray-100 dark:bg-gray-800/50 border
+                            border-gray-200 dark:border-gray-700 rounded-xl text-sm font-bold
+                             text-gray-500 dark:text-gray-400 outline-none cursor-not-allowed">
+                                             </div>
 
                 <div class="lg:col-span-1">
                     <label
-                        class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Cantidad</label>
+                        class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
+                        Cantidad</label>
                     <input type="number" name="quantity" id="input-cantidad" min="1" value="1" required
-                           class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-bold text-gray-800 dark:text-white focus:ring-2 focus:ring-orange-500/20 outline-none transition-all text-center">
+                           class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200
+                            dark:border-gray-700 rounded-xl text-sm font-bold text-gray-800 dark:text-white 
+                            focus:ring-2 focus:ring-orange-500/20 outline-none transition-all text-center">
                 </div>
 
 
@@ -252,5 +260,19 @@
 
 
     </div>
+
+    <script>
+        document.getElementById('select-producto').addEventListener('change', function() {
+            const precio = this.options[this.selectedIndex].getAttribute('data-precio');
+            document.getElementById('input-precio-unidad').value = precio;
+            calcularTotal();
+        });
+        document.getElementById('input-cantidad').addEventListener('input', calcularTotal);
+        function calcularTotal() {
+            const precio = document.getElementById('input-precio-unidad').value || 0;
+            const cantidad = document.getElementById('input-cantidad').value || 0;
+            document.getElementById('input-total').value = (precio * cantidad).toFixed(2);
+        }
+    </script>
 
 @endsection

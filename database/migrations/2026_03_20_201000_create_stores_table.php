@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');             // Ej: "Leche Gloria", "Pan Burger"
             $table->integer('current_stock');   // Lo que hay hoy
             $table->integer('minimum_stock');   // El límite para avisarte
-            $table->string('unit');             // Ej: "unidades", "paquetes"
+            $table->string('unit')->default('unidad'); // Unidad de medida
             $table->timestamps();
         });
     }

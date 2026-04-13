@@ -12,6 +12,7 @@ class StoreModel extends Model
         'name',
         'current_stock',
         'minimum_stock',
+        'unit'
     ];
 
 }
