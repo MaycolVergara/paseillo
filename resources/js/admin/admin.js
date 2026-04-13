@@ -125,31 +125,45 @@ window.updateClock = function() {
 /**
  * Initialization
  */
-    // Lucide Icons initialization (global)
-    function initLucide() {
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
+function initLucide() {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
     }
+}
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => {
-            initClock();
-            initLucide();
-        });
-    } else {
-        initClock();
-        initLucide();
-    }
-    
-    // Fallback for icons if they load late
-    setTimeout(initLucide, 500);
-});
-
-function initClock() {
+function initAll() {
     updateClock();
     setInterval(updateClock, 1000);
+    initLucide();
+
+    // Active Link Highlighting
+    let currentPath = window.location.pathname.split("/").pop();
+    if (!currentPath || currentPath === "") currentPath = "dashboard";
+
+    const activeLink = document.querySelector(`.nav-link[href*="${currentPath}"]`);
+    if (activeLink) {
+        document.querySelectorAll(".nav-link.active").forEach((el) => el.classList.remove("active"));
+        activeLink.classList.add("active");
+
+        const submenuWrapper = activeLink.closest(".submenu-wrapper");
+        if (submenuWrapper) {
+            submenuWrapper.classList.add("open");
+            const parentBtn = submenuWrapper.previousElementSibling;
+            if (parentBtn && parentBtn.classList.contains("nav-parent")) {
+                parentBtn.classList.add("open");
+            }
+        }
+    }
 }
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAll);
+} else {
+    initAll();
+}
+
+// Fallback for icons if they load late
+setTimeout(initLucide, 500);
 
 /**
  * Helpers / Global functions
