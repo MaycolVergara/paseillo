@@ -5,21 +5,12 @@
     <div class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-card border border-gray-100/80 dark:border-gray-800 relative overflow-hidden group mb-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-sm">
-                    {{-- Icono de Llave/Seguridad --}}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
+                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+                    <i data-lucide="shield-check" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight italic">Acceso al Sistema</h2>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="flex items-center gap-1 text-xs font-bold px-2 py-0.5 bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 rounded-full">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Generando Credenciales
-                        </span>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Asignando permisos a: <strong class="text-gray-800 dark:text-white">{{ $staff->name }} {{ $staff->surname }}</strong></p>
-                    </div>
+                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Acceso al Sistema</h2>
+                    <p class="text-xs font-semibold text-gray-400 mt-0.5 uppercase tracking-widest">Generando credenciales para {{ $staff->name }}</p>
                 </div>
             </div>
 

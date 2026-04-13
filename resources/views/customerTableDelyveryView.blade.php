@@ -2,12 +2,18 @@
 
 @section('content')
     {{-- Contenedor principal sin límites laterales para que ocupe todo --}}
-    <div class="px-7 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
-        <div>
-            <h3 class="font-extrabold text-[16px] text-gray-900 dark:text-gray-100">Estado del Salón</h3>
-            <p class="text-xs font-medium text-gray-400 mt-0.5">Control de mesas en tiempo real</p>
+    <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 mb-6 mt-4 mx-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+                    <i data-lucide="truck" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Estado del Delivery</h2>
+                    <p class="text-xs font-semibold text-gray-400 mt-0.5 uppercase tracking-widest">Control de repartos en tiempo real</p>
+                </div>
+            </div>
         </div>
-
     </div>
     <div class="w-full">
 

@@ -13,5 +13,10 @@ class CategoryModel extends Model
     protected $primaryKey = 'id';
 
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'stores_id'];
+
+    public function store()
+    {
+        return $this->belongsTo(StoreModel::class, 'stores_id');
+    }
 }

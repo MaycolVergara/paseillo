@@ -8,12 +8,8 @@
     {{-- 1. Tu fuente original --}}
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 
-    {{-- 3. Tus estilos extra --}}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
-    {{-- 2. El motor local de Tailwind y JS --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    {{-- 2. Assets estructurados (Admin) --}}
+    @vite(['resources/css/admin/admin.css', 'resources/js/admin/admin.js'])
 
 </head>
 
@@ -37,10 +33,8 @@
     </div>
 </div>
 
-<script src="{{ asset('js/main.js') }}"></script>
-
-<script src="{{ asset('js/lucide_icon/lucide.min.js') }}"></script>
-<script src="{{ asset('js/lucide_icon/lucide_js/lucide.js') }}"></script>
+    {{-- Lucide Icons --}}
+    <script src="{{ asset('js/lucide_icon/lucide.min.js') }}"></script>
 
 </body>
 </html>

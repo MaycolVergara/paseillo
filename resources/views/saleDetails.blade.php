@@ -6,56 +6,43 @@
         {{-- ══════════════════════════
              BANNER HEADER
         ══════════════════════════ --}}
-        <div
-            class="relative bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/50 dark:border-gray-800 overflow-hidden">
-            <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-orange-400 via-red-500 to-rose-600"></div>
-            <div class="px-7 py-5 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-100 to-red-50 dark:from-gray-800 dark:to-gray-800 border border-orange-200/50 dark:border-gray-700 flex items-center justify-center shadow-inner">
-                        <span class="text-sm font-black text-orange-500">RV</span>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight">Registro de
-                            Ventas</h2>
-                        <p class="text-xs font-semibold text-gray-400 mt-0.5">
-                            @if ($start_date && $end_date)
-                                Reporte del
-                                <span
-                                    class="text-orange-500">{{ \Carbon\Carbon::parse($start_date)->format('d/m/Y H:i') }}</span>
-                                al
-                                <span
-                                    class="text-orange-500">{{ \Carbon\Carbon::parse($end_date)->format('d/m/Y H:i') }}</span>
-                            @else
-                                Selecciona un rango de fechas para generar el reporte
-                            @endif
-                        </p>
-                    </div>
+    <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 mb-6">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+                    <i data-lucide="receipt" class="w-6 h-6"></i>
                 </div>
-
-                {{-- Filtro de fechas inline --}}
-                <form action="{{ url('/dashboard/saleDetails') }}" method="GET" class="flex flex-wrap items-end gap-3">
-                    <div class="flex flex-col gap-1">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Desde</label>
-                        <input type="datetime-local" name="start_date" value="{{ $start_date }}" required
-                            class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:border-orange-400 transition-colors">
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Hasta</label>
-                        <input type="datetime-local" name="end_date" value="{{ $end_date }}" required
-                            class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:border-orange-400 transition-colors">
-                    </div>
-                    <button type="submit"
-                        class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-sm font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 active:scale-95">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-                        </svg>
-                        Generar
-                    </button>
-                </form>
+                <div>
+                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Registro de Ventas</h2>
+                    <p class="text-xs font-semibold text-gray-400 mt-0.5 uppercase tracking-widest">
+                        @if ($start_date && $end_date)
+                            Reporte del <span class="text-orange-500">{{ \Carbon\Carbon::parse($start_date)->format('d/m/Y') }}</span> al <span class="text-orange-500">{{ \Carbon\Carbon::parse($end_date)->format('d/m/Y') }}</span>
+                        @else
+                            Historial detallado
+                        @endif
+                    </p>
+                </div>
             </div>
+
+            <form action="{{ url('/dashboard/saleDetails') }}" method="GET" class="flex flex-wrap items-end gap-3">
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Desde</label>
+                    <input type="datetime-local" name="start_date" value="{{ $start_date }}" required
+                           class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Hasta</label>
+                    <input type="datetime-local" name="end_date" value="{{ $end_date }}" required
+                           class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all">
+                </div>
+                <button type="submit"
+                        class="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-orange-500 to-red-600 text-white text-sm font-black rounded-xl shadow-lg shadow-orange-500/25 hover:scale-[1.02] active:scale-95 transition-all">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                    Filtrar
+                </button>
+            </form>
         </div>
+    </div>
 
         {{-- ══════════════════════════
              TARJETAS RESUMEN (siempre visibles)

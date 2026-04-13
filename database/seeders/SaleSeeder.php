@@ -43,12 +43,6 @@ class SaleSeeder extends Seeder
             $products = ProductModel::all();
         }
 
-        // Limpieza segura de ventas viejas
-        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
-        SaleDetailModel::truncate();
-        SaleModel::truncate();
-        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
-
         // 2. Generar ventas en una línea de tiempo (últimos 450 días para cubrir más de un año)
         for ($i = 450; $i >= 0; $i--) {
             $date = Carbon::today()->subDays($i);

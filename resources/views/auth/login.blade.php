@@ -6,7 +6,7 @@
     <title>Paseillo — Iniciar Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet"/>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/admin/admin.css', 'resources/js/admin/admin.js'])
 </head>
 <body
     class="bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-100 font-sans antialiased min-h-screen flex items-center justify-center p-4">

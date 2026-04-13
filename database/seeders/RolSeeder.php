@@ -13,10 +13,16 @@ class RolSeeder extends Seeder
      */
     public function run(): void
     {
-        RoleModel::insert([
-            ['id' => 1, 'name' => 'Administrador']
-            , ['id' => 2, 'name' => 'Mozo'],
+        $roles = [
+            ['id' => 1, 'name' => 'Administrador'],
+            ['id' => 2, 'name' => 'Mozo'],
+        ];
 
-        ]);
+        foreach ($roles as $role) {
+            \Illuminate\Support\Facades\DB::table('roles')->updateOrInsert(
+                ['id' => $role['id']],
+                ['name' => $role['name'], 'updated_at' => now(), 'created_at' => now()]
+            );
+        }
     }
 }

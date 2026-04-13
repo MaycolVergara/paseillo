@@ -6,36 +6,27 @@
         {{-- ══════════════════════════
              1. BANNER PREMIUM
         ══════════════════════════ --}}
-        <div
-            class="relative bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100/50 dark:border-gray-800 overflow-hidden">
-            {{-- Línea de acento superior --}}
-            <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-orange-400 via-red-500 to-rose-600"></div>
-
-            <div class="px-7 py-6 flex flex-col sm:flex-row justify-between sm:items-center gap-5 relative z-10">
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-100 to-red-50 dark:from-gray-800 dark:to-gray-800 border border-orange-200/50 dark:border-gray-700 flex items-center justify-center shadow-inner flex-shrink-0">
-                        <span class="text-3xl">🍔</span>
-                    </div>
-                    <div>
-                        @if (Auth::user()->role_id == 1)
-                            <h2 class="text-xl md:text-2xl font-black text-gray-900 dark:text-white tracking-tight">
-                                ¡Buen día, <span
-                                    class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">{{ Auth::user()->name }}</span>!
-                                👋
-                            </h2>
-                        @endif
-                        <div class="flex items-center gap-2 mt-1">
-                            <span class="relative flex h-2.5 w-2.5">
-                                <span
-                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                            </span>
-                            <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
-                                Panel en vivo</p>
-                        </div>
+    <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 mb-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+                    <i data-lucide="layout-dashboard" class="w-8 h-8"></i>
+                </div>
+                <div>
+                    @if (Auth::user()->role_id == 1)
+                        <h2 class="text-xl md:text-2xl font-black text-gray-900 dark:text-white tracking-tight italic">
+                            ¡Buen día, <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600 font-black">{{ Auth::user()->name }}</span>!
+                        </h2>
+                    @endif
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest">Sistema en vivo</p>
                     </div>
                 </div>
+            </div>
 
                 <div class="flex items-center gap-3 flex-shrink-0">
                     <div
@@ -69,24 +60,23 @@
                 
                 <div class="px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-red-500/40 animate-pulse">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        <div class="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-red-500/40">
+                            <i data-lucide="alert-triangle" class="w-6 h-6 animate-pulse"></i>
                         </div>
                         <div>
-                            <h3 class="text-base font-black text-gray-900 dark:text-white tracking-tight uppercase">Alerta de Inventario Crítico</h3>
-                            <p class="text-[11px] font-bold text-red-500 dark:text-red-400 uppercase tracking-widest mt-0.5">Insumos por debajo del stock mínimo</p>
+                            <h3 class="text-base font-black text-gray-900 dark:text-white tracking-tight italic">Alerta de Inventario</h3>
+                            <p class="text-[11px] font-bold text-red-500 dark:text-red-400 uppercase tracking-widest mt-0.5">Stock por debajo del mínimo</p>
                         </div>
                     </div>
 
                     <div class="flex flex-wrap gap-2 md:justify-end flex-grow">
                         @foreach($lowStockItems as $item)
-                        <div class="bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/50 px-3 py-2 rounded-xl flex items-center gap-3 group hover:scale-105 transition-all">
-                            <span class="text-lg">📦</span>
+                        <div class="bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/50 px-3 py-2 rounded-xl flex items-center gap-3 transition-all">
+                            <i data-lucide="package" class="w-5 h-5 text-red-600"></i>
                             <div>
                                 <p class="text-[11px] font-black text-gray-800 dark:text-gray-100 uppercase leading-none">{{ $item->name }}</p>
                                 <div class="flex items-center gap-1.5 mt-1">
                                     <span class="text-[10px] font-bold text-red-600 dark:text-red-400">{{ $item->current_stock }} {{ $item->unit }}</span>
-                                    <span class="text-[8px] font-black text-gray-400 uppercase tracking-tighter">/ Min: {{ $item->minimum_stock }}</span>
                                 </div>
                             </div>
                         </div>
@@ -148,44 +138,36 @@
             @php
                 $miniStats = [
                     [
-                        'icon' => '🍕',
+                        'icon' => 'pizza',
                         'name' => 'Pizzas',
                         'val' => $pizzasSold,
                         'from' => 'from-red-500',
                         'to' => 'to-orange-400',
                         'glow' => 'shadow-red-500/20',
-                        'accent' => 'bg-red-400/20',
-                        'text' => 'text-red-300',
                     ],
                     [
-                        'icon' => '🍔',
+                        'icon' => 'sandwich',
                         'name' => 'Burgers',
                         'val' => $burgersSold,
                         'from' => 'from-amber-500',
                         'to' => 'to-yellow-400',
                         'glow' => 'shadow-amber-500/20',
-                        'accent' => 'bg-amber-400/20',
-                        'text' => 'text-amber-300',
                     ],
                     [
-                        'icon' => '🥤',
+                        'icon' => 'cup-soda',
                         'name' => 'Bebidas',
                         'val' => $drinksSold,
                         'from' => 'from-cyan-500',
                         'to' => 'to-blue-400',
                         'glow' => 'shadow-cyan-500/20',
-                        'accent' => 'bg-cyan-400/20',
-                        'text' => 'text-cyan-300',
                     ],
                     [
-                        'icon' => '🍗',
+                        'icon' => 'drumstick',
                         'name' => 'Krispy',
                         'val' => $krispySold,
                         'from' => 'from-orange-600',
                         'to' => 'to-red-500',
                         'glow' => 'shadow-orange-500/20',
-                        'accent' => 'bg-orange-400/20',
-                        'text' => 'text-orange-300',
                     ],
                 ];
             @endphp
@@ -199,8 +181,7 @@
                         <div class="flex items-center justify-between mb-3">
                             <div
                                 class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
-                                <span
-                                    class="text-xl group-hover:scale-110 transition-transform inline-block">{{ $stat['icon'] }}</span>
+                                <i data-lucide="{{ $stat['icon'] }}" class="w-6 h-6 text-white"></i>
                             </div>
                         </div>
                         <p class="text-[10px] font-bold uppercase text-white/80 tracking-widest">{{ $stat['name'] }}</p>
@@ -363,8 +344,9 @@
                                         : 'bg-gray-100 dark:bg-gray-800 text-gray-500')) }}">
                                 {{ $index + 1 }}
                             </div>
-                            <div class="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
-                                {{ $top->emoji ?? '🍽️' }}</div>
+                            <div class="w-8 h-8 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i data-lucide="utensils" class="w-4 h-4 text-orange-500"></i>
+                            </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex justify-between items-end mb-1.5">
                                     <p class="text-[13px] font-bold text-gray-800 dark:text-gray-200 truncate">
@@ -381,8 +363,8 @@
                         </div>
                     @empty
                         <div class="flex flex-col items-center justify-center py-12 text-center">
-                            <span class="text-4xl opacity-30 mb-3">📊</span>
-                            <p class="text-sm font-bold text-gray-500">Aún no hay ventas</p>
+                            <i data-lucide="bar-chart-3" class="w-12 h-12 text-gray-200 dark:text-gray-800 mb-3"></i>
+                            <p class="text-sm font-bold text-gray-500 uppercase tracking-widest">Sin ventas registradas</p>
                         </div>
                     @endforelse
                 </div>
@@ -464,15 +446,13 @@
 
                     {{-- Efectivo --}}
                     @php $pctCash = ($totalDay ?? 0) > 0 ? ($cashPayment / $totalDay) * 100 : 0; @endphp
-                    <div
-                        class="bg-emerald-50/60 dark:bg-emerald-900/10 rounded-2xl p-4 border border-emerald-100 dark:border-emerald-800/30 flex flex-col gap-1.5">
+                    <div class="bg-emerald-50/60 dark:bg-emerald-900/10 rounded-2xl p-4 border border-emerald-100 dark:border-emerald-800/30 flex flex-col gap-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-base">💵</span>
+                            <i data-lucide="banknote" class="w-4 h-4 text-emerald-600"></i>
                             <span class="text-[10px] font-black text-emerald-600">{{ number_format($pctCash, 0) }}%</span>
                         </div>
-                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Efectivo</p>
-                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/
-                            {{ number_format($cashPayment ?? 0, 2) }}</p>
+                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Efectivo</p>
+                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/ {{ number_format($cashPayment ?? 0, 2) }}</p>
                         <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
                             <div class="h-full bg-emerald-400 rounded-full" style="width: {{ $pctCash }}%"></div>
                         </div>
@@ -483,33 +463,27 @@
                         $digitalTotal = $yapePayment ?? 0;
                         $pctDigital = ($totalDay ?? 0) > 0 ? ($digitalTotal / $totalDay) * 100 : 0;
                     @endphp
-                    <div
-                        class="bg-purple-50/60 dark:bg-purple-900/10 rounded-2xl p-3 border border-purple-100 dark:border-purple-800/30 flex flex-col gap-1.5">
+                    <div class="bg-purple-50/60 dark:bg-purple-900/10 rounded-2xl p-3 border border-purple-100 dark:border-purple-800/30 flex flex-col gap-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-base">📱</span>
-                            <span
-                                class="text-[10px] font-black text-purple-600">{{ number_format($pctDigital, 0) }}%</span>
+                            <i data-lucide="smartphone" class="w-4 h-4 text-purple-600"></i>
+                            <span class="text-[10px] font-black text-purple-600">{{ number_format($pctDigital, 0) }}%</span>
                         </div>
-                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Yape</p>
-                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/
-                            {{ number_format($digitalTotal, 2) }}</p>
+                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Yape</p>
+                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/ {{ number_format($digitalTotal, 2) }}</p>
                         <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
                             <div class="h-full bg-purple-400 rounded-full" style="width: {{ $pctDigital }}%"></div>
                         </div>
-
                     </div>
 
                     {{-- Tarjeta --}}
                     @php $pctCard = ($totalDay ?? 0) > 0 ? ($cardPayment / $totalDay) * 100 : 0; @endphp
-                    <div
-                        class="bg-blue-50/60 dark:bg-blue-900/10 rounded-2xl p-3 border border-blue-100 dark:border-blue-800/30 flex flex-col gap-1.5">
+                    <div class="bg-blue-50/60 dark:bg-blue-900/10 rounded-2xl p-3 border border-blue-100 dark:border-blue-800/30 flex flex-col gap-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-base">💳</span>
+                            <i data-lucide="credit-card" class="w-4 h-4 text-blue-600"></i>
                             <span class="text-[10px] font-black text-blue-600">{{ number_format($pctCard, 0) }}%</span>
                         </div>
-                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">Tarjeta</p>
-                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/
-                            {{ number_format($cardPayment ?? 0, 2) }}</p>
+                        <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Tarjeta</p>
+                        <p class="text-[13px] font-black text-gray-900 dark:text-white tracking-tighter leading-none">S/ {{ number_format($cardPayment ?? 0, 2) }}</p>
                         <div class="w-full bg-gray-200/60 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
                             <div class="h-full bg-blue-400 rounded-full" style="width: {{ $pctCard }}%"></div>
                         </div>

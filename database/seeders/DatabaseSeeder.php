@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
             StaffSeeder::class,
             TableDeliverySeeder::class,
             TableSeeder::class,
-            CategorySeeder::class,
-            SaleSeeder::class,
+            // CategorySeeder::class, // Deshabilitado para inicio limpio
+            // SaleSeeder::class,     // Deshabilitado para inicio limpio
         ]);
     }
 }

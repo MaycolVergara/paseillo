@@ -18,7 +18,7 @@
     {{-- Botón de Imprimir (Solo visible en pantalla) --}}
     <div class="mb-6 no-print">
         <button onclick="window.print()"
-            class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl shadow-lg transition-all flex items-center gap-2">
+            class="px-8 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-black rounded-xl shadow-lg shadow-orange-500/25 hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 6 2 18 2 18 9" />

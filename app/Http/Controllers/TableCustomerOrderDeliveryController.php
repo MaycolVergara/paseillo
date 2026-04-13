@@ -106,17 +106,28 @@ class TableCustomerOrderDeliveryController extends Controller
             $sale->payment_method = $request->input('payment_method', 'cash');
             $sale->save();
 
-            // --- LOGICA DE DESCUENTO DE STOCK ---
-            $details = SaleDetailModel::with('product')->where('sale_id', $sale->id)->get();
+            // --- LOGICA DE DESCUENTO DE STOCK INTELIGENTE ---
+            $details = SaleDetailModel::with('product.category')->where('sale_id', $sale->id)->get();
             foreach ($details as $detail) {
+                $storeId = null;
+
+                // 1. Prioridad: Vínculo directo del producto
                 if ($detail->product && $detail->product->stores_id) {
-                    $store = StoreModel::find($detail->product->stores_id);
+                    $storeId = $detail->product->stores_id;
+                } 
+                // 2. Fallback: Vínculo de la categoría
+                elseif ($detail->product && $detail->product->category && $detail->product->category->stores_id) {
+                    $storeId = $detail->product->category->stores_id;
+                }
+
+                if ($storeId) {
+                    $store = StoreModel::find($storeId);
                     if ($store) {
                         $store->decrement('current_stock', $detail->quantity);
                     }
                 }
             }
-            // ------------------------------------
+            // ------------------------------------------------
 
             $table = TableDeliveryModel::find($table_id);
             if ($table) {

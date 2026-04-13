@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CategoryModel; // Antes Categoria
+use App\Models\CategoryModel;
+use App\Models\StoreModel;
 use Illuminate\Http\Request;
 
 
@@ -12,23 +13,23 @@ class CategoryController extends Controller // Antes CategoriaController
     public function index()
     {
         $categories = CategoryModel::all();
-        return view('categoryRegistration', compact('categories'));
+        $stores = StoreModel::all();
+        return view('categoryRegistration', compact('categories', 'stores'));
     }
 
     // 2. Guarda una nueva categoría en la base de datos.
     public function create(Request $request)
     {
-        // Valida que el nombre no llegue vacío.
         $request->validate([
-            'name' => 'required' // Antes nombre_categoria
+            'name' => 'required'
         ]);
 
         $category = new CategoryModel();
-        // 🌟 Guarda el nombre enviado desde el formulario.
         $category->name = $request->name;
+        $category->stores_id = $request->stores_id;
         $category->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Categoría creada con éxito');
     }
 
     // 3. Busca una categoría por ID y actualiza su nombre.
@@ -41,8 +42,9 @@ class CategoryController extends Controller // Antes CategoriaController
         }
 
         $category->name = $request->name;
+        $category->stores_id = $request->stores_id;
         $category->save();
-        return redirect('/dashboard/categoryRegistration');
+        return redirect('/dashboard/categoryRegistration')->with('success', 'Categoría actualizada con éxito');
     }
 
     // 4. Elimina la categoría seleccionada de la base de datos.

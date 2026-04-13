@@ -2,41 +2,33 @@
 
 @section('content')
     {{-- Encabezado del Reporte --}}
-    <div
-        class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800 mb-6">
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                {{-- Icono principal de la sección --}}
-                <div
-                    class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+    {{-- Header Standard --}}
+    <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 mb-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
                     <i data-lucide="users" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Personal</h2>
-                    <p class="text-[11px] sm:text-xs text-gray-500 font-medium leading-none">Gestión de planilla.</p>
+                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Reporte de Personal</h2>
+                    <p class="text-xs font-semibold text-gray-400 mt-0.5 uppercase tracking-widest">Gestión de planilla y pagos</p>
                 </div>
             </div>
-
-            <div class="flex flex-1 flex-wrap lg:flex-nowrap items-center justify-end gap-3">
-                {{-- Botón 1: Nuevo Trabajador (Gradiente Naranja-Rojo) --}}
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
                 <a href="{{ url('/dashboard/staffRegistration') }}"
-                    class="whitespace-nowrap flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl text-[12px] sm:text-sm font-black text-white bg-gradient-to-r from-orange-500 to-red-600 hover:shadow-orange-500/40 shadow-lg transition-all active:scale-95">
-                    <i data-lucide="user-plus" class="w-4 h-4 text-white"></i>
+                   class="flex items-center gap-1.5 sm:gap-2 px-6 py-3 rounded-xl text-sm font-black text-white bg-gradient-to-r from-orange-500 to-red-600 hover:shadow-orange-500/40 shadow-lg transition-all active:scale-95">
+                    <i data-lucide="user-plus" class="w-4 h-4"></i>
                     Nuevo
                 </a>
-
-                {{-- Botón 2 CORREGIDO: Registrar Adelanto (Mismo Gradiente Naranja-Rojo) --}}
                 <a href="{{ url('/dashboard/staffAdvanceRegistration') }}"
-                    class="whitespace-nowrap flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl text-[12px] sm:text-sm font-black text-white bg-[#ed1c24] hover:bg-[#d61920] shadow-lg shadow-red-500/20 transition-all active:scale-95 border-2 border-white/10">
-                    <i data-lucide="banknote" class="w-4 h-4 text-white"></i>
+                   class="flex items-center gap-1.5 sm:gap-2 px-6 py-3 rounded-xl text-sm font-black text-white bg-gradient-to-r from-gray-800 to-gray-900 hover:shadow-gray-500/40 shadow-lg transition-all active:scale-95">
+                    <i data-lucide="banknote" class="w-4 h-4"></i>
                     Adelanto
                 </a>
-
-                {{-- Botón 3: Registrar Inasistencia (Faltas) --}}
                 <a href="{{ url('/dashboard/staffAbsenceRegistration') }}"
-                    class="whitespace-nowrap flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl text-[12px] sm:text-sm font-black text-white bg-gradient-to-r from-rose-600 to-pink-700 hover:shadow-rose-500/40 shadow-lg transition-all active:scale-95">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
-                    Falsas
+                   class="flex items-center gap-1.5 sm:gap-2 px-6 py-3 rounded-xl text-sm font-black text-white bg-gradient-to-r from-rose-500 to-red-600 hover:shadow-rose-500/40 shadow-lg transition-all active:scale-95">
+                    <i data-lucide="user-minus" class="w-4 h-4"></i>
+                    Inasistencia
                 </a>
             </div>
         </div>

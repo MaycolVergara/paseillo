@@ -11,8 +11,7 @@ class StoreModel extends Model
     protected $fillable = [
         'name',
         'current_stock',
-        'minimum_stock', // CORRECCIÓN: Sin espacios al final
-        'unit'
-        ];
+        'minimum_stock',
+    ];
 
 }

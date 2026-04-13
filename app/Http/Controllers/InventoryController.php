@@ -45,7 +45,7 @@ class InventoryController extends Controller
 
             DB::commit();
 
-            return redirect()->back()->with('success', "Ingreso registrado: {$request->quantity} {$supply->unit} de {$supply->name} añadidos al almacén.");
+            return redirect()->back()->with('success', "Ingreso registrado: {$request->quantity} de {$supply->name} añadidos al almacén.");
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Ocurrió un error al registrar el ingreso: ' . $e->getMessage());
@@ -61,7 +61,6 @@ class InventoryController extends Controller
             'name' => 'required|string|max:255|unique:stores,name',
             'current_stock' => 'required|numeric|min:0',
             'minimum_stock' => 'required|numeric|min:0',
-            'unit' => 'required|string|max:50',
         ]);
 
         StoreModel::create($request->all());

@@ -14,13 +14,15 @@ class UserSeeder extends Seeder
 
         $this->call(RolSeeder::class);
 
-        // 2. Creamos el usuario Admin corto
-        UserModel::create([
-            'name'     => 'Admin Paseillo',
-            'email'    => 'admin@paseillo.com',
-            'username' => 'admin', // 👈 Ahora sí podrás entrar con "admin"
-            'password' => Hash::make('admin123'), // 👈 Clave fácil para pruebas
-            'role_id'  => 1,
-        ]);
+        // 2. Creamos el usuario Admin corto de forma segura
+        UserModel::updateOrCreate(
+            ['email' => 'admin@paseillo.com'],
+            [
+                'name'     => 'Admin Paseillo',
+                'username' => 'admin',
+                'password' => Hash::make('admin123'),
+                'role_id'  => 1,
+            ]
+        );
     }
 }

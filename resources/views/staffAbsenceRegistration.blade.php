@@ -4,16 +4,12 @@
     <div class="animate-in delay-1 bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-card border border-gray-100/80 dark:border-gray-800 relative overflow-hidden group mb-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-rose-600 to-pink-700 rounded-2xl flex items-center justify-center text-white shadow-sm shadow-rose-500/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/>
-                    </svg>
+                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+                    <i data-lucide="user-minus" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight italic">Registrar Inasistencia</h2>
-                    <div class="flex items-center gap-2 mt-1">
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Selecciona el trabajador y la fecha en la que faltó para descontar su día.</p>
-                    </div>
+                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Registrar Inasistencia</h2>
+                    <p class="text-xs font-semibold text-gray-400 mt-0.5 uppercase tracking-widest">Descuento de sueldo para el personal</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
