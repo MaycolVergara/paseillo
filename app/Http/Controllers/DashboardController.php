@@ -11,12 +11,16 @@ use Carbon\Carbon;
 use App\Models\TableModel;
 use App\Models\TableDeliveryModel;
 use App\Models\StaffModel;
+use App\Models\StoreModel;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $today = Carbon::today();
+
+        // 0. Alerta de Stock (Insumos que necesitan reposición)
+        $lowStockItems = StoreModel::whereColumn('current_stock', '<=', 'minimum_stock')->get();
 
         // 1. Saca la cuenta de cuánta plata entró hoy y cuántos pedidos se hicieron
         $salesToday = SaleModel::where('status', 'Finalizado')->whereDate('date', $today)->get();
@@ -138,6 +142,7 @@ class DashboardController extends Controller
         }
 
         return view('index', compact(
+            'lowStockItems',
             'totalDay', 'ordersToday',
             'pizzasSold', 'burgersSold', 'drinksSold', 'krispySold', 'salchipapasSold',
             'topProducts', 'tables','tableDelivery', 'cashPayment', 'yapePayment', 'cardPayment',

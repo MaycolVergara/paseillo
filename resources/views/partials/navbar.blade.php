@@ -170,7 +170,7 @@
                     </p>
                 </div>
                 <div class="py-1.5">
-                    <a href="#"
+                    <a href="{{ route('settings.index') }}"
                         class="flex items-center gap-3 px-4 py-2.5 text-[13px] font-medium text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-orange-950/20 hover:text-orange-600 transition-colors duration-150">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                             class="w-4 h-4 shrink-0">

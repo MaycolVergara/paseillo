@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 // 1. Dashboard (Nombres actualizados a Inglés)
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableCustomerOrderController;
 use App\Http\Controllers\ProductController;
@@ -66,6 +67,10 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/saleDetails', [SaleController::class, 'index']);
 
+        // Configuración del Sistema (Branding)
+        Route::get('/setting', [SettingController::class, 'index'])->name('settings.index');
+        Route::post('/setting/update', [SettingController::class, 'update'])->name('settings.update');
+
         // ------------------------------------------------------
         // SECCIÓN 2: GESTIÓN DE MESAS (CONFIGURACIÓN)
         // ------------------------------------------------------
@@ -116,7 +121,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         // Personal Reporte
         Route::get('/staffreport', [StaffReportController::class, 'index']);
         Route::post('/staffreport/pay/{id}', [StaffReportController::class, 'registerPayment']);
-        
+
         // Pagos Adelantados (Advances)
         Route::get('/staffAdvanceRegistration', [StaffReportController::class, 'createAdvance']);
         Route::post('/staffAdvanceRegistration/store', [StaffReportController::class, 'storeAdvance']);

@@ -34,7 +34,7 @@
 
         {{-- Cabecera --}}
         <div class="text-center mb-5">
-            <h1 class="font-black text-2xl mb-1">PASEILLO</h1>
+            <h1 class="font-black text-2xl mb-1">{{ $settings->company_name ?? 'PASEILLO' }}</h1>
             <p class="text-xs font-bold uppercase tracking-widest text-red-600">Servicio Delivery</p>
             <p class="text-xs mt-3 bg-gray-100 py-1 rounded-md font-black italic">DELIVERY: #{{ $id }}</p>
             <p class="text-[10px] text-gray-500 mt-2">Fecha: {{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y H:i') }}</p>
@@ -83,7 +83,7 @@
             <p>*** TICKET DE DELIVERY ***</p>
             <p class="mt-1 font-bold italic underline">¡Gracias por tu pedido!</p>
             <p class="mt-1 uppercase">Paseillo Burger & Pizzas</p>
-            <p class="mt-2 uppercase text-[8px] tracking-tighter opacity-70">Desarrollado por Antigravity</p>
+            <p class="mt-2 uppercase text-[8px] tracking-tighter opacity-70">Desarrollado por {{ $settings->company_name ?? 'Paseillo' }}</p>
         </div>
     </div>
 

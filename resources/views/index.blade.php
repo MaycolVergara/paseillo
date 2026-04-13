@@ -57,6 +57,45 @@
                     </a>
                 </div>
             </div>
+        
+        {{-- ══════════════════════════════════════════════
+             1.5. ALERTAS DE INVENTARIO (Solo si hay stock bajo)
+        ══════════════════════════════════════════════ --}}
+        @if(isset($lowStockItems) && $lowStockItems->count() > 0)
+        <div class="animate-in slide-in-from-top-4 duration-500">
+            <div class="relative overflow-hidden bg-white dark:bg-gray-900 rounded-3xl border border-red-100 dark:border-red-900/30 shadow-lg shadow-red-500/5">
+                {{-- Fondo con patrón sutil --}}
+                <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style="background-image: radial-gradient(#ef4444 1px, transparent 1px); background-size: 20px 20px;"></div>
+                
+                <div class="px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-red-500/40 animate-pulse">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-black text-gray-900 dark:text-white tracking-tight uppercase">Alerta de Inventario Crítico</h3>
+                            <p class="text-[11px] font-bold text-red-500 dark:text-red-400 uppercase tracking-widest mt-0.5">Insumos por debajo del stock mínimo</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 md:justify-end flex-grow">
+                        @foreach($lowStockItems as $item)
+                        <div class="bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/50 px-3 py-2 rounded-xl flex items-center gap-3 group hover:scale-105 transition-all">
+                            <span class="text-lg">📦</span>
+                            <div>
+                                <p class="text-[11px] font-black text-gray-800 dark:text-gray-100 uppercase leading-none">{{ $item->name }}</p>
+                                <div class="flex items-center gap-1.5 mt-1">
+                                    <span class="text-[10px] font-bold text-red-600 dark:text-red-400">{{ $item->current_stock }} {{ $item->unit }}</span>
+                                    <span class="text-[8px] font-black text-gray-400 uppercase tracking-tighter">/ Min: {{ $item->minimum_stock }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
         </div>
 
         {{-- ══════════════════════════

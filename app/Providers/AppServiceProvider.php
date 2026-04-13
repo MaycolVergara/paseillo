@@ -24,5 +24,11 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
+
+        // Compartir configuración globalmente
+        \Illuminate\Support\Facades\View::composer('*', function ($view) {
+            $settings = \App\Models\SettingModel::first();
+            $view->with('settings', $settings);
+        });
     }
 }
