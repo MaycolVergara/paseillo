@@ -66,10 +66,20 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         // Inicio y Reportes
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/saleDetails', [SaleController::class, 'index']);
+        
+        // Reportes de Ventas Avanzados
+        Route::get('/reports/sales/weekly', [SaleReportController::class, 'weekly'])->name('reports.sales.weekly');
+        Route::get('/reports/sales/monthly', [SaleReportController::class, 'monthly'])->name('reports.sales.monthly');
+        Route::get('/reports/sales/annual', [SaleReportController::class, 'annual'])->name('reports.sales.annual');
 
         // Configuración del Sistema (Branding)
         Route::get('/setting', [SettingController::class, 'index'])->name('settings.index');
         Route::post('/setting/update', [SettingController::class, 'update'])->name('settings.update');
+
+        // Gestión de Stock / Inventario
+        Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+        Route::post('/inventory/entry', [InventoryController::class, 'storeEntry'])->name('inventory.entry.store');
+        Route::post('/inventory/supply', [InventoryController::class, 'storeSupply'])->name('inventory.supply.store');
 
         // ------------------------------------------------------
         // SECCIÓN 2: GESTIÓN DE MESAS (CONFIGURACIÓN)

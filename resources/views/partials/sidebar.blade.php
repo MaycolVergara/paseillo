@@ -20,10 +20,11 @@
         @if(Auth::user()->role_id == 1)
             @include('partials.menus.dashboard_home')
             @include('partials.menus.table_view_redirect')
-            @include('partials.menus.registrations')
-            @include('partials.menus.categories')
-            @include('partials.menus.sales')
-            @include('partials.menus.staff')
+            
+            @include('partials.menus.gestion_registros')
+            @include('partials.menus.gestion_ventas')
+            @include('partials.menus.gestion_personal')
+            @include('partials.menus.gestion_stock')
         @endif
 
         {{-- Mozo: solo ve su área de mesas, sin acceso al dashboard admin --}}
