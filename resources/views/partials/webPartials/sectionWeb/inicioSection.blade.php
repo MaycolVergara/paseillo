@@ -32,56 +32,55 @@
 
         <!-- Title -->
         <h1
-            class="font-anton mb-8 text-[clamp(48px,8vw,96px)] uppercase leading-[0.95] tracking-wider text-white"
+            class="font-anton mb-6 text-[clamp(52px,9vw,110px)] uppercase leading-none tracking-wide text-white"
         >
             PASEILLO<br />
             <span class="text-brand">PIZZAS</span><br />
-            <span class="text-white/30">&amp; BURGER</span>
+            <span class="text-white/20">&amp; BURGER</span>
         </h1>
 
-        <p class="font-barlow mb-12 max-w-2xl text-lg md:text-xl leading-relaxed text-white/80 font-light">
+        <p class="font-barlow mb-10 max-w-xl text-lg leading-relaxed text-white/70">
             Disfruta las mejores pizzas, hamburguesas, krispy y salchipapas con el sabor único de
             Paseillo. Preparado con ingredientes frescos y mucho amor.
         </p>
 
         <!-- Buttons -->
-        <div class="mb-16 flex flex-wrap justify-center gap-4">
+        <div class="mb-14 flex flex-wrap justify-center gap-4">
             <a
-                href="https://wa.me/51000000000?text=Hola%2C%20quiero%20ordenar"
-                target="_blank"
-                class="font-condensed font-700 inline-flex items-center gap-3 rounded-2xl border-2 border-white/40 px-10 py-5 text-base uppercase tracking-wider text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white hover:bg-white/10 hover:shadow-2xl"
+                href="#especialidades"
+                class="font-condensed font-800 inline-flex items-center gap-2 rounded-full bg-brand px-8 py-4 text-sm uppercase tracking-widest text-white shadow-[0_6px_24px_rgba(227,6,19,0.5)] transition-all duration-300 hover:-translate-y-1 hover:bg-brand-dark hover:shadow-[0_12px_32px_rgba(227,6,19,0.55)]"
             >
-                <img src="/icon/whatsapp.png" alt="WhatsApp" class="w-7 h-7"> Ordenar Ahora
+                Ver Especialidades
             </a>
 
             <a
-                href="/cartaPaseilloCompleta"
-                class="bg-brand hover:bg-brand-dark font-condensed font-700 inline-flex items-center gap-3 rounded-2xl px-10 py-5 text-base uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(227,6,19,0.6)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(227,6,19,0.7)]"
+                href="https://wa.me/51000000000?text=Hola%2C%20quiero%20ordenar"
+                target="_blank"
+                class="font-condensed font-800 inline-flex items-center gap-2 rounded-full border-2 border-white/50 px-8 py-4 text-sm uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white hover:bg-white/10"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                Ver Carta Completa
+                📲 Ordenar Ahora
             </a>
         </div>
 
         <!-- Stats -->
-        <div class="flex flex-wrap justify-center gap-12">
-            <div class="text-center group">
-                <div class="font-anton text-brand text-5xl mb-2 group-hover:scale-110 transition-transform">500+</div>
-                <div class="font-condensed text-sm font-medium uppercase tracking-wider text-white/60">
+        <div class="flex flex-wrap justify-center gap-8">
+            <div class="text-center">
+                <div class="font-anton text-brand text-4xl">500+</div>
+                <div class="font-condensed mt-1 text-xs uppercase tracking-widest text-white/50">
                     Pedidos / mes
                 </div>
             </div>
-            <div class="w-px self-stretch bg-white/20"></div>
-            <div class="text-center group">
-                <div class="font-anton text-5xl text-white mb-2 group-hover:scale-110 transition-transform">4.9 ⭐</div>
-                <div class="font-condensed text-sm font-medium uppercase tracking-wider text-white/60">
+            <div class="w-px self-stretch bg-white/10"></div>
+            <div class="text-center">
+                <div class="font-anton text-4xl text-white">4.9 ⭐</div>
+                <div class="font-condensed mt-1 text-xs uppercase tracking-widest text-white/50">
                     Valoración
                 </div>
             </div>
-            <div class="w-px self-stretch bg-white/20"></div>
-            <div class="text-center group">
-                <div class="font-anton text-brand text-5xl mb-2 group-hover:scale-110 transition-transform">12+</div>
-                <div class="font-condensed text-sm font-medium uppercase tracking-wider text-white/60">
+            <div class="w-px self-stretch bg-white/10"></div>
+            <div class="text-center">
+                <div class="font-anton text-brand text-4xl">12+</div>
+                <div class="font-condensed mt-1 text-xs uppercase tracking-widest text-white/50">
                     Especialidades
                 </div>
             </div>
