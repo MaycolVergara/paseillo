@@ -15,6 +15,8 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TablesDeliveryController;
 use App\Http\Controllers\StaffReportController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\SaleReportController;
 
 
 // 2. WEB PUBLICA (CLIENTES) - INTACTO
@@ -129,8 +131,8 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::patch('/staff/status/{id}', [StaffController::class, 'toggleStatus']);
 
         // Personal Reporte
-        Route::get('/staffreport', [StaffReportController::class, 'index']);
-        Route::post('/staffreport/pay/{id}', [StaffReportController::class, 'registerPayment']);
+        Route::get('/staffReport', [StaffReportController::class, 'index']);
+        Route::post('/staffReport/pay/{id}', [StaffReportController::class, 'registerPayment']);
 
         // Pagos Adelantados (Advances)
         Route::get('/staffAdvanceRegistration', [StaffReportController::class, 'createAdvance']);

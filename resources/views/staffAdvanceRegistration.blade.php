@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <a href="{{ url('/dashboard/staffreport') }}"
+                <a href="{{ url('/dashboard/staffReport') }}"
                     class="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all active:scale-95">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

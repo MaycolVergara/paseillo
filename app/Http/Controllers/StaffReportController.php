@@ -75,7 +75,7 @@ class StaffReportController extends Controller
             return $staff->payment_day == $diaActual && !in_array($staff->id, $paidStaffIds);
         })->take(5);
 
-        return view('staffreport', compact(
+        return view('staffReport', compact(
             'staffMembers',
             'totalNomina',
             'totalAdelantos',
@@ -141,7 +141,7 @@ class StaffReportController extends Controller
         $staff->advance_payment += $request->amount;
         $staff->save();
 
-        return redirect('/dashboard/staffreport')->with('success', 'Adelanto de S/ ' . number_format($request->amount, 2) . ' registrado para ' . $staff->name);
+        return redirect('/dashboard/staffReport')->with('success', 'Adelanto de S/ ' . number_format($request->amount, 2) . ' registrado para ' . $staff->name);
     }
 
     // --- MANEJO DE FALTAS E INASISTENCIAS ---
@@ -167,7 +167,7 @@ class StaffReportController extends Controller
             'notes' => $request->notes
         ]);
 
-        return redirect('/dashboard/staffreport')
+        return redirect('/dashboard/staffReport')
             ->with('success', 'Inasistencia registrada correctamente para ' . $staff->name);
     }
 }
