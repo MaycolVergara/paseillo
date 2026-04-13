@@ -35,7 +35,7 @@
 
         <div class="flex-1"></div>
 
-        {{-- BOTÓN DE NOTIFICACIONES (LA CAMPANITA) --}}
+        {{-- BOTÓN DE NOTIFICACIONES DE PAGOS (LA CAMPANITA) --}}
         <div class="relative group/bell flex items-center">
             <button
                 class="relative p-2 text-gray-400 hover:text-orange-500 transition-all rounded-xl hover:bg-orange-50 dark:hover:bg-gray-800">
@@ -56,12 +56,12 @@
                 @endif
             </button>
 
-            {{-- Menú desplegable de notificaciones --}}
+            {{-- Menú desplegable de notificaciones de pagos --}}
             <div
                 class="absolute right-[-70px] sm:right-0 top-[calc(100%+10px)] w-72 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl z-[100] invisible group-hover/bell:visible opacity-0 group-hover/bell:opacity-100 transition-all duration-200 transform origin-top-right scale-95 group-hover/bell:scale-100 overflow-hidden">
                 <div
                     class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 flex justify-between items-center">
-                    <h3 class="text-[13px] font-black text-gray-800 dark:text-white">Notificaciones</h3>
+                    <h3 class="text-[13px] font-black text-gray-800 dark:text-white">Pagos Pendientes</h3>
                     <span
                         class="text-[10px] font-bold px-2 py-0.5 bg-orange-100 text-orange-600 rounded-full">{{ $cantidadAPagar }}
                         nuevas</span>
@@ -96,6 +96,71 @@
                         <a href="{{ url('/dashboard/staffList') }}"
                             class="block text-center text-[11px] font-bold text-orange-600 hover:text-orange-700 transition-colors py-1">
                             Ir a Planilla de Personal
+                        </a>
+                    </div>
+                @endif
+            </div>
+        </div>
+
+        {{-- BOTÓN DE NOTIFICACIONES DE STOCK (LA CAMPANITA DE STOCK) --}}
+        <div class="relative group/stock-bell flex items-center">
+            <button
+                class="relative p-2 text-gray-400 hover:text-red-500 transition-all rounded-xl hover:bg-red-50 dark:hover:bg-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+
+                {{-- Si hay productos con stock bajo, mostramos el puntito rojo parpadeando --}}
+                @if (isset($lowStockItems) && $lowStockItems->count() > 0)
+                    <span class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span
+                            class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500 border-2 border-white dark:border-gray-900"></span>
+                    </span>
+                @endif
+            </button>
+
+            {{-- Menú desplegable de notificaciones de stock --}}
+            <div
+                class="absolute right-[-70px] sm:right-0 top-[calc(100%+10px)] w-72 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl z-[100] invisible group-hover/stock-bell:visible opacity-0 group-hover/stock-bell:opacity-100 transition-all duration-200 transform origin-top-right scale-95 group-hover/stock-bell:scale-100 overflow-hidden">
+                <div
+                    class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 flex justify-between items-center">
+                    <h3 class="text-[13px] font-black text-gray-800 dark:text-white">Stock Bajo</h3>
+                    <span
+                        class="text-[10px] font-bold px-2 py-0.5 bg-red-100 text-red-600 rounded-full">{{ isset($lowStockItems) ? $lowStockItems->count() : 0 }}
+                        items</span>
+                </div>
+
+                <div class="max-h-[300px] overflow-y-auto">
+                    @if (isset($lowStockItems) && $lowStockItems->count() > 0)
+                        @foreach ($lowStockItems as $item)
+                            <div
+                                class="px-4 py-3 hover:bg-red-50 dark:hover:bg-gray-800/50 transition-colors border-b border-gray-50 dark:border-gray-800 last:border-0">
+                                <p class="text-[12px] font-bold text-gray-800 dark:text-gray-200">
+                                    <span class="text-red-600">{{ $item->name }}</span>
+                                </p>
+                                <p class="text-[11px] text-gray-500 mt-0.5">
+                                    Stock actual: <span class="font-bold text-red-500">{{ $item->current_stock }}</span> {{ $item->unit }}
+                                </p>
+                                <p class="text-[10px] text-gray-400 mt-1">
+                                    Mínimo requerido: {{ $item->minimum_stock }} {{ $item->unit }}
+                                </p>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="px-4 py-6 text-center">
+                            <p class="text-[12px] text-gray-500 font-medium">✓ Todo el stock está en orden.</p>
+                        </div>
+                    @endif
+                </div>
+                @if (isset($lowStockItems) && $lowStockItems->count() > 0)
+                    <div class="p-2 border-t border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+                        <a href="{{ url('/dashboard/inventory') }}"
+                            class="block text-center text-[11px] font-bold text-red-600 hover:text-red-700 transition-colors py-1">
+                            Ir a Inventario
                         </a>
                     </div>
                 @endif

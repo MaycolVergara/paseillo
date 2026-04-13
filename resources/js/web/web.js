@@ -7,7 +7,7 @@ function initWebFeatures() {
     if (nav) {
         window.addEventListener('scroll', () => {
             nav.classList.toggle('shadow-lg', window.scrollY > 20);
-        }, { passive: true });
+        }, {passive: true});
     }
 
     // 2. Hamburger toggle
@@ -19,7 +19,7 @@ function initWebFeatures() {
         // Remove existing listeners if any by cloning (simple way)
         const newHam = ham.cloneNode(true);
         ham.parentNode.replaceChild(newHam, ham);
-        
+
         newHam.addEventListener('click', () => {
             open = !open;
             mob.style.maxHeight = open ? mob.scrollHeight + 'px' : '0';
@@ -40,13 +40,13 @@ function initWebFeatures() {
     const revEls = document.querySelectorAll('.reveal');
     if (revEls.length > 0 && 'IntersectionObserver' in window) {
         const revObs = new IntersectionObserver(entries => {
-            entries.forEach(e => { 
-                if (e.isIntersecting) { 
-                    e.target.classList.add('on'); 
-                    revObs.unobserve(e.target); 
-                } 
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('on');
+                    revObs.unobserve(e.target);
+                }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
         revEls.forEach(el => revObs.observe(el));
     }
 
@@ -57,15 +57,18 @@ function initWebFeatures() {
 }
 
 // ─ Global Functions (Explicitly attached to window for inline onclicks)
-window.closeNav = function() {
+window.closeNav = function () {
     const mob = document.getElementById('mob');
     const ham = document.getElementById('ham');
     if (!mob || !ham) return;
     mob.style.maxHeight = '0';
-    ham.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    ham.querySelectorAll('span').forEach(s => {
+        s.style.transform = '';
+        s.style.opacity = '';
+    });
 }
 
-window.filterMenu = function(cat) {
+window.filterMenu = function (cat) {
     document.querySelectorAll('.carta-tab').forEach(t => {
         t.classList.remove('active-carta');
         // Standard tailwind classes for inactive state
@@ -81,7 +84,7 @@ window.filterMenu = function(cat) {
     });
 }
 
-window.toggleFaq = function(btn) {
+window.toggleFaq = function (btn) {
     const item = btn.closest('.faq-item');
     if (!item) return;
     const body = item.querySelector('.faq-body');
@@ -114,9 +117,9 @@ document.addEventListener('click', e => {
     const href = a.getAttribute('href');
     if (href === '#') return;
     const t = document.querySelector(href);
-    if (t) { 
-        e.preventDefault(); 
-        window.scrollTo({ top: t.offsetTop - 70, behavior: 'smooth' }); 
+    if (t) {
+        e.preventDefault();
+        window.scrollTo({top: t.offsetTop - 70, behavior: 'smooth'});
         window.closeNav();
     }
 });
@@ -129,4 +132,6 @@ if (document.readyState === "loading") {
 }
 
 // Global fallback for late loading Lucide
-setTimeout(() => { if(window.lucide) window.lucide.createIcons(); }, 1000);
+setTimeout(() => {
+    if (window.lucide) window.lucide.createIcons();
+}, 1000);
