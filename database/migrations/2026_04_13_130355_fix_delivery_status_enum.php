@@ -17,12 +17,21 @@ return new class extends Migration
             ->where('status', 'deliveryNoExistentes')
             ->update(['status' => 'disponible']);
         
-        // Paso 2: Cambiar el enum para usar 'deliveryNoExistente' en lugar de 'deliveryNoExistentes'
-        Schema::table('tables_delivery', function (Blueprint $table) {
-            $table->enum('status', ['disponible', 'ocupado', 'deliveryNoExistente'])
-                  ->default('disponible')
-                  ->change();
-        });
+        // Paso 2: Cambiar el enum basado en el motor de base de datos
+        if (DB::getDriverName() === 'pgsql') {
+            // Lógica para PostgreSQL (Laravel Cloud) para evitar error de sintaxis en el CHECK
+            DB::statement('ALTER TABLE tables_delivery DROP CONSTRAINT IF EXISTS tables_delivery_status_check');
+            DB::statement("ALTER TABLE tables_delivery ALTER COLUMN status TYPE VARCHAR(255)");
+            DB::statement("ALTER TABLE tables_delivery ALTER COLUMN status SET DEFAULT 'disponible'");
+            DB::statement("ALTER TABLE tables_delivery ADD CONSTRAINT tables_delivery_status_check CHECK (status IN ('disponible', 'ocupado', 'deliveryNoExistente'))");
+        } else {
+            // Lógica estándar para MySQL/MariaDB (Local Laragon)
+            Schema::table('tables_delivery', function (Blueprint $table) {
+                $table->enum('status', ['disponible', 'ocupado', 'deliveryNoExistente'])
+                      ->default('disponible')
+                      ->change();
+            });
+        }
     }
 
     /**
@@ -30,12 +39,18 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Revertir al enum original
-        Schema::table('tables_delivery', function (Blueprint $table) {
-            $table->enum('status', ['disponible', 'ocupado', 'deliveryNoExistentes'])
-                  ->default('disponible')
-                  ->change();
-        });
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement('ALTER TABLE tables_delivery DROP CONSTRAINT IF EXISTS tables_delivery_status_check');
+            DB::statement("ALTER TABLE tables_delivery ALTER COLUMN status TYPE VARCHAR(255)");
+            DB::statement("ALTER TABLE tables_delivery ALTER COLUMN status SET DEFAULT 'disponible'");
+            DB::statement("ALTER TABLE tables_delivery ADD CONSTRAINT tables_delivery_status_check CHECK (status IN ('disponible', 'ocupado', 'deliveryNoExistentes'))");
+        } else {
+            Schema::table('tables_delivery', function (Blueprint $table) {
+                $table->enum('status', ['disponible', 'ocupado', 'deliveryNoExistentes'])
+                      ->default('disponible')
+                      ->change();
+            });
+        }
         
         // Revertir registros
         DB::table('tables_delivery')
