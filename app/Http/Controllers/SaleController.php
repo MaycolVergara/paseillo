@@ -13,36 +13,42 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-        // 1. Atrapa las fechas que pones en el calendario del panel
+        // 1. Atrapa las fechas que pones en el calendario o define hoy por defecto
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
 
-        // 2. SIEMPRE carga todas las ventas finalizadas para las tarjetas de resumen
-        $allSales = SaleModel::where('status', 'Finalizado')->get();
-        $totalDay = $allSales->sum('total');
-
-        // 3. Calcula los pagos por método con TODAS las ventas (siempre visible)
-        $cashPayment = $allSales->where('payment_method', 'cash')->sum('total');
-        $yapePayment = $allSales->where('payment_method', 'yape')->sum('total');
-        $cardPayment = $allSales->where('payment_method', 'card')->sum('total');
-
-        // Conteos generales para las tarjetas
-        $totalVentas = $allSales->count();
-        $ventasSalon = $allSales->whereNotNull('table_id')->count();
-        $ventasDelivery = $allSales->whereNotNull('table_delivery_id')->count();
-
-        // 4. Solo filtra las ventas para la tabla de detalle cuando hay fechas
-        $sales = collect();
-        if ($start_date && $end_date) {
+        // Si no hay fechas, definimos el rango de HOY (00:00 a 23:59)
+        if (!$start_date || !$end_date) {
+            $filterStart = \Carbon\Carbon::today()->startOfDay()->toDateTimeString();
+            $filterEnd = \Carbon\Carbon::today()->endOfDay()->toDateTimeString();
+        } else {
             $filterStart = str_replace('T', ' ', $start_date) . ':00';
             $filterEnd = str_replace('T', ' ', $end_date) . ':59';
-
-            $sales = SaleModel::where('status', 'Finalizado')
-                ->whereBetween('date', [$filterStart, $filterEnd])
-                ->get();
         }
 
-        return view('/saleDetails',
-            compact('sales', 'totalDay', 'start_date', 'end_date', 'yapePayment', 'cardPayment', 'cashPayment', 'totalVentas', 'ventasSalon', 'ventasDelivery'));
+        // 2. Cargamos las ventas filtradas por el rango seleccionado
+        $filteredSales = SaleModel::where('status', 'Finalizado')
+            ->whereBetween('date', [$filterStart, $filterEnd])
+            ->get();
+
+        // 3. Calculamos TODAS las tarjetas basándonos SOLO en el filtro
+        $totalDay = $filteredSales->sum('total');
+        $totalVentas = $filteredSales->count();
+        $ventasSalon = $filteredSales->whereNotNull('table_id')->count();
+        $ventasDelivery = $filteredSales->whereNotNull('table_delivery_id')->count();
+
+        // Pagos por método (Solo del periodo filtrado)
+        $cashPayment = $filteredSales->where('payment_method', 'cash')->sum('total');
+        $yapePayment = $filteredSales->where('payment_method', 'yape')->sum('total');
+        $cardPayment = $filteredSales->where('payment_method', 'card')->sum('total');
+
+        // 4. Las ventas detalladas para la tabla (ya filtradas arriba)
+        $sales = $filteredSales;
+
+        return view('/saleDetails', compact(
+            'sales', 'totalDay', 'start_date', 'end_date', 
+            'yapePayment', 'cardPayment', 'cashPayment', 
+            'totalVentas', 'ventasSalon', 'ventasDelivery'
+        ));
     }
 }
