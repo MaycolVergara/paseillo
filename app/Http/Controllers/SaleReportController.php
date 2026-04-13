@@ -4,11 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\SaleModel;
 use App\Models\SaleDetailModel;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-
-use App\Models\SaleModel;
-use App\Models\SaleDetailModel;
 use App\Models\ProductModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
