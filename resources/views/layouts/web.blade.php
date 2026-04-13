@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paseillo Pizzas & Burger — Huanta</title>
+    <link rel="icon" href="img/logo_principal.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -233,14 +234,14 @@ function toggleFaq(btn) {
     const body = item.querySelector(".faq-body");
     const icon = btn.querySelector(".faq-icon");
     const isOpen = body.style.maxHeight && body.style.maxHeight !== "0px";
-    
+
     // Close all
     document.querySelectorAll(".faq-item").forEach((i) => {
         i.querySelector(".faq-body").style.maxHeight = "0px";
         i.querySelector(".faq-icon").style.transform = "rotate(0deg)";
         i.querySelector(".faq-icon").textContent = "+";
     });
-    
+
     // Open clicked if it was closed
     if (!isOpen) {
         body.style.maxHeight = body.scrollHeight + "px";

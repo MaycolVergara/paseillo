@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" href="img/logo_principal.png" type="image/png">
+
     <title>Paseillo — Iniciar Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet"/>
@@ -70,7 +72,7 @@
                 const passwordInput = document.getElementById('password');
                 const eyeIcon = document.getElementById('eye-icon');
                 const eyeOffIcon = document.getElementById('eye-off-icon');
-                
+
                 if (passwordInput.type === 'password') {
                     passwordInput.type = 'text';
                     eyeIcon.classList.add('hidden');

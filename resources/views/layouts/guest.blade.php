@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login — Paseillo</title>
+    <link rel="icon" href="img/logo_principal.png" type="image/png">
 
     @vite(['resources/css/admin/admin.css', 'resources/js/admin/admin.js'])
 </head>
