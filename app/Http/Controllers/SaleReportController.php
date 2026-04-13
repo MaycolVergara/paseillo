@@ -116,7 +116,7 @@ class SaleReportController extends Controller
         $endOfYear = $startOfYear->copy()->endOfYear();
 
         // 1. Datos para el gráfico (Mes a mes)
-        $chartLabels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+        $chartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         $chartData = [];
         for ($m = 1; $m <= 12; $m++) {
             $chartData[] = SaleModel::where('status', 'Finalizado')

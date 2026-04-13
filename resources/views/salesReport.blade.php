@@ -86,11 +86,11 @@
             <div class="absolute -right-4 -bottom-4 opacity-[0.03] dark:opacity-[0.05] group-hover:scale-110 transition-transform duration-500">
                 <i data-lucide="trending-up" class="w-32 h-32"></i>
             </div>
-            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Ticket Promedio</p>
+            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Total de tikes</p>
             <h3 class="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">S/ {{ number_format($avgTicket, 2) }}</h3>
             <div class="mt-4 flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Gasto prom. por cliente</p>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Valor total de registros</p>
             </div>
         </div>
     </div>
