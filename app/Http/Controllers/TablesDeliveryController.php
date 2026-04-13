@@ -10,7 +10,7 @@ class TablesDeliveryController extends Controller
     // Muestra el panel con los botones de todas las mesas de delivery
     public function index()
     {
-        $table_config = TableDeliveryModel::where('status', '!=', 'deliveryNoExistentes')
+        $table_config = TableDeliveryModel::where('status', '!=', 'deliveryNoExistente')
             ->orderBy('table_number', 'asc')->get();
         $table_view = TableDeliveryModel::all();
         return view('customerTableDelyveryView', compact('table_config', 'table_view'));
@@ -19,7 +19,7 @@ class TablesDeliveryController extends Controller
     // Abre el formulario para que el admin diga cuántas mesas de delivery quiere hoy
     public function viewTableForm()
     {
-        $table_config = TableDeliveryModel::where('status', '!=', 'deliveryNoExistentes')
+        $table_config = TableDeliveryModel::where('status', '!=', 'deliveryNoExistente')
             ->orderBy('table_number', 'asc')
             ->get();
         $table_view = TableDeliveryModel::all();
@@ -44,7 +44,7 @@ class TablesDeliveryController extends Controller
         if ($newQuantity > $currentTotal) {
             // Activa las que estaban apagadas y crea las que faltan para llegar al nuevo total
             TableDeliveryModel::where('table_number', '<=', $currentTotal)
-                ->where('status', 'deliveryNoExistentes')
+                ->where('status', 'deliveryNoExistente')
                 ->update(['status' => 'disponible']);
 
             for ($i = $currentTotal + 1; $i <= $newQuantity; $i++) {
@@ -54,12 +54,12 @@ class TablesDeliveryController extends Controller
                 ]);
             }
         } elseif ($newQuantity < $currentTotal) {
-            // Si quieres menos, las que sobran pasan a "deliveryNoExistentes" (se esconden)
+            // Si quieres menos, las que sobran pasan a "deliveryNoExistente" (se esconden)
             TableDeliveryModel::where('table_number', '<=', $newQuantity)
                 ->update(['status' => 'disponible']);
 
             TableDeliveryModel::where('table_number', '>', $newQuantity)
-                ->update(['status' => 'deliveryNoExistentes']);
+                ->update(['status' => 'deliveryNoExistente']);
         }
 
         return redirect('/dashboard/customerTableDelyveryRegistration')->with('success', 'Salón de Paseillo actualizado con éxito.');

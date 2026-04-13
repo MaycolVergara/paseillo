@@ -13,13 +13,16 @@ return new class extends Migration
     public function up(): void
     {
         // Paso 1: Primero actualizar los datos existentes a un valor válido temporal
-        DB::statement("UPDATE tables_delivery SET status = 'disponible' WHERE status = 'deliveryNoExistentes'");
+        DB::table('tables_delivery')
+            ->where('status', 'deliveryNoExistentes')
+            ->update(['status' => 'disponible']);
         
         // Paso 2: Cambiar el enum para usar 'deliveryNoExistente' en lugar de 'deliveryNoExistentes'
-        DB::statement("ALTER TABLE tables_delivery MODIFY COLUMN status ENUM('disponible', 'ocupado', 'deliveryNoExistente') DEFAULT 'disponible'");
-        
-        // Paso 3: Ahora actualizar los registros que deberían estar como no existentes
-        // (esto se hará cuando el usuario ajuste las mesas nuevamente)
+        Schema::table('tables_delivery', function (Blueprint $table) {
+            $table->enum('status', ['disponible', 'ocupado', 'deliveryNoExistente'])
+                  ->default('disponible')
+                  ->change();
+        });
     }
 
     /**
@@ -28,9 +31,15 @@ return new class extends Migration
     public function down(): void
     {
         // Revertir al enum original
-        DB::statement("ALTER TABLE tables_delivery MODIFY COLUMN status ENUM('disponible', 'ocupado', 'deliveryNoExistentes') DEFAULT 'disponible'");
+        Schema::table('tables_delivery', function (Blueprint $table) {
+            $table->enum('status', ['disponible', 'ocupado', 'deliveryNoExistentes'])
+                  ->default('disponible')
+                  ->change();
+        });
         
         // Revertir registros
-        DB::statement("UPDATE tables_delivery SET status = 'deliveryNoExistentes' WHERE status = 'deliveryNoExistente'");
+        DB::table('tables_delivery')
+            ->where('status', 'deliveryNoExistente')
+            ->update(['status' => 'deliveryNoExistentes']);
     }
 };
