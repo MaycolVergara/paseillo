@@ -103,3 +103,7 @@ body { font-family: "Barlow", sans-serif; overflow-x: hidden; }
 
 /* Animation utilities */
 .animate-float { animation: float 4s ease-in-out infinite; }
+.animate-pulse-ring { animation: pulse-ring 2s ease-out infinite; }
+
+/* Text shadow */
+.text-shadow { text-shadow: 0 2px 8px rgba(0,0,0,0.3); }

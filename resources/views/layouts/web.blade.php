@@ -22,6 +22,9 @@
 {{-- FOOTER --}}
 @include('partials.webPartials.footer')
 
+{{-- WHATSAPP FLOAT --}}
+@include('partials.webPartials.whatsappFloat')
+
 {{-- Scripts al Final para Estabilidad --}}
 <script src="{{ asset('js/lucide_icon/lucide.min.js') }}"></script>
 <script>
