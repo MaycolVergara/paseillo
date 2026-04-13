@@ -2,13 +2,16 @@
 <section id="especialidades" class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <!-- Header -->
-        <div class="text-center mb-16">
-            <div class="reveal inline-flex items-center gap-2 bg-brand/10 border border-brand/20 rounded-full px-4 py-1.5 mb-5">
-                <span class="font-condensed text-xs font-700 tracking-[3px] text-brand uppercase">Nuestras Especialidades</span>
+        <div class="text-center mb-20">
+            <div class="reveal inline-flex items-center gap-2 bg-brand/10 border border-brand/20 rounded-full px-5 py-2 mb-6">
+                <span class="font-condensed text-xs font-bold tracking-wider text-brand uppercase">Nuestras Especialidades</span>
             </div>
-            <h2 class="reveal font-anton text-[clamp(36px,6vw,72px)] text-gray-900 uppercase leading-none">
+            <h2 class="reveal font-anton text-[clamp(40px,7vw,80px)] text-gray-900 uppercase leading-tight mb-4">
                 LO QUE NOS <span class="text-brand">HACE ÚNICOS</span>
             </h2>
+            <p class="reveal text-gray-600 text-lg max-w-2xl mx-auto font-light">
+                Cada plato preparado con pasión, ingredientes frescos y el sabor que nos caracteriza
+            </p>
         </div>
 
         <!-- Grid -->
