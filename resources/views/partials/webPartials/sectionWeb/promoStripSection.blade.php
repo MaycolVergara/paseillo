@@ -33,7 +33,8 @@
                     src="icon/whatsapp.png"
                     alt="Paseillo Pizzas & Burger"
                     class="h-8 w-8 object-contain"
-                /></span> Ordenar por WhatsApp
+                />
+            </span> Ordenar por WhatsApp
         </a>
     </div>
 </div>
