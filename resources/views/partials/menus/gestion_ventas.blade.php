@@ -10,14 +10,16 @@
             </span>
             <span class="nav-item-text flex-1 text-left whitespace-nowrap overflow-hidden">Ventas & Reportes</span>
             <span class="nav-chevron-wrap">
-                <i data-lucide="chevron-down" class="chevron-icon w-5 h-5 text-gray-400 shrink-0 transition-transform duration-200"></i>
+                <i data-lucide="chevron-down"
+                   class="chevron-icon w-5 h-5 text-gray-400
+                   shrink-0 transition-transform duration-200"></i>
             </span>
         </button>
 
         <div class="submenu-wrapper">
             <div class="submenu-inner">
                 <div class="ml-5 pl-4 mt-1.5 mb-1 border-l-2 border-dashed border-gray-200 dark:border-gray-700 space-y-1">
-                    
+
                     {{-- Diario --}}
                     <a href="{{ url('/dashboard/saleDetails')}}"
                        class="nav-link sub-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all duration-200">
