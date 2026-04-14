@@ -32,6 +32,16 @@
             <h3 class="text-lg font-black text-gray-800 dark:text-white">Información del Producto</h3>
             <p class="text-sm text-gray-500 mt-1">Actualiza los datos requeridos en el sistema.</p>
         </div>
+        
+        @if ($errors->any())
+            <div class="px-8 py-4 bg-red-50 border-b border-red-100">
+                <ul class="list-disc list-inside">
+                    @foreach ($errors->all() as $error)
+                        <li class="text-sm font-bold text-red-600 uppercase tracking-tight">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         {{-- Ruta y variable actualizadas: $producto->id_producto -> $product->id --}}
         <form action="{{ url('/dashboard/products/' . $product->id . '/update') }}" method="POST" enctype="multipart/form-data" class="p-8">
