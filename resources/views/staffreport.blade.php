@@ -49,13 +49,7 @@
                 </div>
                 <div
                     class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
+                    <i data-lucide="users" class="w-5 h-5"></i>
                 </div>
             </div>
             <div class="mt-4 flex items-center gap-2 relative z-10">
@@ -82,11 +76,7 @@
                 </div>
                 <div
                     class="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2v20" />
-                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>
+                    <i data-lucide="dollar-sign" class="w-5 h-5"></i>
                 </div>
             </div>
             <div class="mt-4 w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 relative z-10">
@@ -109,12 +99,7 @@
                 </div>
                 <div
                     class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-emerald-400 backdrop-blur-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
-                        <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
-                        <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
-                    </svg>
+                    <i data-lucide="wallet" class="w-5 h-5"></i>
                 </div>
             </div>
             <div class="mt-4 flex items-center justify-between relative z-10">
@@ -307,20 +292,7 @@
         <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gray-50/50 dark:bg-gray-800/20">
             <div>
                 <h3 class="text-lg font-black text-gray-900 dark:text-white flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                        fill="none" class="text-blue-500" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-                        <line x1="16" x2="16" y1="2" y2="6" />
-                        <line x1="8" x2="8" y1="2" y2="6" />
-                        <line x1="3" x2="21" y1="10" y2="10" />
-                        <path d="M8 14h.01" />
-                        <path d="M12 14h.01" />
-                        <path d="M16 14h.01" />
-                        <path d="M8 18h.01" />
-                        <path d="M12 18h.01" />
-                        <path d="M16 18h.01" />
-                    </svg>
+                    <i data-lucide="calendar-days" class="w-5 h-5 text-blue-500"></i>
                     Cronograma de Pagos
                 </h3>
                 <p class="text-xs text-gray-500 mt-1">Detalle personal por trabajador para el periodo seleccionado.</p>
@@ -328,12 +300,7 @@
 
             <div class="relative w-full sm:max-w-xs">
                 <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8" />
-                        <path d="m21 21-4.3-4.3" />
-                    </svg>
+                    <i data-lucide="search" class="w-3.5 h-3.5"></i>
                 </span>
                 <input type="text" id="searchInput" placeholder="Buscar empleado..."
                     class="w-full pl-9 pr-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all outline-none dark:text-white">
@@ -399,7 +366,7 @@
                                 $estadoClasses =
                                     'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30';
                                 $estadoIcon =
-                                    '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+                                    '<i data-lucide="check" class="w-2.5 h-2.5"></i>';
                             } else {
                                 // Aún no ha sido pagado, ¿Le toca hoy?
                                 if ($diffDays <= 0) {
@@ -496,7 +463,8 @@
             let w = btn.offsetWidth;
             btn.style.width = w + 'px'; // Fix width for animation
             btn.innerHTML =
-                '<svg class="animate-spin h-3.5 w-3.5 text-current inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+                '<i data-lucide="loader-2" class="animate-spin h-3.5 w-3.5 inline"></i>';
+            if(window.lucide) window.lucide.createIcons();
 
             // Post real a la base de datos
             fetch(`/dashboard/staffReport/pay/${staffId}`, {
@@ -517,7 +485,8 @@
                         let estadoTd = row.querySelectorAll('td')[5];
                         if (estadoTd) {
                             estadoTd.innerHTML =
-                                '<span class="animate-in fade-in zoom-in duration-300 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Pagado</span>';
+                                '<span class="animate-in fade-in zoom-in duration-300 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-amber-400 border border-emerald-200 dark:border-emerald-500/30"><i data-lucide="check" class="w-2.5 h-2.5"></i> Pagado</span>';
+                            if(window.lucide) window.lucide.createIcons();
                         }
                     }
                 })

@@ -134,7 +134,7 @@ class TableCustomerOrderController extends Controller
                 // 1. Prioridad: Vínculo directo del producto
                 if ($detail->product && $detail->product->stores_id) {
                     $storeId = $detail->product->stores_id;
-                } 
+                }
                 // 2. Fallback: Vínculo de la categoría
                 elseif ($detail->product && $detail->product->category && $detail->product->category->stores_id) {
                     $storeId = $detail->product->category->stores_id;

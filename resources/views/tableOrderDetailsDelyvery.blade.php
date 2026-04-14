@@ -6,12 +6,7 @@
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
             <div class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-red-500/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="1" y="3" width="15" height="13"></rect>
-                        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                    </svg>
+                    <i data-lucide="truck" class="w-6 h-6"></i>
                 </div>
                 <div>
                     <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Delivery Paseillo</h2>
@@ -22,9 +17,7 @@
             {{-- BOTÓN VOLVER (Corregido con /dashboard/) --}}
             <a href="{{ url('/dashboard/customerTableDelyveryView') }}"
                class="px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-xl text-sm font-black hover:bg-gray-200 dark:hover:bg-gray-700 transition-all shadow-sm flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m15 18-6-6 6-6"/>
-                </svg>
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 Volver a Delivery
             </a>
         </div>
@@ -146,9 +139,7 @@
                             <option value="card">Tarjeta (POS)</option>
                         </select>
                     </div>
-                    @if(Auth::user()->role_id == 1)
-                        <button type="submit" onclick="return confirm('¿Finalizar pedido y liberar unidad?')" class="w-full md:w-auto px-8 py-3 bg-emerald-500 text-white text-sm font-bold rounded-xl shadow-lg h-[46px]">Finalizar Delivery</button>
-                    @endif
+                    <button type="submit" onclick="return confirm('¿Finalizar pedido y liberar unidad?')" class="w-full md:w-auto px-8 py-3 bg-emerald-500 text-white text-sm font-bold rounded-xl shadow-lg h-[46px]">Finalizar Delivery</button>
                 </form>
             </div>
         </div>

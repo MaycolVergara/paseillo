@@ -9,12 +9,7 @@
             <div class="flex items-center gap-3">
                 <div
                     class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
-                        <path d="M3 6h18"/>
-                        <path d="M16 10a4 4 0 0 1-8 0"/>
-                    </svg>
+                    <i data-lucide="shopping-bag" class="w-6 h-6"></i>
                 </div>
                 <div>
                     <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Catálogo
@@ -25,10 +20,7 @@
 
             <a href="{{ url('/dashboard/tableView') }}"
                class="px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-xl text-sm font-black hover:bg-gray-200 dark:hover:bg-gray-700 transition-all shadow-sm flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m15 18-6-6 6-6"/>
-                </svg>
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 Volver a Mesas
             </a>
         </div>
@@ -53,11 +45,7 @@
                         </select>
                         <div
                             class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
-                                 stroke-linejoin="round">
-                                <path d="m6 9 6 6 6-6"/>
-                            </svg>
+                            <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
                         </div>
                     </div>
                 </div>
@@ -238,22 +226,17 @@
                             </select>
                             <div
                                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-                                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"
-                                     viewBox="0 0 24 24">
-                                    <path d="M19 9l-7 7-7-7"></path>
-                                </svg>
+                                <i data-lucide="chevron-down" class="h-4 w-4"></i>
                             </div>
                         </div>
                     </div>
 
                     {{-- 3. Botón Finalizar Venta --}}
-                    @if(Auth::user()->role_id == 1)
-                        <button type="submit"
-                                onclick="return confirm('¿Seguro que deseas cobrar esta cuenta y liberar la mesa?')"
-                                class="w-full md:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95 whitespace-nowrap h-[46px]">
-                            Finalizar Venta
-                        </button>
-                    @endif
+                    <button type="submit"
+                            onclick="return confirm('¿Seguro que deseas cobrar esta cuenta y liberar la mesa?')"
+                            class="w-full md:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95 whitespace-nowrap h-[46px]">
+                        Finalizar Venta
+                    </button>
                 </form>
             </div>
         </div>

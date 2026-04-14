@@ -13,6 +13,9 @@
         ->get();
 
     $cantidadAPagar = $personalAPagar->count();
+
+    // Cálculo Global de Stock Bajo
+    $lowStockItems = \App\Models\StoreModel::whereColumn('current_stock', '<=', 'minimum_stock')->get();
 @endphp
 
 <header
@@ -21,11 +24,7 @@
         <div class="flex items-center gap-3">
             <button onclick="toggleSidebar()" title="Colapsar menú"
                 class="flex items-center justify-center w-8 h-8 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-500 transition-all duration-200">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-[18px] h-[18px]">
-                    <path fill-rule="evenodd"
-                        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"
-                        clip-rule="evenodd" />
-                </svg>
+                <i data-lucide="menu" class="w-[18px] h-[18px]"></i>
             </button>
             <div class="flex items-center gap-2 sm:gap-2.5 hidden lg:flex">
                 <div class="w-1 h-5 rounded-full bg-gradient-to-b from-red-500 to-orange-400"></div>
@@ -39,11 +38,7 @@
         <div class="relative group/bell flex items-center">
             <button
                 class="relative p-2 text-gray-400 hover:text-orange-500 transition-all rounded-xl hover:bg-orange-50 dark:hover:bg-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-                    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-                </svg>
+                <i data-lucide="bell" class="w-5 h-5"></i>
 
                 {{-- Si hay personas por pagar hoy, mostramos el puntito rojo parpadeando --}}
                 @if ($cantidadAPagar > 0)
@@ -106,12 +101,7 @@
         <div class="relative group/stock-bell flex items-center">
             <button
                 class="relative p-2 text-gray-400 hover:text-red-500 transition-all rounded-xl hover:bg-red-50 dark:hover:bg-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
-                    <path d="M12 6v6l4 2" />
-                </svg>
-
+                <i data-lucide="boxes" class="w-5 h-5"></i>
                 {{-- Si hay productos con stock bajo, mostramos el puntito rojo parpadeando --}}
                 @if (isset($lowStockItems) && $lowStockItems->count() > 0)
                     <span class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
@@ -143,7 +133,8 @@
                                     <span class="text-red-600">{{ $item->name }}</span>
                                 </p>
                                 <p class="text-[11px] text-gray-500 mt-0.5">
-                                    Stock actual: <span class="font-bold text-red-500">{{ $item->current_stock }}</span> {{ $item->unit }}
+                                    Stock actual: <span class="font-bold text-red-500">{{ $item->current_stock }}</span>
+                                    {{ $item->unit }}
                                 </p>
                                 <p class="text-[10px] text-gray-400 mt-1">
                                     Mínimo requerido: {{ $item->minimum_stock }} {{ $item->unit }}
@@ -172,20 +163,11 @@
         {{-- Mantenemos el JS original: toggleTheme() --}}
         <div class="flex items-center gap-0.5 sm:gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg px-1 sm:px-2 py-1.5 cursor-pointer select-none"
             onclick="toggleTheme()" title="Cambiar tema">
-            <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                class="w-3.5 h-3.5 text-orange-500">
-                <path
-                    d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.061 1.06l1.06 1.06z" />
-            </svg>
+            <i data-lucide="sun" id="sun-icon" class="w-3.5 h-3.5 text-orange-500"></i>
             <div class="toggle-track mx-0.5">
                 <div class="toggle-thumb"></div>
             </div>
-            <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                class="w-3.5 h-3.5 text-gray-400 dark:text-blue-400">
-                <path fill-rule="evenodd"
-                    d="M7.455 2.004a.75.75 0 01.26.77 7 7 0 009.958 7.967.75.75 0 011.067.853A8.5 8.5 0 116.647 1.921a.75.75 0 01.808.083z"
-                    clip-rule="evenodd" />
-            </svg>
+            <i data-lucide="moon" id="moon-icon" class="w-3.5 h-3.5 text-gray-400 dark:text-blue-400"></i>
         </div>
 
         <div class="w-px h-6 bg-gray-200 dark:bg-gray-700"></div>
@@ -203,7 +185,8 @@
             <button
                 class="flex items-center gap-1.5 sm:gap-2.5 px-1 sm:px-2.5 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 cursor-pointer select-none shrink-0"
                 onclick="toggleDropdown()">
-                <span class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-lg bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0">
+                <span
+                    class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-lg bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0">
                     {{ Auth::user()->role_id == 1 ? '🤵‍' : '🧑‍🍳' }}
                 </span>
                 <div class="text-left hidden md:block">
@@ -215,12 +198,7 @@
                         {{ Auth::user()->staff->position ?? 'Usuario' }}
                     </p>
                 </div>
-                <svg class="w-3.5 h-3.5 text-gray-400 ml-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                    fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.04 1.08l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                        clip-rule="evenodd" />
-                </svg>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400 ml-0.5"></i>
             </button>
 
             <div id="profile-dropdown"
@@ -237,12 +215,7 @@
                 <div class="py-1.5">
                     <a href="{{ route('settings.index') }}"
                         class="flex items-center gap-3 px-4 py-2.5 text-[13px] font-medium text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-orange-950/20 hover:text-orange-600 transition-colors duration-150">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                            class="w-4 h-4 shrink-0">
-                            <path fill-rule="evenodd"
-                                d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54a1 1 0 01-1.186-.447l-1.18-2.044a1 1 0 01.205-1.251l-1.267-1.114a7.05 7.05 0 010-2.227L1.821 7.773a1 1 0 01-.206-1.25l1.18-2.045a1 1 0 011.187-.447l1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                                clip-rule="evenodd" />
-                        </svg>
+                        <i data-lucide="settings" class="w-4 h-4 shrink-0"></i>
                         Configuración
                     </a>
                     <div class="mx-3 my-1 h-px bg-gray-100 dark:bg-gray-800"></div>
@@ -250,15 +223,7 @@
                         @csrf
                         <button type="submit"
                             class="w-full flex items-center gap-3 px-4 py-2.5 text-[13px] font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors duration-150 text-left">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="w-4 h-4 shrink-0">
-                                <path fill-rule="evenodd"
-                                    d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z"
-                                    clip-rule="evenodd" />
-                                <path fill-rule="evenodd"
-                                    d="M19 10a.75.75 0 00-.75-.75H8.704l1.048-1.04a.75.75 0 10-1.004-1.116l-2.5 2.25a.75.75 0 000 1.112l2.5 2.25a.75.75 0 101.004-1.116l-1.048-1.04h9.546A.75.75 0 0019 10z"
-                                    clip-rule="evenodd" />
-                            </svg>
+                            <i data-lucide="log-out" class="w-4 h-4 shrink-0"></i>
                             Salir
                         </button>
                     </form>

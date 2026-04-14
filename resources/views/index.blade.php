@@ -15,7 +15,7 @@
                 <div>
                     @if (Auth::user()->role_id == 1)
                         <h2 class="text-xl md:text-2xl font-black text-gray-900 dark:text-white tracking-tight italic">
-                            ¡Buen día, <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600 font-black">{{ Auth::user()->name }}</span>!
+                            ¡Buen día, <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600 font-black">{{ Auth::user()->staff->name ?? Auth::user()->username }}</span>!
                         </h2>
                     @endif
                     <div class="flex items-center gap-2 mt-1">
@@ -31,24 +31,17 @@
                 <div class="flex items-center gap-3 flex-shrink-0">
                     <div
                         class="hidden md:flex items-center gap-2 text-xs font-bold text-gray-500 dark:text-gray-400 bg-gray-50/80 dark:bg-gray-800/80 px-4 py-2.5 rounded-xl border border-gray-100 dark:border-gray-700">
-                        <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
+                        <i data-lucide="calendar" class="w-4 h-4 opacity-70"></i>
                         {{ now()->translatedFormat('d M Y') }}
                     </div>
                     <a href="{{ url('/') }}" target="_blank"
                         class="group flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-gray-900 to-gray-800 dark:from-orange-500 dark:to-red-600 shadow-md hover:shadow-xl transition-all duration-300 active:scale-95">
-                        <svg class="w-4 h-4 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.l"
-                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
+                        <i data-lucide="external-link" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i>
                         Ver Menú Web
                     </a>
                 </div>
             </div>
-        
+
         {{-- ══════════════════════════════════════════════
              1.5. ALERTAS DE INVENTARIO (Solo si hay stock bajo)
         ══════════════════════════════════════════════ --}}
@@ -57,7 +50,7 @@
             <div class="relative overflow-hidden bg-white dark:bg-gray-900 rounded-3xl border border-red-100 dark:border-red-900/30 shadow-lg shadow-red-500/5">
                 {{-- Fondo con patrón sutil --}}
                 <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style="background-image: radial-gradient(#ef4444 1px, transparent 1px); background-size: 20px 20px;"></div>
-                
+
                 <div class="px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-red-500/40">
@@ -102,10 +95,7 @@
                 <div class="relative z-10 flex flex-col justify-between h-full">
                     <div class="flex items-center gap-2 mb-4">
                         <div class="w-8 h-8 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
+                            <i data-lucide="dollar-sign" class="w-4 h-4 text-white"></i>
                         </div>
                         <p class="text-[11px] font-black uppercase text-white/90 tracking-widest">Ingresos Hoy</p>
                     </div>
@@ -125,10 +115,7 @@
                 <div class="relative z-10">
                     <div
                         class="w-10 h-10 bg-blue-500/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-3">
-                        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                        </svg>
+                        <i data-lucide="clipboard-list" class="w-5 h-5 text-blue-400"></i>
                     </div>
                     <p class="text-[10px] font-bold uppercase text-slate-400 tracking-widest">Pedidos</p>
                     <p class="text-2xl font-black text-white mt-1">{{ $ordersToday ?? 0 }}</p>
@@ -300,17 +287,21 @@
                 </div>
 
                 <div
-                    class="p-4 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-2 sm:gap-3">
+                    class="p-4 grid grid-cols-[repeat(auto-fill,minmax(70px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-4 sm:gap-5">
                     @foreach ($tables as $table)
                         <button
-                            class="relative aspect-square flex flex-col items-center justify-center gap-0.5 sm:gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
+                            class="relative aspect-square flex flex-col items-center justify-center gap-1 rounded-xl border-2 hover:-translate-y-0.5 transition-all duration-300
                            {{ $table->status == 'disponible'
                                ? 'border-emerald-100 bg-emerald-50/50 text-emerald-600 hover:shadow-md hover:shadow-emerald-500/20'
                                : 'border-rose-100 bg-rose-50/50 text-rose-600 hover:shadow-md hover:shadow-rose-500/20' }}">
                             <span class="font-black tracking-tighter leading-none"
-                                style="font-size: clamp(14px, 4vw, 24px);">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
-                            <span class="font-black uppercase tracking-widest opacity-70 leading-none"
-                                style="font-size: clamp(6px, 1.5vw, 8px);">{{ $table->status }}</span>
+                                  style="font-size: clamp(12px, 2vw, 22px);">
+                                {{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}
+                            </span>
+                            <span class="font-black uppercase tracking-widest opacity-80 leading-none"
+                                  style="font-size: 8px;">
+                                {{ $table->status }}
+                            </span>
                         </button>
                     @endforeach
                 </div>

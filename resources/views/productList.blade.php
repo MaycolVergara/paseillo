@@ -19,12 +19,7 @@
             <div class="flex flex-1 max-w-md items-center gap-3">
                 <div class="relative w-full">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8" />
-                            <path d="m21 21-4.3-4.3" />
-                        </svg>
+                    <i data-lucide="search" class="w-4 h-4"></i>
                     </span>
                     <input type="text" id="searchInput" placeholder="Buscar pizza, burger..."
                         class="w-full pl-9 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all outline-none dark:text-white">
@@ -32,10 +27,7 @@
                 {{-- Ruta: productoRegistro -> productRegistration --}}
                 <a href="{{ url('/dashboard/productRegistration') }}"
                     class="whitespace-nowrap flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl text-[12px] sm:text-sm font-black text-white bg-gradient-to-r from-orange-500 to-red-600 hover:shadow-orange-500/40 shadow-lg transition-all active:scale-95">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 5v14M5 12h14" />
-                    </svg>
+                    <i data-lucide="plus" class="w-4 h-4"></i>
                     Ingresar nuevo producto
                 </a>
             </div>
@@ -126,13 +118,7 @@
                                 <div class="inline-block text-left group/menu relative">
                                     <button
                                         class="p-2 rounded-xl text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-600 transition-all">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="1" />
-                                            <circle cx="12" cy="5" r="1" />
-                                            <circle cx="12" cy="19" r="1" />
-                                        </svg>
+                                        <i data-lucide="more-vertical" class="w-5 h-5"></i>
                                     </button>
 
                                     <div
@@ -141,12 +127,7 @@
                                             {{-- Ruta: productos/{id}/editar -> products/{id}/edit --}}
                                             <a href="{{ url('/dashboard/products/' . $product->id . '/edit') }}"
                                                 class="flex items-center gap-2.5 w-full px-3 py-2 text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-950/30 hover:text-orange-600 rounded-xl transition-all">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-                                                    <path d="m15 5 4 4" />
-                                                </svg>
+                                                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
                                                 Editar
                                             </a>
                                             {{-- Ruta: productos/{id}/eliminar -> products/{id}/delete --}}
@@ -155,17 +136,7 @@
                                                 @csrf @method('DELETE')
                                                 <button type="submit" onclick="return confirm('¿Eliminar producto?')"
                                                     class="flex items-center gap-2.5 w-full px-3 py-2 text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-all text-left">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path d="M3 6h18" />
-                                                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                                                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                                                        <line x1="10" x2="10" y1="11"
-                                                            y2="17" />
-                                                        <line x1="14" x2="14" y1="11"
-                                                            y2="17" />
-                                                    </svg>
+                                                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                                                     Eliminar
                                                 </button>
                                             </form>

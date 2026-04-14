@@ -59,6 +59,13 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::delete('/deleteDetail/{detail_id}', [TableCustomerOrderController::class, 'deleteDetail']);
     Route::get('/issueReceipt/{table_id}', [TableCustomerOrderController::class, 'generateReceipt']);
     Route::post('/finalizeSale/{table_id}', [TableCustomerOrderController::class, 'finalizeSale']);
+    // ------------------------------------------------------
+    // SECCIÓN 2: PEDIDOS DE DELIVERY (BOTONES ROJOS)
+    // ------------------------------------------------------
+    Route::get('/tableOrderDetailsDelyvery/{id}', [TableCustomerOrderDeliveryController::class, 'index']);
+    Route::get('/issueReceiptDelivery/{id}', [TableCustomerOrderDeliveryController::class, 'generateReceipt']);
+    Route::post('/saveOrderDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'saveOrder']);
+    Route::post('/finalizeSaleDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'finalizeSale']);
 
     // ------------------------------------------------------
     // ACCESO RESTRINGIDO (Solo Administrador)
@@ -95,15 +102,6 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/customerTableDelyveryRegistration', [TablesDeliveryController::class, 'viewTableForm']);
         Route::post('/customerTableDelyveryRegistration/insert', [TablesDeliveryController::class, 'store']);
 
-        // ------------------------------------------------------
-        // SECCIÓN 3: PEDIDOS DE DELIVERY (BOTONES ROJOS)
-        // ------------------------------------------------------
-        // He cambiado las URLs para que NO CHOCEN con las del salón
-        Route::get('/tableOrderDetailsDelyvery/{id}', [TableCustomerOrderDeliveryController::class, 'index']);
-        Route::get('/issueReceiptDelivery/{id}', [TableCustomerOrderDeliveryController::class, 'generateReceipt']);
-
-        Route::post('/saveOrderDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'saveOrder']);
-        Route::post('/finalizeSaleDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'finalizeSale']);
 
         // ------------------------------------------------------
         // SECCIÓN 4: MANTENIMIENTO (PRODUCTOS, CATEGORÍAS, USUARIOS)

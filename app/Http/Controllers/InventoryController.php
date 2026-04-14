@@ -16,7 +16,7 @@ class InventoryController extends Controller
     {
         $supplies = StoreModel::orderBy('name', 'asc')->get();
         $entries = InventoryEntryModel::with('supply')->orderBy('entry_date', 'desc')->paginate(10);
-        
+
         return view('inventoryManagement', compact('supplies', 'entries'));
     }
 
@@ -40,6 +40,9 @@ class InventoryController extends Controller
 
             // 2. Actualizar el stock actual en la tabla principal
             $supply = StoreModel::findOrFail($request->store_id);
+            if ($supply->current_stock<0 ){
+
+            }
             $supply->current_stock += $request->quantity;
             $supply->save();
 

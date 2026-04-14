@@ -19,8 +19,7 @@ class DashboardController extends Controller
     {
         $today = Carbon::today();
 
-        // 0. Alerta de Stock (Insumos que necesitan reposición)
-        $lowStockItems = StoreModel::whereColumn('current_stock', '<=', 'minimum_stock')->get();
+        // 0. Alerta de Stock (Insumos que necesitan reposición) - Ahora se maneja globalmente en el Navbar.
 
         // 1. Saca la cuenta de cuánta plata entró hoy y cuántos pedidos se hicieron
         $salesToday = SaleModel::where('status', 'Finalizado')->whereDate('date', $today)->get();
@@ -50,13 +49,13 @@ class DashboardController extends Controller
 
                 if (str_contains($catName, 'pizza')) {
                     $pizzasSold += $detail->quantity;
-                } elseif (str_contains($catName, 'hamburguesa') || str_contains($catName, 'burger')) {
+                } elseif (str_contains($catName, 'hamburguesa') || str_contains($catName, 'burger') || str_contains($catName, 'hambru') || str_contains($catName, 'burg')) {
                     $burgersSold += $detail->quantity;
-                } elseif (str_contains($catName, 'bebida') || str_contains($catName, 'gaseosa') || str_contains($catName, 'refresco')) {
+                } elseif (str_contains($catName, 'bebida') || str_contains($catName, 'gaseosa') || str_contains($catName, 'refresco') || str_contains($catName, 'tomar') || str_contains($catName, 'jugo')) {
                     $drinksSold += $detail->quantity;
-                } elseif (str_contains($catName, 'krispy') || str_contains($catName, 'pollo') || str_contains($catName, 'broaster')) {
+                } elseif (str_contains($catName, 'krispy') || str_contains($catName, 'pollo') || str_contains($catName, 'broaster') || str_contains($catName, 'ala')) {
                     $krispySold += $detail->quantity;
-                } elseif (str_contains($catName, 'salchipapa') || str_contains($catName, 'papas')) {
+                } elseif (str_contains($catName, 'salchipapa') || str_contains($catName, 'papa') || str_contains($catName, 'frita')) {
                     $salchipapasSold += $detail->quantity;
                 }
             }
@@ -142,7 +141,6 @@ class DashboardController extends Controller
         }
 
         return view('index', compact(
-            'lowStockItems',
             'totalDay', 'ordersToday',
             'pizzasSold', 'burgersSold', 'drinksSold', 'krispySold', 'salchipapasSold',
             'topProducts', 'tables','tableDelivery', 'cashPayment', 'yapePayment', 'cardPayment',
