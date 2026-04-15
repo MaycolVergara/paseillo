@@ -8,11 +8,24 @@ class SaleModel extends Model
 {
     protected $table = 'sales';
     protected $primaryKey = 'id';
+
     protected $fillable = [
         'user_id',
+        'customer_id',
         'date',
         'total',
+        'table_delivery_id',
         'table_id',
         'table_number',
-        'status'];
+        'status',
+        'payment_method',
+        'receipt_type',
+        'print_format'
+    ];
+
+    // conexión: Una venta pertenece a un cliente
+    public function customer()
+    {
+        return $this->belongsTo(CustomerBallotModel::class, 'customer_id');
+    }
 }

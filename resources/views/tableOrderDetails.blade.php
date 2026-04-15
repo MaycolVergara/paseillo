@@ -55,7 +55,7 @@
                     <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Personalizado</label>
                     <input type="text" name="customization" placeholder="Sin cremas..."
                            class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-800 border
-                            border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium 
+                            border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium
                             text-gray-700 dark:text-gray-300 focus:outline-none
                              focus:border-orange-500">
                 </div>
@@ -68,7 +68,7 @@
                            class="w-full px-3 py-2.5 bg-gray-100 dark:bg-gray-800/50 border
                             border-gray-200 dark:border-gray-700 rounded-xl text-sm font-bold
                              text-gray-500 dark:text-gray-400 outline-none cursor-not-allowed">
-                                             </div>
+                </div>
 
                 <div class="lg:col-span-1">
                     <label
@@ -76,7 +76,7 @@
                         Cantidad</label>
                     <input type="number" name="quantity" id="input-cantidad" min="1" value="1" required
                            class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200
-                            dark:border-gray-700 rounded-xl text-sm font-bold text-gray-800 dark:text-white 
+                            dark:border-gray-700 rounded-xl text-sm font-bold text-gray-800 dark:text-white
                             focus:ring-2 focus:ring-orange-500/20 outline-none transition-all text-center">
                 </div>
 
@@ -202,9 +202,18 @@
             {{-- Lado Derecho: Acciones en una sola línea --}}
             <div class="flex flex-col md:flex-row items-end gap-4 w-full lg:w-auto">
 
-                {{-- 1. Botón Emitir Boleta --}}
+                {{-- Botón Emitir Ticket --}}
                 <a href="{{ url('/dashboard/issueReceipt/' . $id) }}" target="_blank"
                    class="w-full md:w-auto px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-amber-500/20 transition-all active:scale-95 text-center flex items-center justify-center whitespace-nowrap h-[46px]">
+                    Emitir Ticket
+                </a>
+
+                {{-- Botón Emitir Boleta --}}
+                <a href="{{ url('/dashboard/customerBallot/' . $id) }}" target="_blank"
+                   class="w-full md:w-auto px-6 py-3 bg-blue-500
+                hover:bg-blue-600 text-white text-sm font-bold
+                rounded-xl shadow-lg shadow-blue-500/20 transition-all
+                 active:scale-95 text-center flex items-center justify-center whitespace-nowrap h-[46px]">
                     Emitir Boleta
                 </a>
 
@@ -213,7 +222,7 @@
                       class="flex flex-col md:flex-row items-end gap-4 w-full md:w-auto">
                     @csrf
 
-                    {{-- 2. Selector de Método de Pago --}}
+                    {{-- Selector de Método de Pago --}}
                     <div class="w-full md:w-48">
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5 ml-1">Método
                             de Pago</label>
@@ -231,7 +240,7 @@
                         </div>
                     </div>
 
-                    {{-- 3. Botón Finalizar Venta --}}
+                    {{--Botón Finalizar Venta --}}
                     <button type="submit"
                             onclick="return confirm('¿Seguro que deseas cobrar esta cuenta y liberar la mesa?')"
                             class="w-full md:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95 whitespace-nowrap h-[46px]">
@@ -245,12 +254,13 @@
     </div>
 
     <script>
-        document.getElementById('select-producto').addEventListener('change', function() {
+        document.getElementById('select-producto').addEventListener('change', function () {
             const precio = this.options[this.selectedIndex].getAttribute('data-precio');
             document.getElementById('input-precio-unidad').value = precio;
             calcularTotal();
         });
         document.getElementById('input-cantidad').addEventListener('input', calcularTotal);
+
         function calcularTotal() {
             const precio = document.getElementById('input-precio-unidad').value || 0;
             const cantidad = document.getElementById('input-cantidad').value || 0;

@@ -13,6 +13,10 @@ return new class extends Migration {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
+
+            // 1. Relación con el cliente (Colocado aquí arriba directamente)
+            $table->unsignedBigInteger('customer_id')->nullable();
+
             $table->dateTime('date')->useCurrent();
             $table->decimal('total', 10, 2)->default(0.00);
 
@@ -23,10 +27,21 @@ return new class extends Migration {
             $table->string('status', 20)->default('open');
             $table->enum('payment_method', ['cash', 'card', 'yape'])->default('cash');
 
+            // 2. Tipo de comprobante (Ticket, Boleta, Factura) -> Por defecto será 'ticket'
+            $table->enum('receipt_type', ['ticket', 'receipt', 'invoice'])->default('ticket');
+
+            // 3. Formato de impresión (Detallado o Por Consumo) -> Por defecto será 'detailed'
+            $table->enum('print_format', ['detailed', 'consumption'])->default('detailed');
+
             // RELACIONES
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            // Esta es la llave foránea que une la venta con el cliente
+            $table->foreign('customer_id')->references('id')->on('customer_ballot')->onDelete('set null');
+
             $table->foreign('table_id')->references('id')->on('tables');
             $table->foreign('table_delivery_id')->references('id')->on('tables_delivery')->onDelete('set null');
+
             $table->timestamps();
         });
     }

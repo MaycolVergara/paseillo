@@ -17,6 +17,7 @@ use App\Http\Controllers\TablesDeliveryController;
 use App\Http\Controllers\StaffReportController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\SaleReportController;
+use App\Http\Controllers\customerBallotController;
 
 
 // 2. WEB PUBLICA (CLIENTES) - INTACTO
@@ -58,6 +59,8 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::post('/saveOrder/{table_id}', [TableCustomerOrderController::class, 'saveOrder']);
     Route::delete('/deleteDetail/{detail_id}', [TableCustomerOrderController::class, 'deleteDetail']);
     Route::get('/issueReceipt/{table_id}', [TableCustomerOrderController::class, 'generateReceipt']);
+    Route::get('/customerBallot/{table_id}', [customerBallotController::class, 'showBallot']);
+
     Route::post('/finalizeSale/{table_id}', [TableCustomerOrderController::class, 'finalizeSale']);
     // ------------------------------------------------------
     // SECCIÓN 2: PEDIDOS DE DELIVERY (BOTONES ROJOS)
@@ -75,7 +78,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         // Inicio y Reportes
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/saleDetails', [SaleController::class, 'index']);
-        
+
         // Reportes de Ventas Avanzados
         Route::get('/reports/sales/weekly', [SaleReportController::class, 'weekly'])->name('reports.sales.weekly');
         Route::get('/reports/sales/monthly', [SaleReportController::class, 'monthly'])->name('reports.sales.monthly');
@@ -144,10 +147,10 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/staff/{id}/credentials', [UserController::class, 'createCredentials']);
         Route::post('/staff/{id}/credentials', [UserController::class, 'storeCredentials']);
 
-
-
-
-
+        //Acceso a Emitir Boleta Cliente
+        Route::get('/customerBallot/{table_id}', [customerBallotController::class, 'showBallot']);
+        Route::post('/customerBallot/saveClient', [customerBallotController::class, 'saveClient'])->name('customerBallot.saveClient');
+        Route::post('/customerBallot/generatePdf', [customerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');
     });
 
 });
