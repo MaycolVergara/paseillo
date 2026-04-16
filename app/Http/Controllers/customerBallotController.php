@@ -9,7 +9,7 @@ use App\Models\SaleModel;
 use App\Models\SaleDetailModel;
 use App\Models\CustomerBallotModel;
 
-class customerBallotController extends Controller
+class CustomerBallotController extends Controller
 {
     public function index()
     {      $customer=CustomerBallotModel::all();

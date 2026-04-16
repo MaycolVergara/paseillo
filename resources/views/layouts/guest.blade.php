@@ -6,7 +6,7 @@
     <title>Login — Paseillo</title>
     <link rel="icon" href="img/logo_principal.png" type="image/png">
 
-    @vite(['resources/css/admin/admin.css', 'resources/js/admin/admin.js'])
+    @vite(['resources/css/admin/admin.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col items-center justify-center p-6">
 

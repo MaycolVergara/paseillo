@@ -17,7 +17,7 @@ use App\Http\Controllers\TablesDeliveryController;
 use App\Http\Controllers\StaffReportController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\SaleReportController;
-use App\Http\Controllers\customerBallotController;
+use App\Http\Controllers\CustomerBallotController;
 
 
 // 2. WEB PUBLICA (CLIENTES) - INTACTO
@@ -70,9 +70,9 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::post('/finalizeSaleDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'finalizeSale']);
 
     // AQUÍ VAN LAS 3 RUTAS DE LA BOLETA PARA QUE LOS MOZOS PUEDAN USARLAS
-    Route::get('/customerBallot/{table_id}', [customerBallotController::class, 'showBallot']);
-    Route::post('/customerBallot/saveClient', [customerBallotController::class, 'saveClient'])->name('customerBallot.saveClient');
-    Route::post('/customerBallot/generatePdf', [customerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');
+    Route::get('/customerBallot/{table_id}', [CustomerBallotController::class, 'showBallot']);
+    Route::post('/customerBallot/saveClient', [CustomerBallotController::class, 'saveClient'])->name('customerBallot.saveClient');
+    Route::post('/customerBallot/generatePdf', [CustomerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');
     // ------------------------------------------------------
     // ACCESO RESTRINGIDO (Solo Administrador)
     // ------------------------------------------------------
@@ -150,12 +150,11 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/staff/{id}/credentials', [UserController::class, 'createCredentials']);
         Route::post('/staff/{id}/credentials', [UserController::class, 'storeCredentials']);
 
-        Route::get('/customerBallot/{table_id}', [customerBallotController::class, 'showBallot']);
+        Route::get('/customerBallot/{table_id}', [CustomerBallotController::class, 'showBallot']);
+        Route::post('/customerBallot/saveClient', [CustomerBallotController::class, 'saveClient'])->name('customerBallot.saveClient');
+        Route::post('/customerBallot/generatePdf', [CustomerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');
 
-        Route::post('/customerBallot/saveClient', [customerBallotController::class, 'saveClient'])->name('customerBallot.saveClient');
-        Route::post('/customerBallot/generatePdf', [customerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');;
-
-        Route::get('/customerList', [customerBallotController::class, 'index']);
+        Route::get('/customerList', [CustomerBallotController::class, 'index']);
 
     });
 

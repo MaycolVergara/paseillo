@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
             try {
                 $settings = \App\Models\SettingModel::first();
                 $view->with('settings', $settings);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 $view->with('settings', null);
             }
         });
