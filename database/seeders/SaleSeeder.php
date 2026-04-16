@@ -14,11 +14,22 @@ class SaleSeeder extends Seeder
 {
     public function run()
     {
-        // Limpiamos ventas previas
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // Limpiamos ventas previas de forma compatible con MySQL y PostgreSQL
+        $driver = DB::getDriverName();
+        if ($driver === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        } elseif ($driver === 'pgsql') {
+            DB::statement('SET session_replication_role = "replica";');
+        }
+
         SaleModel::truncate();
         SaleDetailModel::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        if ($driver === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        } elseif ($driver === 'pgsql') {
+            DB::statement('SET session_replication_role = "origin";');
+        }
 
         $products = ProductModel::all();
         $users = UserModel::all();
