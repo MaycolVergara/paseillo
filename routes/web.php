@@ -59,8 +59,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::post('/saveOrder/{table_id}', [TableCustomerOrderController::class, 'saveOrder']);
     Route::delete('/deleteDetail/{detail_id}', [TableCustomerOrderController::class, 'deleteDetail']);
     Route::get('/issueReceipt/{table_id}', [TableCustomerOrderController::class, 'generateReceipt']);
-    Route::get('/customerBallot/{table_id}', [customerBallotController::class, 'showBallot']);
-
+    Route::post('/finalizeSale/{table_id}', [TableCustomerOrderController::class, 'finalizeSale']);
     Route::post('/finalizeSale/{table_id}', [TableCustomerOrderController::class, 'finalizeSale']);
     // ------------------------------------------------------
     // SECCIÓN 2: PEDIDOS DE DELIVERY (BOTONES ROJOS)
@@ -70,6 +69,10 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::post('/saveOrderDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'saveOrder']);
     Route::post('/finalizeSaleDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'finalizeSale']);
 
+    // AQUÍ VAN LAS 3 RUTAS DE LA BOLETA PARA QUE LOS MOZOS PUEDAN USARLAS
+    Route::get('/customerBallot/{table_id}', [customerBallotController::class, 'showBallot']);
+    Route::post('/customerBallot/saveClient', [customerBallotController::class, 'saveClient'])->name('customerBallot.saveClient');
+    Route::post('/customerBallot/generatePdf', [customerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');
     // ------------------------------------------------------
     // ACCESO RESTRINGIDO (Solo Administrador)
     // ------------------------------------------------------
@@ -147,10 +150,13 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/staff/{id}/credentials', [UserController::class, 'createCredentials']);
         Route::post('/staff/{id}/credentials', [UserController::class, 'storeCredentials']);
 
-        //Acceso a Emitir Boleta Cliente
         Route::get('/customerBallot/{table_id}', [customerBallotController::class, 'showBallot']);
+
         Route::post('/customerBallot/saveClient', [customerBallotController::class, 'saveClient'])->name('customerBallot.saveClient');
-        Route::post('/customerBallot/generatePdf', [customerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');
+        Route::post('/customerBallot/generatePdf', [customerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');;
+
+        Route::get('/customerList', [customerBallotController::class, 'index']);
+
     });
 
 });

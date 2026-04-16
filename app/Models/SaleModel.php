@@ -19,6 +19,8 @@ class SaleModel extends Model
         'table_number',
         'status',
         'payment_method',
+        'customer_phone',
+        'delivery_address',
         'receipt_type',
         'print_format'
     ];

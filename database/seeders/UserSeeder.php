@@ -11,17 +11,21 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-
-        $this->call(RolSeeder::class);
-
-        // 2. Creamos el usuario Admin corto de forma segura
+        // 1. Admin Principal
         UserModel::updateOrCreate(
-            ['email' => 'admin@paseillo.com'],
+            ['username' => 'admin'],
             [
-                'name'     => 'Admin Paseillo',
-                'username' => 'admin',
                 'password' => Hash::make('admin123'),
-                'role_id'  => 1,
+                'role_id'  => 1, // Admin
+            ]
+        );
+
+        // 2. Mozo Ejemplar
+        UserModel::updateOrCreate(
+            ['username' => 'mozo1'],
+            [
+                'password' => Hash::make('mozo123'),
+                'role_id'  => 2, // Mozo
             ]
         );
     }

@@ -454,63 +454,11 @@
                 </div>
             @endif
         </div>
+        {{-- Paginación --}}
+        <div id="paginacion-contenedor"
+            class="px-6 py-3 border-t border-gray-100 dark:border-gray-800 flex justify-center items-center bg-gray-50/30 dark:bg-gray-800/20">
+        </div>
     </div>
 </div>
 
-    <script>
-        function marcarPagado(btn, staffId) {
-            // Feedback visual rápido
-            let w = btn.offsetWidth;
-            btn.style.width = w + 'px'; // Fix width for animation
-            btn.innerHTML =
-                '<i data-lucide="loader-2" class="animate-spin h-3.5 w-3.5 inline"></i>';
-            if(window.lucide) window.lucide.createIcons();
-
-            // Post real a la base de datos
-            fetch(`/dashboard/staffReport/pay/${staffId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        let container = btn.parentElement;
-                        container.innerHTML =
-                            '<span class="text-[11px] font-bold text-emerald-500/80 italic">—</span>';
-
-                        let row = container.closest('tr');
-                        let estadoTd = row.querySelectorAll('td')[5];
-                        if (estadoTd) {
-                            estadoTd.innerHTML =
-                                '<span class="animate-in fade-in zoom-in duration-300 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-amber-400 border border-emerald-200 dark:border-emerald-500/30"><i data-lucide="check" class="w-2.5 h-2.5"></i> Pagado</span>';
-                            if(window.lucide) window.lucide.createIcons();
-                        }
-                    }
-                })
-                .catch(error => {
-                    alert('Hubo un error al registrar el pago');
-                    console.error(error);
-                    btn.innerHTML = 'Pagar';
-                });
-        }
-
-        // Buscador Front-End para Tabla de Pagos
-        document.getElementById('searchInput')?.addEventListener('input', function(e) {
-            let filter = e.target.value.toLowerCase();
-            let rows = document.querySelectorAll('#tabla-paginada tr.fila-paginada');
-
-            rows.forEach(row => {
-                // Buscamos en todas las celdas de la fila (principalmente Trabajador y Fecha)
-                let textContent = row.textContent.toLowerCase();
-                if (textContent.includes(filter)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-    </script>
 @endsection

@@ -81,10 +81,4 @@
     </div>
 </div>
 
-<script>
-    document.getElementById('logo-input').addEventListener('change', function(e) {
-        const name = e.target.files[0] ? e.target.files[0].name : 'Selecciona un archivo...';
-        document.getElementById('file-name').textContent = name;
-    });
-</script>
 @endsection

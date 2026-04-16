@@ -45,34 +45,27 @@
                 </div>
 
                 {{-- GRID RESPONSIVO: Adaptable a móviles y tablets --}}
-                <div id="contenedor-mesas" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
-
+                {{-- GRID RESPONSIVO: Mas estrecho para que quepan mas mesas --}}
+                <div id="contenedor-mesas" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-3 sm:gap-4 lg:gap-6">
                     @foreach($table_config as $table)
                         @php
                             // Determinar el color según el estado y quién atiende
                             if ($table->status == 'disponible') {
-                                // Mesa libre = verde
                                 $cardClass = 'border-emerald-100 bg-emerald-50 text-emerald-600 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-400';
-                                $labelText = 'Disponible';
+                                $labelText = 'Libre';
                             } elseif ($table->servingUser && $table->servingUser->role_id == 2) {
-                                // Mozo atendiendo = azul
                                 $cardClass = 'border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-900 dark:bg-blue-950/30 dark:text-blue-400';
                                 $labelText = $table->servingUser->name;
                             } else {
-                                // Admin atendiendo = rojo
                                 $cardClass = 'border-red-100 bg-red-50 text-red-600 dark:border-red-900 dark:bg-red-950/30 dark:text-red-400';
                                 $labelText = $table->servingUser ? $table->servingUser->name : 'Ocupado';
                             }
                         @endphp
 
                         <a href="{{ url('/dashboard/tableOrderDetails/'.$table->table_number) }}"
-                           class="aspect-square flex flex-col items-center justify-center gap-2 sm:gap-3 p-4 sm:p-6 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-[3.5rem] border-4 {{ $cardClass }} hover:scale-105 transition-all shadow-xl">
-
-                            {{-- Número RESPONSIVO --}}
-                            <span class="text-3xl sm:text-4xl lg:text-7xl font-black tracking-tighter leading-none">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
-
-                            {{-- Nombre de quién atiende o estado --}}
-                            <span class="text-xs font-black uppercase tracking-widest text-center leading-tight">{{ $labelText }}</span>
+                           class="aspect-[0.85/1] flex flex-col items-center justify-center gap-1.5 p-3 rounded-2xl border-4 {{ $cardClass }} hover:scale-105 transition-all shadow-lg">
+                            <span class="text-2xl sm:text-3xl lg:text-5xl font-black tracking-tighter leading-none">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+                            <span class="text-[9px] font-black uppercase tracking-wider text-center leading-tight truncate w-full px-1">{{ $labelText }}</span>
                         </a>
                     @endforeach
                     @else

@@ -148,9 +148,7 @@
                                 <option value="{{ $store->id }}">{{ $store->name }}</option>
                             @endforeach
                         </select>
-                        <p class="text-[10px] text-gray-400 mt-2 leading-relaxed italic">
-                            Si vinculas, todos los productos de esta categoría descontarán de este insumo automáticamente.
-                        </p>
+
                     </div>
                 </div>
 

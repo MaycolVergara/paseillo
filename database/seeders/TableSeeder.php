@@ -10,10 +10,10 @@ class TableSeeder extends Seeder
     public function run()
     {
         for ($i = 1; $i <= 10; $i++) {
-            TableModel::create([
-                'table_number'=>$i,
-                'status'=>'disponible'
-            ]);
+            TableModel::updateOrCreate(
+                ['table_number' => $i],
+                ['status' => 'disponible']
+            );
         }
 
     }

@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 
     {{-- 2. Assets estructurados (Admin) --}}
-    @vite(['resources/css/admin/admin.css', 'resources/js/admin/admin.js'])
+    @vite(['resources/css/admin/admin.css', 'resources/js/app.js'])
 
 </head>
 
@@ -37,6 +37,7 @@
 </div>
 
     {{-- Scripts al final --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/lucide_icon/lucide.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -15,31 +15,31 @@ class StoreSeeder extends Seeder
         $items = [
             [
                 'name' => 'Pan Burger',
-                'current_stock' => 10,
+                'current_stock' => 50,
                 'minimum_stock' => 50,
                 'unit' => 'Unid',
             ],
             [
                 'name' => 'Queso Cheddar',
-                'current_stock' => 5,
+                'current_stock' => 50,
                 'minimum_stock' => 20,
                 'unit' => 'Paquetes',
             ],
             [
                 'name' => 'Carne Burger',
-                'current_stock' => 120,
+                'current_stock' => 50,
                 'minimum_stock' => 50,
                 'unit' => 'Unid',
             ],
             [
                 'name' => 'Gaseosa Inka Cola 1.5L',
-                'current_stock' => 2,
+                'current_stock' => 50,
                 'minimum_stock' => 12,
                 'unit' => 'Botellas',
             ],
             [
                 'name' => 'Papas Pre-fritas',
-                'current_stock' => 60,
+                'current_stock' => 50,
                 'minimum_stock' => 40,
                 'unit' => 'Kg',
             ]

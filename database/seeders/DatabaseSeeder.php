@@ -10,14 +10,17 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Aquí llamamos a tu seeder de usuario
         $this->call([
             RolSeeder::class,
+            StoreSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
             StaffSeeder::class,
-            TableDeliverySeeder::class,
+            SettingSeeder::class,
             TableSeeder::class,
-            // CategorySeeder::class, // Deshabilitado para inicio limpio
-            // SaleSeeder::class,     // Deshabilitado para inicio limpio
+            TableDeliverySeeder::class,
+            SaleSeeder::class,
+            StaffPaymentSeeder::class,
         ]);
     }
 }

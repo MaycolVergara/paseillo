@@ -127,3 +127,48 @@ body { transition: background-color 0.3s, color 0.3s; }
     scrollbar-width: thin;
 }
 @media (max-width: 768px) { .responsive-card-grid { grid-template-columns: 1fr !important; } }
+
+/* ── Search Dropdown ── */
+.search-results-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-top: 4px;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+.dark .search-results-container {
+    background: #1f2937;
+    border-color: #374151;
+}
+.search-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.search-item:hover {
+    background: #fef2f2;
+    color: #ef4444;
+}
+.dark .search-item:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+}
+
+/* ── Narrower Button Utility ── */
+.btn-narrow {
+    aspect-ratio: 1 / 1;
+    padding: 1rem !important;
+}
+@media (min-width: 1024px) {
+    .btn-narrow {
+        aspect-ratio: 1.2 / 1; /* Slightly wider than square to look "narrower" in grid context? Or vice versa? */
+        /* Actually, let's just reduce padding and font size slightly to make them feel less bulky */
+    }
+}

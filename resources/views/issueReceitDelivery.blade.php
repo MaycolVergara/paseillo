@@ -84,6 +84,24 @@
 
     <div class="border-b-2 border-dashed border-gray-400 mb-4"></div>
 
+    {{-- Datos de Entrega --}}
+    <div class="mb-4 space-y-2">
+        @if($sale->customer_phone)
+            <div class="flex items-start gap-2">
+                <i data-lucide="phone" class="w-3 h-3 mt-0.5"></i>
+                <span class="text-xs font-black">CEL: {{ $sale->customer_phone }}</span>
+            </div>
+        @endif
+        @if($sale->delivery_address)
+            <div class="flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3 h-3 mt-0.5"></i>
+                <span class="text-xs font-black leading-tight">DIR: {{ $sale->delivery_address }}</span>
+            </div>
+        @endif
+    </div>
+
+    <div class="border-b-2 border-dashed border-gray-400 mb-4"></div>
+
     {{-- Tabla de Productos --}}
     <table class="w-full mb-4">
         <thead>

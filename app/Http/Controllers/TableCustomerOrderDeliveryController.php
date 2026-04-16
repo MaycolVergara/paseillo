@@ -35,7 +35,7 @@ class TableCustomerOrderDeliveryController extends Controller
         }
 
         return view('tableOrderDetailsDelyvery',
-            compact('products', 'categories', 'saleDetails', 'overallTotal', 'id'));
+            compact('products', 'categories', 'saleDetails', 'overallTotal', 'id', 'activeSale'));
     }
 
     /**
@@ -47,7 +47,9 @@ class TableCustomerOrderDeliveryController extends Controller
         $request->validate([
             'product_id' => 'required',
             'quantity' => 'required|integer|min:1',
-            'customization' => 'nullable|string'
+            'customization' => 'nullable|string',
+            'customer_phone' => 'nullable|string',
+            'delivery_address' => 'nullable|string|max:9'
         ]);
 
         $product = ProductModel::find($request->product_id);
@@ -68,6 +70,13 @@ class TableCustomerOrderDeliveryController extends Controller
             $sale->date = now();
             $sale->status = 'Pending';
             $sale->total = 0;
+            $sale->customer_phone = $request->customer_phone;
+            $sale->delivery_address = $request->delivery_address;
+            $sale->save();
+        } else {
+            // Si ya existe la venta, actualizamos los datos del cliente si se enviaron
+            if ($request->has('customer_phone')) $sale->customer_phone = $request->customer_phone;
+            if ($request->has('delivery_address')) $sale->delivery_address = $request->delivery_address;
             $sale->save();
         }
 
@@ -114,8 +123,7 @@ class TableCustomerOrderDeliveryController extends Controller
                 // 1. Prioridad: Vínculo directo del producto
                 if ($detail->product && $detail->product->stores_id) {
                     $storeId = $detail->product->stores_id;
-                } 
-                // 2. Fallback: Vínculo de la categoría
+                } // 2. Fallback: Vínculo de la categoría
                 elseif ($detail->product && $detail->product->category && $detail->product->category->stores_id) {
                     $storeId = $detail->product->category->stores_id;
                 }

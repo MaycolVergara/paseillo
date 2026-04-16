@@ -31,6 +31,7 @@ class ProductModel extends Model
         'description',
         'delivery_date',
         'image',
-        'category_id'
+        'category_id',
+        'stores_id'
     ];
 }

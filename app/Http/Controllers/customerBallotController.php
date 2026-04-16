@@ -12,8 +12,8 @@ use App\Models\CustomerBallotModel;
 class customerBallotController extends Controller
 {
     public function index()
-    {
-        return view('customerBallot');
+    {      $customer=CustomerBallotModel::all();
+        return view('customerList',compact('customer'));
     }
 
     public function showBallot($table_id)
@@ -299,70 +299,5 @@ class customerBallotController extends Controller
         return $html;
     }
 
-    public function searchDni($dni)
-    {
-        try {
-            if (!preg_match('/^[0-9]{8}$/', $dni)) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'El DNI debe tener 8 dígitos exactos.'
-                ]);
-            }
 
-            $token = env('RENIEC_API_TOKEN');
-
-            if (!$token) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Error de configuración: Token no disponible.'
-                ]);
-            }
-
-            $response = Http::withoutVerifying()
-                ->withToken($token)
-                ->timeout(15)
-                ->retry(3, 200)
-                ->get("https://api.apis.net.pe/v2/reniec/dni?numero=" . $dni);
-
-            if ($response->successful()) {
-                $data = $response->json();
-
-                if (!isset($data['nombres']) || !isset($data['apellidoPaterno'])) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Los datos del DNI no tienen el formato esperado.'
-                    ]);
-                }
-
-                return response()->json([
-                    'success' => true,
-                    'name' => $data['nombres'] ?? '',
-                    'surname' => trim(($data['apellidoPaterno'] ?? '') . ' ' . ($data['apellidoMaterno'] ?? '')),
-                    'dni' => $data['numeroDocumento'] ?? $dni
-                ]);
-            }
-
-            $errorMessage = 'DNI no encontrado';
-            if ($response->status() === 401) {
-                $errorMessage = 'Token de API inválido o expirado.';
-            } elseif ($response->status() === 404) {
-                $errorMessage = 'DNI no encontrado en RENIEC.';
-            } elseif ($response->status() === 429) {
-                $errorMessage = 'Demasiadas solicitudes. Intenta en unos segundos.';
-            } elseif ($response->status() >= 500) {
-                $errorMessage = 'Servidor de RENIEC no disponible. Intenta más tarde.';
-            }
-
-            return response()->json([
-                'success' => false,
-                'message' => $errorMessage
-            ]);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ]);
-        }
-    }
 }

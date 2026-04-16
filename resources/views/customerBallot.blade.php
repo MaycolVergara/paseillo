@@ -8,7 +8,8 @@
             {{-- Vínculo vital con la venta actual --}}
             <input type="hidden" name="sale_id" value="{{ $sale->id }}" data-table-id="{{ $sale->table_id }}">
 
-            <div class="bg-white dark:bg-gray-900 shadow-2xl rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800">
+            <div
+                class="bg-white dark:bg-gray-900 shadow-2xl rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800">
 
                 {{-- ENCABEZADO --}}
                 <div class="bg-gradient-to-r from-orange-500 to-red-600 p-6">
@@ -17,7 +18,8 @@
                             <i data-lucide="receipt" class="w-7 h-7"></i>
                             Finalizar Comprobante
                         </h3>
-                        <span class="bg-white/20 text-white text-xs font-bold px-4 py-1 rounded-full backdrop-blur-md border border-white/30">
+                        <span
+                            class="bg-white/20 text-white text-xs font-bold px-4 py-1 rounded-full backdrop-blur-md border border-white/30">
                             Mesa #{{ $sale->table_number ?? 'S/N' }}
                         </span>
                     </div>
@@ -65,21 +67,25 @@
                             </div>
 
                             <div class="space-y-1">
-                                <label class="text-[10px] font-black text-gray-400 uppercase ml-2">WhatsApp (Envío digital)</label>
+                                <label class="text-[10px] font-black text-gray-400 uppercase ml-2">WhatsApp (Envío
+                                    digital)</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <i data-lucide="phone" class="w-4 h-4 text-green-500"></i>
                                     </div>
                                     <input type="text" id="customer_phone" name="customer_phone" maxlength="9"
-                                           class="block w-full pl-10 p-3 bg-gray-50 dark:bg-gray-800 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-green-500 transition-all"
-                                           placeholder="Ej: 987654321">
+                                           class="block w-full pl-10 p-3 bg-gray-50 dark:bg-gray-800
+                                           border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-green-500 transition-all"
+                                           placeholder="Ej: 987654321" required>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4 pt-4">
                                 <div class="space-y-2">
-                                    <label class="text-[10px] font-black text-gray-400 uppercase ml-2">Formato Impresión</label>
-                                    <select name="print_format"
+                                    <label class="text-[10px] font-black text-gray-400 uppercase ml-2">Formato
+                                        Impresión</label>
+
+                                    <select id="print_format_select" name="print_format"
                                             class="w-full p-3 bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 rounded-xl text-sm font-bold focus:border-orange-500 transition-all cursor-pointer">
                                         <option value="detailed">Detallado (Lista)</option>
                                         <option value="consumption">Por Consumo (Resumen)</option>
@@ -90,19 +96,29 @@
 
                         {{-- COLUMNA DERECHA: TICKET VISUAL --}}
                         <div class="lg:col-span-5">
-                            <div class="bg-gray-50 dark:bg-gray-800/40 rounded-3xl p-6 border border-gray-100 dark:border-gray-800 shadow-inner">
+                            <div
+                                class="bg-gray-50 dark:bg-gray-800/40 rounded-3xl p-6 border border-gray-100 dark:border-gray-800 shadow-inner">
 
-                                <div class="text-center mb-6 border-b-2 border-dashed border-gray-200 dark:border-gray-700 pb-4">
-                                    <h1 class="font-black text-xl text-gray-800 dark:text-white leading-none tracking-tighter">PASEILLO</h1>
+                                <div
+                                    class="text-center mb-6 border-b-2 border-dashed border-gray-200 dark:border-gray-700 pb-4">
+                                    <h1 class="font-black text-xl text-gray-800 dark:text-white leading-none tracking-tighter">
+                                        PASEILLO</h1>
                                     <p class="text-[10px] font-bold text-gray-500 uppercase">Pizzas & Burgers</p>
                                     <p class="text-[9px] text-gray-400 font-medium">JR. GERVASIO SANTILLANA 120</p>
                                     <p class="text-[9px] text-gray-400 font-medium">HUANTA - AYACUCHO</p>
 
-                                    <div class="mt-4 text-left bg-white dark:bg-gray-900 p-3 rounded-xl space-y-1 border border-gray-100 dark:border-gray-700 shadow-sm">
-                                        <p class="text-[10px] text-gray-400 font-bold uppercase">Fecha: <span class="text-gray-800 dark:text-gray-200">{{ now()->format('d/m/Y H:i') }}</span></p>
-                                        <p class="text-[10px] text-gray-400 font-bold uppercase">Cliente: <span id="display_name" class="text-gray-800 dark:text-gray-200">---</span></p>
-                                        <p class="text-[10px] text-gray-400 font-bold uppercase">DNI: <span id="display_dni" class="text-gray-800 dark:text-gray-200">---</span></p>
-                                        <p class="text-[10px] text-gray-400 font-bold uppercase">Moneda: <span class="text-gray-800 dark:text-gray-200">SOLES</span></p>
+                                    <div
+                                        class="mt-4 text-left bg-white dark:bg-gray-900 p-3 rounded-xl space-y-1 border border-gray-100 dark:border-gray-700 shadow-sm">
+                                        <p class="text-[10px] text-gray-400 font-bold uppercase">Fecha: <span
+                                                class="text-gray-800 dark:text-gray-200">{{ now()->format('d/m/Y H:i') }}</span>
+                                        </p>
+                                        <p class="text-[10px] text-gray-400 font-bold uppercase">Cliente: <span
+                                                id="display_name" class="text-gray-800 dark:text-gray-200">---</span>
+                                        </p>
+                                        <p class="text-[10px] text-gray-400 font-bold uppercase">DNI: <span
+                                                id="display_dni" class="text-gray-800 dark:text-gray-200">---</span></p>
+                                        <p class="text-[10px] text-gray-400 font-bold uppercase">Moneda: <span
+                                                class="text-gray-800 dark:text-gray-200">SOLES</span></p>
                                     </div>
                                 </div>
 
@@ -116,28 +132,50 @@
                                             <th class="text-right pb-2">TOTAL</th>
                                         </tr>
                                         </thead>
-                                        <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+
+                                        {{-- VISTA DETALLADA (Visible por defecto) --}}
+                                        <tbody id="ticket_detailed"
+                                               class="divide-y divide-gray-100 dark:divide-gray-800">
                                         @foreach ($saleDetails as $detalle)
                                             <tr>
                                                 <td class="py-3 text-xs font-black text-gray-400">{{ $detalle->quantity }}</td>
                                                 <td class="py-3 px-2">
-                                                        <span class="text-xs font-bold text-gray-800 dark:text-gray-200 uppercase leading-tight">
-                                                            {{ $detalle->product->name ?? 'Producto' }}
-                                                        </span>
+                        <span class="text-xs font-bold text-gray-800 dark:text-gray-200 uppercase leading-tight">
+                            {{ $detalle->product->name ?? 'Producto' }}
+                        </span>
                                                 </td>
                                                 <td class="py-3 text-right">
-                                                        <span class="text-xs font-black text-gray-900 dark:text-white">
-                                                            S/ {{ number_format($detalle->subtotal, 2) }}
-                                                        </span>
+                        <span class="text-xs font-black text-gray-900 dark:text-white">
+                            S/ {{ number_format($detalle->subtotal, 2) }}
+                        </span>
                                                 </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
+
+                                        {{-- VISTA POR CONSUMO (Oculta por defecto con style="display: none;") --}}
+                                        <tbody id="ticket_consumption"
+                                               class="divide-y divide-gray-100 dark:divide-gray-800"
+                                               style="display: none;">
+                                        <tr>
+                                            <td class="py-3 text-xs font-black text-gray-400">1</td>
+                                            <td class="py-3 px-2">
+                    <span class="text-xs font-bold text-gray-800 dark:text-gray-200 uppercase leading-tight">
+                        POR CONSUMO
+                    </span>
+                                            </td>
+                                            <td class="py-3 text-right">
+                    <span class="text-xs font-black text-gray-900 dark:text-white">
+                        S/ {{ number_format($sale->total, 2) }}
+                    </span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
                                     </table>
                                 </div>
-
                                 {{-- TOTALES --}}
-                                <div class="space-y-2 pt-4 border-t-2 border-dashed border-gray-200 dark:border-gray-700">
+                                <div
+                                    class="space-y-2 pt-4 border-t-2 border-dashed border-gray-200 dark:border-gray-700">
                                     <div class="flex justify-between text-gray-400 font-bold text-[10px] uppercase">
                                         <span>Subtotal</span>
                                         <span>S/ {{ number_format($sale->total, 2) }}</span>
@@ -147,8 +185,10 @@
                                         <span>S/ 0.00</span>
                                     </div>
                                     <div class="flex justify-between items-center pt-2">
-                                        <span class="text-sm font-black text-gray-800 dark:text-white uppercase tracking-tighter">Total a Pagar</span>
-                                        <span class="text-2xl font-black text-orange-500">S/ {{ number_format($sale->total, 2) }}</span>
+                                        <span
+                                            class="text-sm font-black text-gray-800 dark:text-white uppercase tracking-tighter">Total a Pagar</span>
+                                        <span
+                                            class="text-2xl font-black text-orange-500">S/ {{ number_format($sale->total, 2) }}</span>
                                     </div>
                                 </div>
 
@@ -194,7 +234,25 @@
         if (btnGenerarPdf) {
             btnGenerarPdf.addEventListener("click", generarPdf);
         }
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectFormat = document.getElementById('print_format_select');
+            const tableDetailed = document.getElementById('ticket_detailed');
+            const tableConsumption = document.getElementById('ticket_consumption');
 
+            if (selectFormat) {
+                selectFormat.addEventListener('change', function () {
+                    if (this.value === 'consumption') {
+                        // Ocultar detallado, mostrar consumo
+                        tableDetailed.style.display = 'none';
+                        tableConsumption.style.display = 'table-row-group'; // Es el display correcto para tbody
+                    } else {
+                        // Mostrar detallado, ocultar consumo
+                        tableDetailed.style.display = 'table-row-group';
+                        tableConsumption.style.display = 'none';
+                    }
+                });
+            }
+        });
         function consultardatos() {
             const inputDni = document.getElementById("customer_dni");
             const inputNombre = document.getElementById("customer_name");
