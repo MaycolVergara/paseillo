@@ -70,9 +70,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     Route::post('/finalizeSaleDelivery/{table_id}', [TableCustomerOrderDeliveryController::class, 'finalizeSale']);
 
     // AQUÍ VAN LAS 3 RUTAS DE LA BOLETA PARA QUE LOS MOZOS PUEDAN USARLAS
-    Route::get('/customerBallot/{table_id}', [CustomerBallotController::class, 'showBallot']);
-    Route::post('/customerBallot/saveClient', [CustomerBallotController::class, 'saveClient'])->name('customerBallot.saveClient');
-    Route::post('/customerBallot/generatePdf', [CustomerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');
+    // Rutas de Boletas se han movido abajo para evitar conflictos
     // ------------------------------------------------------
     // ACCESO RESTRINGIDO (Solo Administrador)
     // ------------------------------------------------------
@@ -150,11 +148,12 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/staff/{id}/credentials', [UserController::class, 'createCredentials']);
         Route::post('/staff/{id}/credentials', [UserController::class, 'storeCredentials']);
 
-        Route::get('/customerBallot/{table_id}', [CustomerBallotController::class, 'showBallot']);
+        // Gestión de Boletas (Acceso compartido para emitir pre-cuentas)
+        Route::get('/customerBallot/{table_id}', [CustomerBallotController::class, 'showBallot'])->name('customerBallot.show');
         Route::post('/customerBallot/saveClient', [CustomerBallotController::class, 'saveClient'])->name('customerBallot.saveClient');
         Route::post('/customerBallot/generatePdf', [CustomerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');
-
-        Route::get('/customerList', [CustomerBallotController::class, 'index']);
+        Route::post('/customerBallot/store', [CustomerBallotController::class, 'storeBallot'])->name('customerBallot.store');
+        Route::get('/customerList', [CustomerBallotController::class, 'index'])->name('customer.list');
 
     });
 

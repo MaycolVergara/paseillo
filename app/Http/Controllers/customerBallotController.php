@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\SaleModel;
 use App\Models\SaleDetailModel;
 use App\Models\CustomerBallotModel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CustomerBallotController extends Controller
 {
@@ -18,21 +19,26 @@ class CustomerBallotController extends Controller
 
     public function showBallot($table_id)
     {
-        // Obtener la venta pendiente de la mesa
-        $sale = SaleModel::where('table_id', $table_id)
-            ->where('status', 'Pending')
-            ->first();
+        try {
+            // Buscamos la venta sin importar si es 'Pending' o 'pending'
+            $sale = SaleModel::where('table_id', $table_id)
+                ->whereIn('status', ['Pending', 'pending', 'active', 'Active'])
+                ->latest()
+                ->first();
 
-        if (!$sale) {
-            return redirect()->back()->with('error', 'No hay venta pendiente para esta mesa');
+            if (!$sale) {
+                return redirect()->back()->with('error', 'No se encontró una orden activa para esta mesa.');
+            }
+
+            // Obtener los detalles de la venta
+            $saleDetails = SaleDetailModel::with('product')
+                ->where('sale_id', $sale->id)
+                ->get();
+
+            return view('customerBallot', compact('sale', 'saleDetails', 'table_id'));
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Error al cargar la boleta: ' . $e->getMessage());
         }
-
-        // Obtener los detalles de la venta
-        $saleDetails = SaleDetailModel::with('product')
-            ->where('sale_id', $sale->id)
-            ->get();
-
-        return view('customerBallot', compact('sale', 'saleDetails', 'table_id'));
     }
 
     public function saveClient(Request $request)
@@ -172,7 +178,7 @@ class CustomerBallotController extends Controller
 
         $html = $this->generateHTMLBoleta($sale, $saleDetails, $customer, $format);
 
-        $pdf = \PDF::loadHTML($html);
+        $pdf = Pdf::loadHTML($html);
         $pdf->setPaper('A4', 'portrait');
 
         return $pdf;
