@@ -25,10 +25,14 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        // Compartir configuración globalmente
+        // Compartir configuración globalmente de forma segura
         \Illuminate\Support\Facades\View::composer('*', function ($view) {
-            $settings = \App\Models\SettingModel::first();
-            $view->with('settings', $settings);
+            try {
+                $settings = \App\Models\SettingModel::first();
+                $view->with('settings', $settings);
+            } catch (\Exception $e) {
+                $view->with('settings', null);
+            }
         });
     }
 }

@@ -22,10 +22,14 @@
         <div class="px-8 pt-10 pb-6 text-center">
             <div
                 class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 ">
-                <img src="{{ $settings->company_logo && file_exists(public_path($settings->company_logo)) ? asset($settings->company_logo) : asset('storage/' . ($settings->company_logo ?? 'img/logo_principal.png')) }}" alt="{{ $settings->company_name ?? 'Logo' }}" class="w-20 h-20 object-contain">
+                @php
+                    $logoPath = optional($settings)->company_logo ?? 'img/logo_principal.png';
+                    $finalLogo = (str_starts_with($logoPath, 'img/') ? asset($logoPath) : asset('storage/' . $logoPath));
+                @endphp
+                <img src="{{ $finalLogo }}" alt="{{ optional($settings)->company_name ?? 'Logo' }}" class="w-20 h-20 object-contain">
             </div>
-            <h1 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">{{ $settings->company_name ?? 'Paseillo System' }}</h1>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">{{ $settings->company_subtitle ?? 'Ingresa tus credenciales para continuar' }}</p>
+            <h1 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">{{ optional($settings)->company_name ?? 'Paseillo System' }}</h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">{{ optional($settings)->company_subtitle ?? 'Ingresa tus credenciales para continuar' }}</p>
         </div>
 
         {{-- Formulario --}}

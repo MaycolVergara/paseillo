@@ -3,15 +3,18 @@
        fixed inset-y-0 left-0 z-50 shadow-sm transition-transform duration-300 transform -translate-x-full md:translate-x-0">
 
     <div class="sb-brand-wrap flex items-center gap-3 px-5 py-5 border-b border-gray-100 dark:border-gray-800">
-        <img src="{{ $settings->company_logo && file_exists(public_path($settings->company_logo)) ? asset($settings->company_logo) : asset($settings->company_logo ?? 'img/logo_principal.png') }}"
-             alt="Logo {{ $settings->company_name ?? 'Paseillo' }}"
-             class="w-20 h-auto object-contain shrink-0 dark:bg-white dark:p-1 dark:rounded-xl"
-        />
-        <div class="sb-brand-text overflow-hidden">
-            <p class="font-bold text-lg text-gray-900 dark:text-white leading-none tracking-tight whitespace-nowrap">
-                {{ $settings->company_name ?? 'Paseillo' }}</p>
-            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 font-medium tracking-wide whitespace-nowrap">
-                {{ $settings->company_subtitle ?? 'Sistema de Venta' }}</p>
+        @php
+            $logoPath = optional($settings)->company_logo ?? 'img/logo_principal.png';
+            $finalLogo = (str_starts_with($logoPath, 'img/') ? asset($logoPath) : asset('storage/' . $logoPath));
+        @endphp
+        <img src="{{ $finalLogo }}"
+             alt="Logo {{ optional($settings)->company_name ?? 'Paseillo' }}"
+             class="w-8 h-8 object-contain">
+        <div class="flex-1 min-w-0">
+            <p class="text-sm font-black text-gray-900 dark:text-white truncate">
+                {{ optional($settings)->company_name ?? 'Paseillo' }}</p>
+            <p class="text-[10px] font-bold text-gray-400 dark:text-gray-500 truncate mt-0.5">
+                {{ optional($settings)->company_subtitle ?? 'Sistema de Venta' }}</p>
         </div>
     </div>
 
