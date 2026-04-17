@@ -208,5 +208,15 @@
 <!-- ══════════════ SCRIPTS ══════════════ -->
 @vite(['resources/js/app.js'])
 
+{{-- Lucide Icons para iconos del footer --}}
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+</script>
+
 </body>
 </html>

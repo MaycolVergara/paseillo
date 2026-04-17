@@ -49,7 +49,7 @@ class TableCustomerOrderDeliveryController extends Controller
             'quantity' => 'required|integer|min:1',
             'customization' => 'nullable|string',
             'customer_phone' => 'nullable|string',
-            'delivery_address' => 'nullable|string|max:9'
+            'delivery_address' => 'nullable|string|max:255'
         ]);
 
         $product = ProductModel::find($request->product_id);

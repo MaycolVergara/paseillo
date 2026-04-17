@@ -5,7 +5,7 @@
                 <div class="flex items-center gap-3 mb-5">
                     <div class="w-11 h-11 bg-white rounded-xl flex items-center justify-center text-2xl shadow-[0_4px_16px_rgba(227,6,19,0.4)]">
                         <img
-                            src="img/logo_principal.png"
+                            src="{{ asset('img/logo_principal.png') }}"
                             alt="Paseillo Pizzas & Burger"
                             class="h-10 w-auto object-contain"
                         />
@@ -20,20 +20,20 @@
                     <a href="https://www.facebook.com/profile.php?id=100042860179879&locale=es_LA" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-lg
                     hover:bg-[#1877F2] hover:border-[#1877F2] hover:-translate-y-1 transition-all duration-300" title="Facebook">
                         <img
-                            src="icon/facebook.png"
-                            alt="Paseillo Pizzas & Burger"
+                            src="{{ asset('icon/facebook.png') }}"
+                            alt="Facebook"
                             class="h-10 w-auto object-contain"
                         /></a>
                     <a href="https://www.instagram.com/paseillo_burger_pizza/" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-lg hover:bg-gradient-to-br hover:from-[#833ab4] hover:to-[#fd1d1d] hover:border-pink-500 hover:-translate-y-1 transition-all duration-300" title="Instagram">
                         <img
-                            src="icon/instagram.png"
-                            alt="Paseillo Pizzas & Burger"
+                            src="{{ asset('icon/instagram.png') }}"
+                            alt="Instagram"
                             class="h-10 w-auto object-contain"
                         /></a>
-                    <a href="https://wa.me/51000000000" target="_blank" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-lg hover:bg-[#25D366] hover:border-[#25D366] hover:-translate-y-1 transition-all duration-300" title="WhatsApp">
+                    <a href="https://wa.me/51921829555" target="_blank" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-lg hover:bg-[#25D366] hover:border-[#25D366] hover:-translate-y-1 transition-all duration-300" title="WhatsApp">
                         <img
-                            src="icon/whatsapp.png"
-                            alt="Paseillo Pizzas & Burger"
+                            src="{{ asset('icon/whatsapp.png') }}"
+                            alt="WhatsApp"
                             class="h-10 w-auto object-contain"
                         /></a>
                 </div>
@@ -56,21 +56,21 @@
 
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center text-white flex-shrink-0">
-                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            <img src="{{ asset('icon/mapa.png') }}" alt="Ubicación" class="w-4 h-4 object-contain brightness-0 invert">
                         </div>
                         <span class="font-condensed text-sm text-white/40">Huanta, Ayacucho, Perú</span>
                     </div>
 
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center text-white flex-shrink-0">
-                            <i data-lucide="phone" class="w-4 h-4"></i>
+                            <img src="{{ asset('icon/servicio-al-cliente.png') }}" alt="Teléfono" class="w-4 h-4 object-contain brightness-0 invert">
                         </div>
-                        <span class="font-condensed text-sm text-white/40">+51 000 000 000</span>
+                        <span class="font-condensed text-sm text-white/40">+51 921 829 555</span>
                     </div>
 
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center text-white flex-shrink-0">
-                            <i data-lucide="clock" class="w-4 h-4"></i>
+                            <img src="{{ asset('icon/reloj.png') }}" alt="Horario" class="w-4 h-4 object-contain brightness-0 invert">
                         </div>
                         <span class="font-condensed text-sm text-white/40">Lun – Dom: 12pm – 10pm</span>
                     </div>

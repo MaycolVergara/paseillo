@@ -88,9 +88,9 @@
                 </div>
                 @if ($cantidadAPagar > 0)
                     <div class="p-2 border-t border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
-                        <a href="{{ url('/dashboard/staffList') }}"
+                        <a href="{{ url('/dashboard/staffReport') }}"
                             class="block text-center text-[11px] font-bold text-orange-600 hover:text-orange-700 transition-colors py-1">
-                            Ir a Planilla de Personal
+                            Ir a Planilla Pago Personal
                         </a>
                     </div>
                 @endif

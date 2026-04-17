@@ -32,7 +32,8 @@
                         <div class="lg:col-span-7 space-y-6">
                             <div class="flex items-center gap-2 pb-2 border-b border-gray-100 dark:border-gray-800">
                                 <i data-lucide="user" class="w-4 h-4 text-orange-500"></i>
-                                <span class="text-sm font-bold text-gray-400 uppercase tracking-widest">Información del Cliente</span>
+                                <span class="text-sm font-bold text-gray-400 uppercase tracking-widest">Información del
+                                    Cliente</span>
                             </div>
 
                             {{-- Búsqueda de DNI --}}
@@ -42,12 +43,12 @@
                                         <i data-lucide="search" class="w-4 h-4 text-gray-400"></i>
                                     </div>
                                     <input type="text" id="customer_dni" name="customer_dni" maxlength="8" required
-                                           class="block w-full pl-10 pr-3 py-3 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-orange-500 transition-all shadow-sm"
-                                           placeholder="Ingrese DNI">
+                                        class="block w-full pl-10 pr-3 py-3 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-orange-500 transition-all shadow-sm"
+                                        placeholder="Ingrese DNI">
                                 </div>
                                 <button type="button" id="btnBuscar"
-                                        class="px-6 bg-gray-900 dark:bg-orange-600 text-white font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2 group">
-                                    <span>RENIEC</span>
+                                    class="px-6 bg-gray-900 dark:bg-orange-600 text-white font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2 group">
+                                    <span>BUSCAR</span>
                                     <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
                                 </button>
                             </div>
@@ -57,12 +58,12 @@
                                 <div class="space-y-1">
                                     <label class="text-[10px] font-black text-gray-400 uppercase ml-2">Nombres</label>
                                     <input type="text" id="customer_name" name="customer_name" readonly required
-                                           class="w-full p-3 bg-gray-100/50 dark:bg-gray-800/50 border-none rounded-xl text-sm font-semibold text-gray-500 cursor-not-allowed">
+                                        class="w-full p-3 bg-gray-100/50 dark:bg-gray-800/50 border-none rounded-xl text-sm font-semibold text-gray-500 cursor-not-allowed">
                                 </div>
                                 <div class="space-y-1">
                                     <label class="text-[10px] font-black text-gray-400 uppercase ml-2">Apellidos</label>
                                     <input type="text" id="customer_surname" name="customer_surname" readonly required
-                                           class="w-full p-3 bg-gray-100/50 dark:bg-gray-800/50 border-none rounded-xl text-sm font-semibold text-gray-500 cursor-not-allowed">
+                                        class="w-full p-3 bg-gray-100/50 dark:bg-gray-800/50 border-none rounded-xl text-sm font-semibold text-gray-500 cursor-not-allowed">
                                 </div>
                             </div>
 
@@ -74,9 +75,9 @@
                                         <i data-lucide="phone" class="w-4 h-4 text-green-500"></i>
                                     </div>
                                     <input type="text" id="customer_phone" name="customer_phone" maxlength="9"
-                                           class="block w-full pl-10 p-3 bg-gray-50 dark:bg-gray-800
+                                        class="block w-full pl-10 p-3 bg-gray-50 dark:bg-gray-800
                                            border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-green-500 transition-all"
-                                           placeholder="Ej: 987654321" required>
+                                        placeholder="Ej: 987654321" required>
                                 </div>
                             </div>
 
@@ -86,7 +87,7 @@
                                         Impresión</label>
 
                                     <select id="print_format_select" name="print_format"
-                                            class="w-full p-3 bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 rounded-xl text-sm font-bold focus:border-orange-500 transition-all cursor-pointer">
+                                        class="w-full p-3 bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 rounded-xl text-sm font-bold focus:border-orange-500 transition-all cursor-pointer">
                                         <option value="detailed">Detallado (Lista)</option>
                                         <option value="consumption">Por Consumo (Resumen)</option>
                                     </select>
@@ -101,7 +102,8 @@
 
                                 <div
                                     class="text-center mb-6 border-b-2 border-dashed border-gray-200 dark:border-gray-700 pb-4">
-                                    <h1 class="font-black text-xl text-gray-800 dark:text-white leading-none tracking-tighter">
+                                    <h1
+                                        class="font-black text-xl text-gray-800 dark:text-white leading-none tracking-tighter">
                                         PASEILLO</h1>
                                     <p class="text-[10px] font-bold text-gray-500 uppercase">Pizzas & Burgers</p>
                                     <p class="text-[9px] text-gray-400 font-medium">JR. GERVASIO SANTILLANA 120</p>
@@ -115,8 +117,8 @@
                                         <p class="text-[10px] text-gray-400 font-bold uppercase">Cliente: <span
                                                 id="display_name" class="text-gray-800 dark:text-gray-200">---</span>
                                         </p>
-                                        <p class="text-[10px] text-gray-400 font-bold uppercase">DNI: <span
-                                                id="display_dni" class="text-gray-800 dark:text-gray-200">---</span></p>
+                                        <p class="text-[10px] text-gray-400 font-bold uppercase">DNI: <span id="display_dni"
+                                                class="text-gray-800 dark:text-gray-200">---</span></p>
                                         <p class="text-[10px] text-gray-400 font-bold uppercase">Moneda: <span
                                                 class="text-gray-800 dark:text-gray-200">SOLES</span></p>
                                     </div>
@@ -126,56 +128,57 @@
                                 <div class="max-h-[250px] overflow-y-auto mb-6 pr-2 custom-scrollbar">
                                     <table class="w-full">
                                         <thead>
-                                        <tr class="text-[9px] font-black text-gray-400 uppercase tracking-wider border-b border-gray-100 dark:border-gray-700">
-                                            <th class="text-left pb-2">CANT</th>
-                                            <th class="text-left pb-2 px-2">DESCRIPCIÓN</th>
-                                            <th class="text-right pb-2">TOTAL</th>
-                                        </tr>
+                                            <tr
+                                                class="text-[9px] font-black text-gray-400 uppercase tracking-wider border-b border-gray-100 dark:border-gray-700">
+                                                <th class="text-left pb-2">CANT</th>
+                                                <th class="text-left pb-2 px-2">DESCRIPCIÓN</th>
+                                                <th class="text-right pb-2">TOTAL</th>
+                                            </tr>
                                         </thead>
 
                                         {{-- VISTA DETALLADA (Visible por defecto) --}}
-                                        <tbody id="ticket_detailed"
-                                               class="divide-y divide-gray-100 dark:divide-gray-800">
-                                        @foreach ($saleDetails as $detalle)
-                                            <tr>
-                                                <td class="py-3 text-xs font-black text-gray-400">{{ $detalle->quantity }}</td>
-                                                <td class="py-3 px-2">
-                        <span class="text-xs font-bold text-gray-800 dark:text-gray-200 uppercase leading-tight">
-                            {{ $detalle->product->name ?? 'Producto' }}
-                        </span>
-                                                </td>
-                                                <td class="py-3 text-right">
-                        <span class="text-xs font-black text-gray-900 dark:text-white">
-                            S/ {{ number_format($detalle->subtotal, 2) }}
-                        </span>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        <tbody id="ticket_detailed" class="divide-y divide-gray-100 dark:divide-gray-800">
+                                            @foreach ($saleDetails as $detalle)
+                                                <tr>
+                                                    <td class="py-3 text-xs font-black text-gray-400">
+                                                        {{ $detalle->quantity }}</td>
+                                                    <td class="py-3 px-2">
+                                                        <span
+                                                            class="text-xs font-bold text-gray-800 dark:text-gray-200 uppercase leading-tight">
+                                                            {{ $detalle->product->name ?? 'Producto' }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="py-3 text-right">
+                                                        <span class="text-xs font-black text-gray-900 dark:text-white">
+                                                            S/ {{ number_format($detalle->subtotal, 2) }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
 
                                         {{-- VISTA POR CONSUMO (Oculta por defecto con style="display: none;") --}}
                                         <tbody id="ticket_consumption"
-                                               class="divide-y divide-gray-100 dark:divide-gray-800"
-                                               style="display: none;">
-                                        <tr>
-                                            <td class="py-3 text-xs font-black text-gray-400">1</td>
-                                            <td class="py-3 px-2">
-                    <span class="text-xs font-bold text-gray-800 dark:text-gray-200 uppercase leading-tight">
-                        POR CONSUMO
-                    </span>
-                                            </td>
-                                            <td class="py-3 text-right">
-                    <span class="text-xs font-black text-gray-900 dark:text-white">
-                        S/ {{ number_format($sale->total, 2) }}
-                    </span>
-                                            </td>
-                                        </tr>
+                                            class="divide-y divide-gray-100 dark:divide-gray-800" style="display: none;">
+                                            <tr>
+                                                <td class="py-3 text-xs font-black text-gray-400">1</td>
+                                                <td class="py-3 px-2">
+                                                    <span
+                                                        class="text-xs font-bold text-gray-800 dark:text-gray-200 uppercase leading-tight">
+                                                        POR CONSUMO
+                                                    </span>
+                                                </td>
+                                                <td class="py-3 text-right">
+                                                    <span class="text-xs font-black text-gray-900 dark:text-white">
+                                                        S/ {{ number_format($sale->total, 2) }}
+                                                    </span>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 {{-- TOTALES --}}
-                                <div
-                                    class="space-y-2 pt-4 border-t-2 border-dashed border-gray-200 dark:border-gray-700">
+                                <div class="space-y-2 pt-4 border-t-2 border-dashed border-gray-200 dark:border-gray-700">
                                     <div class="flex justify-between text-gray-400 font-bold text-[10px] uppercase">
                                         <span>Subtotal</span>
                                         <span>S/ {{ number_format($sale->total, 2) }}</span>
@@ -186,9 +189,10 @@
                                     </div>
                                     <div class="flex justify-between items-center pt-2">
                                         <span
-                                            class="text-sm font-black text-gray-800 dark:text-white uppercase tracking-tighter">Total a Pagar</span>
-                                        <span
-                                            class="text-2xl font-black text-orange-500">S/ {{ number_format($sale->total, 2) }}</span>
+                                            class="text-sm font-black text-gray-800 dark:text-white uppercase tracking-tighter">Total
+                                            a Pagar</span>
+                                        <span class="text-2xl font-black text-orange-500">S/
+                                            {{ number_format($sale->total, 2) }}</span>
                                     </div>
                                 </div>
 
@@ -196,15 +200,15 @@
                                 <div class="space-y-3 mt-8">
                                     {{-- Botón Guardar Cliente --}}
                                     <button type="button" id="btnGuardarCliente"
-                                            class="w-full bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-black py-4 rounded-2xl shadow-xl shadow-green-500/20 transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3">
+                                        class="w-full bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-black py-4 rounded-2xl shadow-xl shadow-green-500/20 transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3">
                                         <i data-lucide="save" class="w-6 h-6"></i>
                                         GUARDAR CLIENTE
                                     </button>
 
                                     {{-- Botón Generar PDF (Oculto inicialmente) --}}
                                     <button type="button" id="btnGenerarPdf"
-                                            class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-black py-4 rounded-2xl shadow-xl shadow-blue-500/20 transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 hidden"
-                                            style="display: none;">
+                                        class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-black py-4 rounded-2xl shadow-xl shadow-blue-500/20 transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 hidden"
+                                        style="display: none;">
                                         <i data-lucide="file-text" class="w-6 h-6"></i>
                                         GENERAR PDF
                                     </button>
@@ -234,17 +238,18 @@
         if (btnGenerarPdf) {
             btnGenerarPdf.addEventListener("click", generarPdf);
         }
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const selectFormat = document.getElementById('print_format_select');
             const tableDetailed = document.getElementById('ticket_detailed');
             const tableConsumption = document.getElementById('ticket_consumption');
 
             if (selectFormat) {
-                selectFormat.addEventListener('change', function () {
+                selectFormat.addEventListener('change', function() {
                     if (this.value === 'consumption') {
                         // Ocultar detallado, mostrar consumo
                         tableDetailed.style.display = 'none';
-                        tableConsumption.style.display = 'table-row-group'; // Es el display correcto para tbody
+                        tableConsumption.style.display =
+                        'table-row-group'; // Es el display correcto para tbody
                     } else {
                         // Mostrar detallado, ocultar consumo
                         tableDetailed.style.display = 'table-row-group';
@@ -253,6 +258,7 @@
                 });
             }
         });
+
         function consultardatos() {
             const inputDni = document.getElementById("customer_dni");
             const inputNombre = document.getElementById("customer_name");
@@ -275,17 +281,17 @@
             const url = "https://api.consultasperu.com/api/v1/query";
 
             fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify({
-                    "token": token,
-                    "type_document": "dni",
-                    "document_number": dni
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "token": token,
+                        "type_document": "dni",
+                        "document_number": dni
+                    })
                 })
-            })
                 .then(response => response.json())
                 .then(datos => {
                     if (datos.success && datos.data) {
@@ -330,22 +336,23 @@
 
             // Mostrar estado de carga
             btnGuardarCliente.disabled = true;
-            btnGuardarCliente.innerHTML = '<svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Guardando...';
+            btnGuardarCliente.innerHTML =
+                '<svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Guardando...';
 
             // Enviar datos al servidor
             fetch('/dashboard/customerBallot/saveClient', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
-                },
-                body: JSON.stringify({
-                    customer_dni: dni,
-                    customer_name: nombre,
-                    customer_surname: apellido,
-                    customer_phone: telefono
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                    },
+                    body: JSON.stringify({
+                        customer_dni: dni,
+                        customer_name: nombre,
+                        customer_surname: apellido,
+                        customer_phone: telefono
+                    })
                 })
-            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -378,7 +385,8 @@
 
             // Mostrar estado de carga
             btnGenerarPdf.disabled = true;
-            btnGenerarPdf.innerHTML = '<svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Generando PDF...';
+            btnGenerarPdf.innerHTML =
+                '<svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Generando PDF...';
 
             // Crear formulario oculto para descargar PDF
             const form = document.createElement('form');

@@ -47,7 +47,9 @@
                                     data-id="{{ $producto->id }}" data-nombre="{{ $producto->name }}"
                                     data-precio="{{ $producto->price }}">
                                     <span>{{ $producto->name }}</span>
-                                    <span class="text-[10px] bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 px-2 py-0.5 rounded-md">S/ {{ number_format($producto->price, 2) }}</span>
+                                    <span
+                                        class="text-[10px] bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 px-2 py-0.5 rounded-md">S/
+                                        {{ number_format($producto->price, 2) }}</span>
                                 </div>
                             @endforeach
                         </div>
@@ -105,7 +107,8 @@
          rounded-3xl shadow-card border border-gray-100
          dark:border-gray-800 s">
 
-        <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div
+            class="px-6 py-5 border-b border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <h3 class="text-lg font-black text-gray-800 dark:text-gray-100 whitespace-nowrap order-2 sm:order-1">
                 Registro de Producto
             </h3>
@@ -204,18 +207,24 @@
                     Emitir Ticket
                 </a>
 
-                {{-- Botón Emitir Boleta --}}
-                <a href="{{ url('/dashboard/customerBallot/' . $id) }}" target="_blank"
-                    class="w-full md:w-auto px-6 py-3 bg-blue-500
+                @if (Auth::user()->role_id == 1)
+                    {{-- Botón Emitir Boleta --}}
+                    <a href="{{ url('/dashboard/customerBallot/' . $id) }}" target="_blank"
+                        class="w-full md:w-auto px-6 py-3 bg-blue-500
                 hover:bg-blue-600 text-white text-sm font-bold
                 rounded-xl shadow-lg shadow-blue-500/20 transition-all
                  active:scale-95 text-center flex items-center justify-center whitespace-nowrap h-[46px]">
-                    Emitir Boleta
-                </a>
+                        Emitir Boleta
+                    </a>
+                @endif
+
+
 
                 {{-- Formulario que agrupa Pago y Finalizar --}}
+                @if (Auth::user()->role_id == 1)
                 <form action="{{ url('/dashboard/finalizeSale/' . $id) }}" method="POST"
-                    class="flex flex-col md:flex-row items-end gap-4 w-full md:w-auto">
+                    class="flex flex-col md:flex-row items-end gap-4 w-full md:w-auto"
+                    onsubmit="return confirm('Seguro que deseas cobrar esta cuenta y liberar la mesa?')">
                     @csrf
 
                     {{-- Selector de Método de Pago --}}
@@ -239,15 +248,14 @@
 
                     {{-- Botón Finalizar Venta --}}
                     <button type="submit"
-                        onclick="return confirm('¿Seguro que deseas cobrar esta cuenta y liberar la mesa?')"
                         class="w-full md:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95 whitespace-nowrap h-[46px]">
                         Finalizar Venta
                     </button>
                 </form>
+                @endif
             </div>
         </div>
 
 
     </div>
-
 @endsection
