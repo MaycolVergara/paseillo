@@ -24,7 +24,13 @@
                 class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 ">
                 @php
                     $logoPath = optional($settings)->company_logo ?? 'img/logo_principal.png';
-                    $finalLogo = (str_starts_with($logoPath, 'img/') ? asset($logoPath) : asset('storage/' . $logoPath));
+                    if (str_starts_with($logoPath, 'img/')) {
+                        $finalLogo = asset($logoPath);
+                    } elseif (config('filesystems.default') === 's3') {
+                        $finalLogo = Storage::disk('s3')->url($logoPath);
+                    } else {
+                        $finalLogo = asset('storage/' . $logoPath);
+                    }
                 @endphp
                 <img src="{{ $finalLogo }}" alt="{{ optional($settings)->company_name ?? 'Logo' }}" class="w-20 h-20 object-contain">
             </div>

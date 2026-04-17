@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     /**
+     * Determina qué disco de almacenamiento usar.
+     * Producción (Laravel Cloud): 's3' (Cloudflare R2)
+     * Local (Laragon): 'public'
+     */
+    private function mediaDisk(): string
+    {
+        return config('filesystems.default') === 's3' ? 's3' : 'public';
+    }
+    /**
      * Lista toda la carta.
      * Trae todos los productos y categorías para que veas qué tienes en stock.
      */
@@ -54,7 +63,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $imageName = time() . '_' . $file->getClientOriginalName();
-            $imagePath = $file->storeAs('products', $imageName, 'public');
+            $imagePath = $file->storeAs('products', $imageName, $this->mediaDisk());
             $product->image = $imagePath;
         }
 
@@ -100,12 +109,12 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             // Borra la imagen vieja si existe antes de guardar la nueva
             if ($product->image) {
-                Storage::disk('public')->delete($product->image);
+                Storage::disk($this->mediaDisk())->delete($product->image);
             }
 
             $file = $request->file('image');
             $imageName = time() . '_' . $file->getClientOriginalName();
-            $imagePath = $file->storeAs('products', $imageName, 'public');
+            $imagePath = $file->storeAs('products', $imageName, $this->mediaDisk());
             $product->image = $imagePath;
         }
 
@@ -124,7 +133,7 @@ class ProductController extends Controller
         if ($product) {
             // Limpia el servidor borrando la foto del producto eliminado
             if ($product->image) {
-                Storage::disk('public')->delete($product->image);
+                Storage::disk($this->mediaDisk())->delete($product->image);
             }
 
             $product->delete();

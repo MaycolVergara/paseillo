@@ -37,13 +37,15 @@ class SettingController extends Controller
         $settings->company_subtitle = $request->company_subtitle;
 
         if ($request->hasFile('company_logo')) {
+            $disk = config('filesystems.default') === 's3' ? 's3' : 'public';
+
             // Eliminar logo anterior si no es el default
             if ($settings->company_logo && !str_contains($settings->company_logo, 'logo_principal.png')) {
-                Storage::delete('public/' . $settings->company_logo);
+                Storage::disk($disk)->delete($settings->company_logo);
             }
 
             // Guardar nuevo logo
-            $path = $request->file('company_logo')->store('brand', 'public');
+            $path = $request->file('company_logo')->store('brand', $disk);
             $settings->company_logo = $path;
         }
 

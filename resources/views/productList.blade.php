@@ -84,7 +84,7 @@
                                 @if ($product->image)
                                     <div
                                         class="w-16 h-12 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->image }}"
+                                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
                                             class="w-full h-full object-cover">
                                     </div>
                                 @else

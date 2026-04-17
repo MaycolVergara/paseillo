@@ -5,7 +5,13 @@
     <div class="sb-brand-wrap flex items-center gap-3 px-5 py-5 border-b border-gray-100 dark:border-gray-800">
         @php
             $logoPath = optional($settings)->company_logo ?? 'img/logo_principal.png';
-            $finalLogo = (str_starts_with($logoPath, 'img/') ? asset($logoPath) : asset('storage/' . $logoPath));
+            if (str_starts_with($logoPath, 'img/')) {
+                $finalLogo = asset($logoPath);
+            } elseif (config('filesystems.default') === 's3') {
+                $finalLogo = Storage::disk('s3')->url($logoPath);
+            } else {
+                $finalLogo = asset('storage/' . $logoPath);
+            }
         @endphp
         <img src="{{ $finalLogo }}"
              alt="Logo {{ optional($settings)->company_name ?? 'Paseillo' }}"

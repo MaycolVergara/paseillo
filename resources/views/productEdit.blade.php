@@ -93,7 +93,7 @@
                     @if($product->image)
                         <div class="mb-3">
                             <p class="text-xs text-gray-500 mb-1">Imagen actual:</p>
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="Imagen actual" class="h-20 w-20 object-cover rounded-lg border border-gray-200">
+                            <img src="{{ $product->image_url }}" alt="Imagen actual" class="h-20 w-20 object-cover rounded-lg border border-gray-200">
                         </div>
                     @endif
 

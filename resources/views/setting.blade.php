@@ -31,7 +31,17 @@
                         <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-4 text-center">Logo Actual</label>
                         <div class="w-48 h-48 bg-gray-50 dark:bg-gray-800/50 rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-700 flex items-center justify-center p-4 relative group overflow-hidden shadow-inner">
                             @if($settings && $settings->company_logo)
-                                <img src="{{ $settings->company_logo && file_exists(public_path($settings->company_logo)) ? asset($settings->company_logo) : asset('storage/' . $settings->company_logo) }}" alt="Logo preview" class="max-w-full max-h-full object-contain drop-shadow-lg">
+                                @php
+                                    $logoPath = $settings->company_logo;
+                                    if (str_starts_with($logoPath, 'img/') || file_exists(public_path($logoPath))) {
+                                        $logoUrl = asset($logoPath);
+                                    } elseif (config('filesystems.default') === 's3') {
+                                        $logoUrl = Storage::disk('s3')->url($logoPath);
+                                    } else {
+                                        $logoUrl = asset('storage/' . $logoPath);
+                                    }
+                                @endphp
+                                <img src="{{ $logoUrl }}" alt="Logo preview" class="max-w-full max-h-full object-contain drop-shadow-lg">
                             @else
                                 <div class="text-gray-300 dark:text-gray-600">
                                     <i data-lucide="image" class="w-16 h-16"></i>

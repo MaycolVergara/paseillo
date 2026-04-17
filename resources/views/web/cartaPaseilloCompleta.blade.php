@@ -119,7 +119,7 @@
                         data-cat="burger">
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                src="{{ asset('storage/' . $hamburguesa->image) }}"
+                                src="{{ $hamburguesa->image_url }}"
                                 alt="Classic Paseillo"
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
@@ -159,7 +159,7 @@
                     >
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                src="{{ asset('storage/' . $pizza->image) }}" alt="Margherita"
+                                src="{{ $pizza->image_url }}" alt="Margherita"
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -195,7 +195,7 @@
                     >
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                src="{{ asset('storage/' . $krispy->image) }}"
+                                src="{{ $krispy->image_url }}"
                                 alt="Krispy Clásico"
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
@@ -234,7 +234,7 @@
                     >
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                src="{{ asset('storage/' . $salchipapa->image) }}"
+                                src="{{ $salchipapa->image_url }}"
                                 alt="Salchipapa Clásica"
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
@@ -268,7 +268,7 @@
                     >
                         <div class="relative h-48 overflow-hidden">
                             <img
-                                src="{{ asset('storage/' . $alita->image) }}"
+                                src="{{ $alita->image_url }}"
                                 alt="Salchipapa Clásica"
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
