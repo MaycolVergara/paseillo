@@ -27,6 +27,13 @@
             >
                 NUESTRA <span class="text-brand">CARTA</span>
             </h2>
+            <a
+                    href="https://www.canva.com/design/DAFRjwshRm0/b9XXMYbAoiND-BtSCxWuEQ/view?website#4:carta"
+                    target="_blank"
+                    class="reveal inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-condensed font-800 text-sm uppercase tracking-widest px-8 py-4 rounded-full shadow-[0_6px_24px_rgba(227,6,19,0.35)] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(227,6,19,0.45)] transition-all duration-300"
+            >
+                Ver nuestra carta completa
+            </a>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -56,7 +63,7 @@
                         </p>
                     </div>
                     <a
-                            href="https://wa.me/51000000000?text=Quiero%20pedir%20una%20Hamburguesa%20Royal"
+                            href="https://wa.me/51921829555?text=Hola%20Paseillo%2C%20quiero%20hacer%20un%20pedido"
                             target="_blank"
                             class="w-full flex items-center justify-center gap-2 bg-brand hover:bg-brand-dark text-white font-condensed font-800 text-sm uppercase tracking-wide px-4 py-3 rounded-xl hover:scale-105 hover:shadow-[0_6px_20px_rgba(227,6,19,0.4)] transition-all duration-300"
                     >
@@ -91,7 +98,7 @@
                         </p>
                     </div>
                     <a
-                            href="https://wa.me/51000000000?text=Quiero%20pedir%20una%20Pizza%20Hawaiana"
+                            href="https://wa.me/51921829555?text=Hola%20Paseillo%2C%20quiero%20hacer%20un%20pedido"
                             target="_blank"
                             class="w-full flex items-center justify-center gap-2 bg-brand hover:bg-brand-dark text-white font-condensed font-800 text-sm uppercase tracking-wide px-4 py-3 rounded-xl hover:scale-105 hover:shadow-[0_6px_20px_rgba(227,6,19,0.4)] transition-all duration-300"
                     >
@@ -126,7 +133,7 @@
                         </p>
                     </div>
                     <a
-                            href="https://wa.me/51000000000?text=Quiero%20pedir%20Pollo%20Krispy"
+                            href="https://wa.me/51921829555?text=Hola%20Paseillo%2C%20quiero%20hacer%20un%20pedido"
                             target="_blank"
                             class="w-full flex items-center justify-center gap-2 bg-brand hover:bg-brand-dark text-white font-condensed font-800 text-sm uppercase tracking-wide px-4 py-3 rounded-xl hover:scale-105 hover:shadow-[0_6px_20px_rgba(227,6,19,0.4)] transition-all duration-300"
                     >
@@ -161,7 +168,7 @@
                         </p>
                     </div>
                     <a
-                            href="https://wa.me/51000000000?text=Quiero%20pedir%20una%20Salchipapa%20Paseillo"
+                            href="https://wa.me/51921829555?text=Hola%20Paseillo%2C%20quiero%20hacer%20un%20pedido"
                             target="_blank"
                             class="w-full flex items-center justify-center gap-2 bg-brand hover:bg-brand-dark text-white font-condensed font-800 text-sm uppercase tracking-wide px-4 py-3 rounded-xl hover:scale-105 hover:shadow-[0_6px_20px_rgba(227,6,19,0.4)] transition-all duration-300"
                     >

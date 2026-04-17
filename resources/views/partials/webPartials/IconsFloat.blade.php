@@ -2,7 +2,7 @@
     <div class="bg-brand-black text-white font-condensed font-700 text-xs uppercase tracking-wide px-4 py-2 rounded-full shadow-xl opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
         📜 Ver nuestra carta
     </div>
-    <a href="#carta" class="relative w-[60px] h-[60px] bg-brand rounded-full flex items-center justify-center text-white shadow-[0_8px_30px_rgba(227,6,19,0.5)] hover:scale-110 hover:shadow-[0_12px_40px_rgba(227,6,19,0.6)] transition-all duration-300">
+    <a href="https://www.canva.com/design/DAFRjwshRm0/b9XXMYbAoiND-BtSCxWuEQ/view?website#4:carta" target="_blank" class="relative w-[60px] h-[60px] bg-brand rounded-full flex items-center justify-center text-white shadow-[0_8px_30px_rgba(227,6,19,0.5)] hover:scale-110 hover:shadow-[0_12px_40px_rgba(227,6,19,0.6)] transition-all duration-300">
         <span class="text-2xl">📜</span>
         <span class="absolute inset-0 rounded-full bg-brand animate-pulse-ring -z-10"></span>
     </a>

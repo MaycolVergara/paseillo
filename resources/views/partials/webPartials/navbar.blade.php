@@ -30,7 +30,8 @@
                 >Especialidades</a
                 >
                 <a
-                    href="#carta"
+                    href="https://www.canva.com/design/DAFRjwshRm0/b9XXMYbAoiND-BtSCxWuEQ/view?website#4:carta"
+                    target="_blank"
                     class="nav-link font-condensed font-700 text-sm tracking-wide uppercase text-gray-700 hover:text-brand transition-colors"
                 >Carta</a
                 >
@@ -56,7 +57,7 @@
             <!-- CTA + hamburger -->
             <div class="flex items-center gap-3">
                 <a
-                    href="https://wa.me/51000000000?text=Quiero%20ordenar"
+                    href="https://wa.me/51921829555?text=Hola%20Paseillo%2C%20quiero%20hacer%20un%20pedido"
                     target="_blank"
                     class="hidden sm:inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-condensed font-800 text-sm uppercase tracking-wider px-5 py-2.5 rounded-full shadow-[0_4px_16px_rgba(227,6,19,0.35)] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(227,6,19,0.45)] transition-all duration-300"
                 >
@@ -101,7 +102,8 @@
             >Especialidades</a
             >
             <a
-                href="#carta"
+                href="https://www.canva.com/design/DAFRjwshRm0/b9XXMYbAoiND-BtSCxWuEQ/view?website#4:carta"
+                target="_blank"
                 onclick="closeNav()"
                 class="font-condensed font-700 text-base uppercase tracking-wide text-gray-800 hover:text-brand py-2.5 px-3 rounded-lg hover:bg-brand/5 transition-all"
             >Carta</a

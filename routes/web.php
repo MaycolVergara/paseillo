@@ -151,7 +151,6 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/staff/{id}/credentials', [UserController::class, 'createCredentials']);
         Route::post('/staff/{id}/credentials', [UserController::class, 'storeCredentials']);
 
-
     });
 
 });
