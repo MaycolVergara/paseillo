@@ -86,26 +86,8 @@
                     </div>
                 </div>
 
-                <div class="md:col-span-1">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Imagen del Producto</label>
 
-                    {{-- imagen_producto -> product_image --}}
-                    @if($product->image)
-                        <div class="mb-3">
-                            <p class="text-xs text-gray-500 mb-1">Imagen actual:</p>
-                            <img src="{{ $product->image_url }}" alt="Imagen actual" class="h-20 w-20 object-cover rounded-lg border border-gray-200">
-                        </div>
-                    @endif
-
-                    <input type="file" name="image" accept="image/*"
-                           class="mt-1 block w-full text-sm text-gray-500
-                file:mr-4 file:py-2 file:px-4
-                file:rounded-full file:border-0
-                file:text-sm file:font-semibold
-                file:bg-red-50 file:text-red-600
-                hover:file:bg-red-100 dark:text-gray-400">
-                    <p class="text-xs text-gray-500 mt-2">Sube una nueva imagen solo si deseas cambiar la actual.</p>
-                </div>
+                <div>
 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Precio de Venta <span

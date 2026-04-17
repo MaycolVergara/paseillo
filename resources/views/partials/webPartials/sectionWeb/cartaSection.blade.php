@@ -27,12 +27,6 @@
             >
                 NUESTRA <span class="text-brand">CARTA</span>
             </h2>
-            <a
-                    href="/cartaPaseilloCompleta"
-                    class="reveal inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-condensed font-800 text-sm uppercase tracking-widest px-8 py-4 rounded-full shadow-[0_6px_24px_rgba(227,6,19,0.35)] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(227,6,19,0.45)] transition-all duration-300"
-            >
-                Ver nuestra carta completa
-            </a>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">

@@ -108,13 +108,7 @@
                         class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all dark:text-white font-medium cursor-pointer">
                 </div>
 
-                {{-- Imagen --}}
-                <div class="md:col-span-1">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Imagen del
-                        Producto</label>
-                    <input type="file" name="image" accept="image/*"
-                        class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-600 hover:file:bg-red-100 dark:text-gray-400">
-                </div>
+
 
                 {{-- Descripción --}}
                 <div class="md:col-span-2">

@@ -5,19 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\ProductModel;
 use App\Models\CategoryModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    /**
-     * Determina qué disco de almacenamiento usar.
-     * Producción (Laravel Cloud): 's3' (Cloudflare R2)
-     * Local (Laragon): 'public'
-     */
-    private function mediaDisk(): string
-    {
-        return config('filesystems.default') === 's3' ? 's3' : 'public';
-    }
     /**
      * Lista toda la carta.
      * Trae todos los productos y categorías para que veas qué tienes en stock.
@@ -42,14 +32,13 @@ class ProductController extends Controller
 
     /**
      * Guarda el nuevo producto en la base de datos.
-     * Valida que tenga nombre y precio, y si subes una foto, la guarda en la carpeta 'public'.
+     * Valida que tenga nombre y precio.
      */
     public function insertProduct(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
         ]);
 
         $product = new ProductModel();
@@ -58,16 +47,8 @@ class ProductController extends Controller
         $product->delivery_date = $request->delivery_date;
         $product->description = $request->description;
         $product->category_id = $request->category_id;
-
-        // Lógica de imagen: le pone un nombre único con el tiempo actual para que no se repitan
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $imageName = time() . '_' . $file->getClientOriginalName();
-            $imagePath = $file->storeAs('products', $imageName, $this->mediaDisk());
-            $product->image = $imagePath;
-        }
-
         $product->save();
+
         return redirect('/dashboard/productList');
     }
 
@@ -81,21 +62,19 @@ class ProductController extends Controller
         $categories = CategoryModel::all();
 
         if (!$product) {
-            return redirect('/dashboard/productList')->with('error', 'ProductModel not found');
+            return redirect('/dashboard/productList')->with('error', 'Producto no encontrado');
         }
         return view('productEdit', compact('product', 'categories'));
     }
 
     /**
      * Actualiza los datos del producto.
-     * Si subes una foto nueva, borra la foto antigua del servidor para no llenar el disco de basura.
      */
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
         ]);
 
         $product = ProductModel::find($id);
@@ -105,37 +84,19 @@ class ProductController extends Controller
         $product->delivery_date = $request->delivery_date;
         $product->description = $request->description;
         $product->category_id = $request->category_id;
-
-        if ($request->hasFile('image')) {
-            // Borra la imagen vieja si existe antes de guardar la nueva
-            if ($product->image) {
-                Storage::disk($this->mediaDisk())->delete($product->image);
-            }
-
-            $file = $request->file('image');
-            $imageName = time() . '_' . $file->getClientOriginalName();
-            $imagePath = $file->storeAs('products', $imageName, $this->mediaDisk());
-            $product->image = $imagePath;
-        }
-
         $product->save();
+
         return redirect('/dashboard/productList');
     }
 
     /**
      * Borra el producto para siempre.
-     * También se encarga de eliminar el archivo de imagen del servidor.
      */
     public function delete($id)
     {
         $product = ProductModel::find($id);
 
         if ($product) {
-            // Limpia el servidor borrando la foto del producto eliminado
-            if ($product->image) {
-                Storage::disk($this->mediaDisk())->delete($product->image);
-            }
-
             $product->delete();
         }
 

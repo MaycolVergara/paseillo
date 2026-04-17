@@ -22,7 +22,7 @@ use App\Http\Controllers\CustomerBallotController;
 
 // 2. WEB PUBLICA (CLIENTES) - INTACTO
 use App\Http\Controllers\webControllers\WebController;
-use App\Http\Controllers\webControllers\CartaPaseilloCompletaController;
+
 
 use App\Http\Middleware\SoloAdmin;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +32,6 @@ use Illuminate\Support\Facades\Route;
 // ==========================================================
 Route::group([], function () {
     Route::get('/', [WebController::class, 'index']);
-    Route::get('/cartaPaseilloCompleta', [CartaPaseilloCompletaController::class, 'cartaPaseilloCompleta']);
 });
 
 // ==========================================================

@@ -42,7 +42,7 @@
                 <thead>
                     <tr class="bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">Producto</th>
-                        <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">imagen</th>
+
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">Precio</th>
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400 text-center">
                             Categoría
@@ -79,21 +79,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4">
-                                {{-- precio -> price --}}
-                                @if ($product->image)
-                                    <div
-                                        class="w-16 h-12 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
-                                            class="w-full h-full object-cover">
-                                    </div>
-                                @else
-                                    <div
-                                        class="w-16 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-[10px] text-gray-400 italic">
-                                        Sin foto
-                                    </div>
-                                @endif
-                            </td>
+
                             <td class="px-6 py-4">
                                 {{-- precio -> price --}}
                                 <span class="text-sm font-black text-emerald-600 dark:text-emerald-400">S/
