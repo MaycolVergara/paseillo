@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
 use App\Models\SaleModel;
 use App\Models\SaleDetailModel;
 use App\Models\CustomerBallotModel;
@@ -108,15 +106,9 @@ class CustomerBallotController extends Controller
             // Generar PDF
             $pdf = $this->generatePDF($sale, $saleDetails, $customer, $request->print_format);
 
-            // Asegurar que el directorio existe
-            Storage::makeDirectory('boletas');
-
-            // Guardar PDF en storage
-            $pdfPath = 'boletas/boleta_' . $customer->dni . '_' . now()->format('YmdHis') . '.pdf';
-            Storage::put($pdfPath, $pdf->output());
-
-            // Retornar PDF para descargar
-            return $pdf->download('boleta_' . $customer->dni . '_' . now()->format('YmdHis') . '.pdf');
+            // Retornar PDF para descargar directamente (sin guardar en disco)
+            $filename = 'boleta_' . $customer->dni . '_' . now()->format('YmdHis') . '.pdf';
+            return $pdf->download($filename);
 
         } catch (\Exception $e) {
             return response()->json([
@@ -158,18 +150,12 @@ class CustomerBallotController extends Controller
             // 3. Generar PDF
             $pdf = $this->generatePDF($sale, $saleDetails, $customer, $request->print_format);
 
-            // Asegurar que el directorio existe
-            Storage::makeDirectory('boletas');
-
-            // 4. Guardar PDF en storage
-            $pdfPath = 'boletas/boleta_' . $customer->dni . '_' . now()->format('YmdHis') . '.pdf';
-            Storage::put($pdfPath, $pdf->output());
-
-            // 5. Obtener table_id para redirigir
+            // 4. Obtener table_id para redirigir
             $table_id = $sale->table_id;
 
-            // 6. Retornar PDF para descargar con redirección en el cliente
-            return $pdf->download('boleta_' . $customer->dni . '_' . now()->format('YmdHis') . '.pdf')
+            // 5. Retornar PDF para descargar directamente (sin guardar en disco)
+            $filename = 'boleta_' . $customer->dni . '_' . now()->format('YmdHis') . '.pdf';
+            return $pdf->download($filename)
                 ->header('X-Redirect-To', '/dashboard/tableOrderDetails/' . $table_id);
 
         } catch (\Exception $e) {
