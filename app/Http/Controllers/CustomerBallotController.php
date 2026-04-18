@@ -108,6 +108,9 @@ class CustomerBallotController extends Controller
             // Generar PDF
             $pdf = $this->generatePDF($sale, $saleDetails, $customer, $request->print_format);
 
+            // Asegurar que el directorio existe
+            Storage::makeDirectory('boletas');
+
             // Guardar PDF en storage
             $pdfPath = 'boletas/boleta_' . $customer->dni . '_' . now()->format('YmdHis') . '.pdf';
             Storage::put($pdfPath, $pdf->output());
@@ -154,6 +157,9 @@ class CustomerBallotController extends Controller
 
             // 3. Generar PDF
             $pdf = $this->generatePDF($sale, $saleDetails, $customer, $request->print_format);
+
+            // Asegurar que el directorio existe
+            Storage::makeDirectory('boletas');
 
             // 4. Guardar PDF en storage
             $pdfPath = 'boletas/boleta_' . $customer->dni . '_' . now()->format('YmdHis') . '.pdf';

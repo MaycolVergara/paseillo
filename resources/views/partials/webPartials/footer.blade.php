@@ -56,7 +56,9 @@
             </div>
 
             <div>
-                <div class="font-condensed text-xs font-700 tracking-[2px] text-white/40 uppercase mb-5">Contacto</div>
+                <div class="font-condensed text-xs font-700 tracking-[2px] text-white/40 uppercase mb-5">
+                    Contacto
+                </div>
                 <div class="flex flex-col gap-4">
 
                     <div class="flex items-center gap-3">
