@@ -6,7 +6,8 @@
         <form action="{{ url('/dashboard/customerBallot/store') }}" method="POST">
             @csrf
             {{-- Vínculo vital con la venta actual --}}
-            <input type="hidden" name="sale_id" value="{{ $sale->id }}" data-table-id="{{ $table_id }}" data-is-delivery="{{ $isDelivery ? '1' : '0' }}">
+            <input type="hidden" name="sale_id" value="{{ $sale->id }}" data-table-id="{{ $table_id }}"
+                data-is-delivery="{{ $isDelivery ? '1' : '0' }}">
             <input type="hidden" name="is_reprint" value="{{ isset($isReprint) && $isReprint ? '1' : '0' }}">
 
             <div
@@ -43,9 +44,9 @@
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <i data-lucide="search" class="w-4 h-4 text-gray-400"></i>
                                     </div>
-                                    <input type="text" id="customer_dni" name="customer_dni" maxlength="8" required
+                                    <input type="text" id="customer_dni" name="customer_dni" maxlength="11" required
                                         class="block w-full pl-10 pr-3 py-3 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-orange-500 transition-all shadow-sm"
-                                        placeholder="Ingrese DNI">
+                                        placeholder="Ingrese DNI o RUC">
                                 </div>
                                 <button type="button" id="btnBuscar"
                                     class="px-6 bg-gray-900 dark:bg-orange-600 text-white font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2 group">
@@ -89,8 +90,9 @@
 
                                     <select id="print_format_select" name="print_format"
                                         class="w-full p-3 bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 rounded-xl text-sm font-bold focus:border-orange-500 transition-all cursor-pointer">
-                                        <option value="detailed">Detallado (Lista)</option>
-                                        <option value="consumption">Por Consumo (Resumen)</option>
+                                        <option value="detailed">Detallado</option>
+                                        <option value="consumption">Por Consumo </option>
+                                        <option value="clientes_varios">Cliente Varios</option>
                                     </select>
                                 </div>
                             </div>
@@ -248,18 +250,47 @@
             const selectFormat = document.getElementById('print_format_select');
             const tableDetailed = document.getElementById('ticket_detailed');
             const tableConsumption = document.getElementById('ticket_consumption');
+            
+            const inputDni = document.getElementById("customer_dni");
+            const inputNombre = document.getElementById("customer_name");
+            const inputApellido = document.getElementById("customer_surname");
+            const displayName = document.getElementById("display_name");
+            const displayDni = document.getElementById("display_dni");
 
             if (selectFormat) {
                 selectFormat.addEventListener('change', function() {
-                    if (this.value === 'consumption') {
+                    // Control de Ticket (Detallado o Consumo)
+                    if (this.value === 'consumption' || this.value === 'clientes_varios') {
                         // Ocultar detallado, mostrar consumo
                         tableDetailed.style.display = 'none';
-                        tableConsumption.style.display =
-                        'table-row-group'; // Es el display correcto para tbody
+                        tableConsumption.style.display = 'table-row-group';
                     } else {
                         // Mostrar detallado, ocultar consumo
                         tableDetailed.style.display = 'table-row-group';
                         tableConsumption.style.display = 'none';
+                    }
+
+                    // Control de Cliente Varios (Autocompletar o limpiar)
+                    if (this.value === 'clientes_varios') {
+                        inputDni.value = "00000000";
+                        inputNombre.value = "CLIENTES VARIOS";
+                        inputApellido.value = "-";
+                        
+                        displayName.innerText = "CLIENTES VARIOS";
+                        displayDni.innerText = "00000000";
+                        
+                        document.getElementById("btnBuscar").disabled = true;
+                        inputDni.readOnly = true;
+                    } else {
+                        if (inputDni.value === "00000000") {
+                            inputDni.value = "";
+                            inputNombre.value = "";
+                            inputApellido.value = "";
+                            displayName.innerText = "---";
+                            displayDni.innerText = "---";
+                        }
+                        document.getElementById("btnBuscar").disabled = false;
+                        inputDni.readOnly = false;
                     }
                 });
             }
@@ -274,19 +305,22 @@
 
             const dni = inputDni.value.trim();
 
-            if (dni.length !== 8) {
-                alert("Por favor, ingrese un DNI de 8 dígitos");
+            if (dni.length !== 8 && dni.length !== 11) {
+                alert("Por favor, ingrese un DNI (8 dígitos) o RUC (11 dígitos)");
                 return;
             }
+
+            const tipoDocumento = dni.length === 8 ? "dni" : "ruc";
 
             // Estado visual de carga
             inputNombre.value = "Buscando...";
             inputApellido.value = "Buscando...";
 
             const token = "9ab0c3b3b29b50a04d673ba8061795f130fec7d90be8e8625bc4a48db0274fb0";
-            const url = "https://api.consultasperu.com/api/v1/query";
-
-            fetch(url, {
+            const urlDni = "https://api.consultasperu.com/api/v1/query";
+            // const urlRuc is not needed because they use the same endpoint, we just pass tipoDocumento
+            
+            fetch(urlDni, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -294,22 +328,27 @@
                     },
                     body: JSON.stringify({
                         "token": token,
-                        "type_document": "dni",
+                        "type_document": tipoDocumento,
                         "document_number": dni
                     })
                 })
                 .then(response => response.json())
                 .then(datos => {
                     if (datos.success && datos.data) {
-                        // 1. Llenamos los inputs ocultos/read-only del form
-                        inputNombre.value = datos.data.name;
-                        inputApellido.value = datos.data.surname;
-
-                        // 2. Actualizamos el ticket visual de la derecha
-                        displayName.innerText = datos.data.name + " " + datos.data.surname;
+                        if (tipoDocumento === "dni") {
+                            inputNombre.value = datos.data.name;
+                            inputApellido.value = datos.data.surname;
+                            displayName.innerText = datos.data.name + " " + datos.data.surname;
+                        } else {
+                            // RUC
+                            const razonSocial = datos.data.nombre_o_razon_social || datos.data.razon_social || datos.data.name;
+                            inputNombre.value = razonSocial;
+                            inputApellido.value = "-"; // RUC no tiene apellidos separados
+                            displayName.innerText = razonSocial;
+                        }
                         displayDni.innerText = dni;
                     } else {
-                        alert("DNI no encontrado");
+                        alert("Documento no encontrado o API no autorizada");
                         inputNombre.value = "";
                         inputApellido.value = "";
                         displayName.innerText = "---";
@@ -335,8 +374,8 @@
                 return;
             }
 
-            if (dni.length !== 8) {
-                alert("El DNI debe tener 8 dígitos");
+            if (dni.length !== 8 && dni.length !== 11) {
+                alert("El Documento debe tener 8 (DNI) o 11 (RUC) dígitos");
                 return;
             }
 
@@ -424,14 +463,14 @@
             // Redirigir después de 3 segundos al origen correcto
             const isDelivery = document.querySelector('input[name="sale_id"]').dataset.isDelivery === '1';
             const isReprint = document.querySelector('input[name="is_reprint"]').value === '1';
-            
+
             setTimeout(() => {
                 if (isReprint) {
                     window.location.href = '/dashboard/saleDetails';
                 } else {
-                    window.location.href = isDelivery
-                        ? '/dashboard/tableOrderDetailsDelyvery/' + tableId
-                        : '/dashboard/tableOrderDetails/' + tableId;
+                    window.location.href = isDelivery ?
+                        '/dashboard/tableOrderDetailsDelyvery/' + tableId :
+                        '/dashboard/tableOrderDetails/' + tableId;
                 }
                 document.body.removeChild(form);
             }, 3000);

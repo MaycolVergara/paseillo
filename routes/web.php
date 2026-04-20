@@ -124,6 +124,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/products/{id}/edit', [ProductController::class, 'viewEdit'])->name('products.edit');
         Route::put('/products/{id}/update', [ProductController::class, 'update'])->name('products.update');
         Route::delete('/products/{id}/delete', [ProductController::class, 'delete']);
+        Route::post('/products/{id}/restore', [ProductController::class, 'restore']);
 
         // Categorías
         Route::get('/categoryRegistration', [CategoryController::class, 'index']);

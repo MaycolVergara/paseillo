@@ -66,7 +66,7 @@ class CustomerBallotController extends Controller
         try {
             // Validar datos
             $request->validate([
-                'customer_dni' => 'required|string|size:8',
+                'customer_dni' => 'required|string|min:8|max:11',
                 'customer_name' => 'required|string',
                 'customer_surname' => 'required|string',
                 'customer_phone' => 'nullable|string|max:9'
@@ -102,7 +102,7 @@ class CustomerBallotController extends Controller
             // Validar datos
             $request->validate([
                 'sale_id' => 'required|exists:sales,id',
-                'customer_dni' => 'required|string|size:8',
+                'customer_dni' => 'required|string|min:8|max:11',
                 'customer_name' => 'required|string',
                 'customer_surname' => 'required|string',
                 'customer_phone' => 'nullable|string|max:9',
@@ -146,7 +146,7 @@ class CustomerBallotController extends Controller
             // Validar datos
             $request->validate([
                 'sale_id' => 'required|exists:sales,id',
-                'customer_dni' => 'required|string|size:8',
+                'customer_dni' => 'required|string|min:8|max:11',
                 'customer_name' => 'required|string',
                 'customer_surname' => 'required|string',
                 'customer_phone' => 'nullable|string|max:9',

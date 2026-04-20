@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = ProductModel::all();
+        $products = ProductModel::withTrashed()->get();
         $categories = CategoryModel::all();
 
         return view('productList', compact('products', 'categories'));
@@ -90,7 +90,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Borra el producto para siempre.
+     * Borra el producto para siempre (o soft delete dependiendo del modelo).
      */
     public function delete($id)
     {
@@ -99,7 +99,19 @@ class ProductController extends Controller
         if ($product) {
             $product->delete();
         }
+        return redirect('/dashboard/productList');
+    }
 
+    /**
+     * Habilita/Restaura un producto deshabilitado.
+     */
+    public function restore($id)
+    {
+        $product = ProductModel::withTrashed()->find($id);
+
+        if ($product) {
+            $product->restore();
+        }
         return redirect('/dashboard/productList');
     }
 }
