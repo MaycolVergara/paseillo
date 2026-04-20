@@ -16,4 +16,9 @@ class StaffModel extends Model
     {
         return $this->hasMany(StaffAbsenceModel::class, 'staff_id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(UserModel::class, 'staff_id');
+    }
 }

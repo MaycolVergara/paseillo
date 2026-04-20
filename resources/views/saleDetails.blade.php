@@ -6,43 +6,48 @@
         {{-- ══════════════════════════
              BANNER HEADER
         ══════════════════════════ --}}
-    <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 mb-6">
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
-                    <i data-lucide="receipt" class="w-6 h-6"></i>
+        <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 mb-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+                        <i data-lucide="receipt" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Registro de Ventas
+                        </h2>
+                        <p class="text-xs font-semibold text-gray-400 mt-0.5 uppercase tracking-widest">
+                            @if ($start_date && $end_date)
+                                Reporte del <span
+                                    class="text-orange-500">{{ \Carbon\Carbon::parse($start_date)->format('d/m/Y') }}</span>
+                                al <span
+                                    class="text-orange-500">{{ \Carbon\Carbon::parse($end_date)->format('d/m/Y') }}</span>
+                            @else
+                                Historial detallado
+                            @endif
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Registro de Ventas</h2>
-                    <p class="text-xs font-semibold text-gray-400 mt-0.5 uppercase tracking-widest">
-                        @if ($start_date && $end_date)
-                            Reporte del <span class="text-orange-500">{{ \Carbon\Carbon::parse($start_date)->format('d/m/Y') }}</span> al <span class="text-orange-500">{{ \Carbon\Carbon::parse($end_date)->format('d/m/Y') }}</span>
-                        @else
-                            Historial detallado
-                        @endif
-                    </p>
-                </div>
-            </div>
 
-            <form action="{{ url('/dashboard/saleDetails') }}" method="GET" class="flex flex-wrap items-end gap-3">
-                <div class="flex flex-col gap-1">
-                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Desde</label>
-                    <input type="datetime-local" name="start_date" value="{{ $start_date }}" required
-                           class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all">
-                </div>
-                <div class="flex flex-col gap-1">
-                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Hasta</label>
-                    <input type="datetime-local" name="end_date" value="{{ $end_date }}" required
-                           class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all">
-                </div>
-                <button type="submit"
+                <form action="{{ url('/dashboard/saleDetails') }}" method="GET" class="flex flex-wrap items-end gap-3">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Desde</label>
+                        <input type="datetime-local" name="start_date" value="{{ $start_date }}" required
+                            class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-400">Hasta</label>
+                        <input type="datetime-local" name="end_date" value="{{ $end_date }}" required
+                            class="text-sm font-medium bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all">
+                    </div>
+                    <button type="submit"
                         class="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-orange-500 to-red-600 text-white text-sm font-black rounded-xl shadow-lg shadow-orange-500/25 hover:scale-[1.02] active:scale-95 transition-all">
-                    <i data-lucide="search" class="w-4 h-4"></i>
-                    Filtrar
-                </button>
-            </form>
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                        Filtrar
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
 
         {{-- ══════════════════════════
              TARJETAS RESUMEN (siempre visibles)
@@ -261,7 +266,8 @@
                                         </div>
 
                                         <div class="col-span-1 flex justify-center">
-                                            <i id="icon-{{ $sale->id }}" data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                                            <i id="icon-{{ $sale->id }}" data-lucide="chevron-down"
+                                                class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
                                         </div>
                                     </button>
 
@@ -273,7 +279,12 @@
                                                 class="px-4 py-2.5 bg-gray-100/70 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                                                 <p class="text-[11px] font-black uppercase tracking-widest text-gray-500">
                                                     Productos
-                                                    del pedido</p>
+                                                    del pedidos
+                                                </p>
+                                                <a href="{{ route('customerBallot.reprint', $sale->id) }}"
+                                                    class="px-4 py-2.5 text-right text-[14px] font-black text-orange-600 hover:text-orange-700 transition-colors">
+                                                    Generar Boleta
+                                                </a>
                                             </div>
                                             <div class="overflow-x-auto">
                                                 <table class="w-full text-left min-w-[600px]">
@@ -291,7 +302,8 @@
                                                         @php $details = \App\Models\SaleDetailModel::where('sale_id', $sale->id)->get(); @endphp
                                                         @foreach ($details as $detail)
                                                             @php $product = \App\Models\ProductModel::find($detail->product_id); @endphp
-                                                            <tr class="hover:bg-white dark:hover:bg-gray-800/50 transition-colors">
+                                                            <tr
+                                                                class="hover:bg-white dark:hover:bg-gray-800/50 transition-colors">
                                                                 <td
                                                                     class="px-4 py-2.5 text-[12px] font-bold text-gray-800 dark:text-gray-200">
                                                                     {{ $product ? $product->name : '— Producto eliminado —' }}
@@ -322,9 +334,11 @@
                                                                 class="px-4 py-2.5 text-[11px] font-black uppercase tracking-widest text-gray-400 text-right">
                                                                 Total
                                                             </td>
-                                                            <td class="px-4 py-2.5 text-right text-[14px] font-black text-orange-600">
+                                                            <td
+                                                                class="px-4 py-2.5 text-right text-[14px] font-black text-orange-600">
                                                                 S/ {{ number_format($sale->total, 2) }}
                                                             </td>
+
                                                             <td></td>
                                                         </tr>
                                                     </tfoot>
@@ -352,8 +366,11 @@
                         <p class="text-xs font-black uppercase tracking-widest text-gray-400">Total del Reporte</p>
                         <div class="flex items-baseline gap-1.5">
                             <span class="text-sm font-bold text-gray-400">S/</span>
-                            <span
-                                class="text-2xl font-black text-gray-900 dark:text-white tracking-tighter">{{ number_format($totalDay, 2) }}</span>
+                            <span class="text-2xl font-black text-gray-900 dark:text-white tracking-tighter">
+                                {{ number_format($totalDay, 2) }}
+                            </span>
+
+
                         </div>
                     </div>
                 @endif

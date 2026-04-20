@@ -70,6 +70,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
 
     // GESTIÓN DE BOLETAS Y PRE-CUENTAS (Mozos y Admin)
     Route::get('/customerBallot/{table_id}', [CustomerBallotController::class, 'showBallot'])->name('customerBallot.show');
+    Route::get('/customerBallot/reprint/{sale_id}', [CustomerBallotController::class, 'reprintBallot'])->name('customerBallot.reprint');
     Route::post('/customerBallot/saveClient', [CustomerBallotController::class, 'saveClient'])->name('customerBallot.saveClient');
     Route::post('/customerBallot/generatePdf', [CustomerBallotController::class, 'generatePdfOnly'])->name('customerBallot.generatePdf');
     Route::post('/customerBallot/store', [CustomerBallotController::class, 'storeBallot'])->name('customerBallot.store');

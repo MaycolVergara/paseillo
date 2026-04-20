@@ -7,6 +7,7 @@
             @csrf
             {{-- Vínculo vital con la venta actual --}}
             <input type="hidden" name="sale_id" value="{{ $sale->id }}" data-table-id="{{ $table_id }}" data-is-delivery="{{ $isDelivery ? '1' : '0' }}">
+            <input type="hidden" name="is_reprint" value="{{ isset($isReprint) && $isReprint ? '1' : '0' }}">
 
             <div
                 class="bg-white dark:bg-gray-900 shadow-2xl rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800">
@@ -422,10 +423,16 @@
 
             // Redirigir después de 3 segundos al origen correcto
             const isDelivery = document.querySelector('input[name="sale_id"]').dataset.isDelivery === '1';
+            const isReprint = document.querySelector('input[name="is_reprint"]').value === '1';
+            
             setTimeout(() => {
-                window.location.href = isDelivery
-                    ? '/dashboard/tableOrderDetailsDelyvery/' + tableId
-                    : '/dashboard/tableOrderDetails/' + tableId;
+                if (isReprint) {
+                    window.location.href = '/dashboard/saleDetails';
+                } else {
+                    window.location.href = isDelivery
+                        ? '/dashboard/tableOrderDetailsDelyvery/' + tableId
+                        : '/dashboard/tableOrderDetails/' + tableId;
+                }
                 document.body.removeChild(form);
             }, 3000);
 

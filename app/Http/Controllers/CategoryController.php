@@ -26,7 +26,7 @@ class CategoryController extends Controller // Antes CategoriaController
 
         $category = new CategoryModel();
         $category->name = $request->name;
-        $category->stores_id = $request->stores_id;
+        $category->stores_id = $request->stores_id ?: null;
         $category->save();
 
         return redirect()->back()->with('success', 'Categoría creada con éxito');
@@ -42,7 +42,7 @@ class CategoryController extends Controller // Antes CategoriaController
         }
 
         $category->name = $request->name;
-        $category->stores_id = $request->stores_id;
+        $category->stores_id = $request->stores_id ?: null;
         $category->save();
         return redirect('/dashboard/categoryRegistration')->with('success', 'Categoría actualizada con éxito');
     }

@@ -11,7 +11,7 @@ class StaffController extends Controller
     // Muestra la vista de staffRegistration
     public function index()
     {
-        $staffMembers = StaffModel::all();
+        $staffMembers = StaffModel::with('user')->get();
         $roles = RoleModel::all();
 
         return view('staffList', compact('staffMembers', 'roles'));

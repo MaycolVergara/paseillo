@@ -55,11 +55,16 @@
                     <tr class="group hover:bg-orange-50/30 dark:hover:bg-orange-900/5 transition-all fila-paginada">
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
-                                    <span class="text-sm font-black text-orange-500">{{ mb_strtoupper(mb_substr($staff->name, 0, 1)) }}</span>
+                                <div class="w-10 h-10 rounded-xl {{ $staff->user ? 'bg-blue-100 dark:bg-blue-900/40 ring-2 ring-blue-500/50 shadow-sm shadow-blue-500/20' : 'bg-gray-100 dark:bg-gray-800' }} flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                    <span class="text-sm font-black {{ $staff->user ? 'text-blue-600 dark:text-blue-400' : 'text-orange-500' }}">{{ mb_strtoupper(mb_substr($staff->name, 0, 1)) }}</span>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-bold text-gray-900 dark:text-white texto-buscar">{{ $staff->name }} {{ $staff->surname }}</p>
+                                    <p class="text-sm font-bold text-gray-900 dark:text-white texto-buscar flex items-center gap-1.5">
+                                        {{ $staff->name }} {{ $staff->surname }}
+                                        @if($staff->user)
+                                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-500" title="Tiene acceso al sistema"></i>
+                                        @endif
+                                    </p>
                                     <p class="text-[11px] text-gray-400 italic">ID: #{{ $staff->id }} @if($staff->hire_date) • Ingreso: {{ \Carbon\Carbon::parse($staff->hire_date)->format('d/m/Y') }} @endif</p>
                                 </div>
                             </div>
@@ -101,7 +106,7 @@
                                         {{-- Generar Credenciales --}}
                                         <a href="{{ url('/dashboard/staff/' . $staff->id . '/credentials') }}" class="flex items-center gap-2.5 w-full px-3 py-2.5 text-xs font-bold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-xl transition-all">
                                             <i data-lucide="key" class="w-3.5 h-3.5"></i>
-                                            Generar Credenciales
+                                            {{ $staff->user ? 'Actualizar Cred.' : 'Generar Credenciales' }}
                                         </a>
 
                                         {{-- Activar/Desactivar --}}

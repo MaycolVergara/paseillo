@@ -43,6 +43,24 @@ class CustomerBallotController extends Controller
         }
     }
 
+    public function reprintBallot($sale_id, Request $request)
+    {
+        try {
+            $sale = SaleModel::findOrFail($sale_id);
+            $saleDetails = SaleDetailModel::with('product')
+                ->where('sale_id', $sale->id)
+                ->get();
+            
+            $isDelivery = !empty($sale->table_delivery_id);
+            $table_id = $isDelivery ? $sale->table_delivery_id : $sale->table_id;
+            
+            $isReprint = true;
+            return view('customerBallot', compact('sale', 'saleDetails', 'table_id', 'isDelivery', 'isReprint'));
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Error al cargar la boleta para re-imprimir: ' . $e->getMessage());
+        }
+    }
+
     public function saveClient(Request $request)
     {
         try {
@@ -155,10 +173,16 @@ class CustomerBallotController extends Controller
             $pdf = $this->generatePDF($sale, $saleDetails, $customer, $request->print_format);
 
             // 4. Obtener table_id y definir redirección
-            $isDelivery = !empty($sale->table_delivery_id);
-            $redirectUrl = $isDelivery 
-                ? '/dashboard/tableOrderDetailsDelyvery/' . $sale->table_delivery_id
-                : '/dashboard/tableOrderDetails/' . $sale->table_id;
+            $isReprint = $request->input('is_reprint') === '1';
+            
+            if ($isReprint) {
+                $redirectUrl = '/dashboard/saleDetails';
+            } else {
+                $isDelivery = !empty($sale->table_delivery_id);
+                $redirectUrl = $isDelivery 
+                    ? '/dashboard/tableOrderDetailsDelyvery/' . $sale->table_delivery_id
+                    : '/dashboard/tableOrderDetails/' . $sale->table_id;
+            }
 
             // 5. Retornar PDF para descargar directamente (sin guardar en disco)
             $filename = 'boleta_' . $customer->dni . '_' . now()->format('YmdHis') . '.pdf';
