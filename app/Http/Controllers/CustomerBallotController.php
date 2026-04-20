@@ -106,7 +106,7 @@ class CustomerBallotController extends Controller
                 'customer_name' => 'required|string',
                 'customer_surname' => 'required|string',
                 'customer_phone' => 'nullable|string|max:9',
-                'print_format' => 'required|in:detailed,consumption'
+                'print_format' => 'required|in:detailed,consumption,clientes_varios'
             ]);
 
             // Obtener cliente
@@ -150,7 +150,7 @@ class CustomerBallotController extends Controller
                 'customer_name' => 'required|string',
                 'customer_surname' => 'required|string',
                 'customer_phone' => 'nullable|string|max:9',
-                'print_format' => 'required|in:detailed,consumption'
+                'print_format' => 'required|in:detailed,consumption,clientes_varios'
             ]);
 
             // 1. Guardar o actualizar cliente en tabla customer_ballot
