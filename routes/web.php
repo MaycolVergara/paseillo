@@ -20,18 +20,17 @@ use App\Http\Controllers\SaleReportController;
 use App\Http\Controllers\CustomerBallotController;
 
 
-// 2. WEB PUBLICA (CLIENTES) - INTACTO
-use App\Http\Controllers\webControllers\WebController;
+// 2. WEB PUBLICA (ELIMINADA)
 
 
 use App\Http\Middleware\SoloAdmin;
 use Illuminate\Support\Facades\Route;
 
 // ==========================================================
-// WEB PUBLICA (CLIENTES)
+// REDIRECCIÓN PRINCIPAL
 // ==========================================================
-Route::group([], function () {
-    Route::get('/', [WebController::class, 'index']);
+Route::get('/', function () {
+    return redirect()->route('login');
 });
 
 // ==========================================================

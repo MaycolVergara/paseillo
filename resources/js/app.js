@@ -13,7 +13,6 @@ import { initUtils } from './admin/utils';
 import { initSettings } from './admin/settings';
 import { initReports } from './admin/reports';
 import { initStaffAbsence } from './admin/staff';
-import { initWebInteractions } from './web/interactions';
 
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,13 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('search-producto')) {
             initSearchPicker();
         }
-    }
-    
-    // 3. PUBLIC WEB LOGIC (Conditional)
-    // Only runs if we are in the landing/carta area
-    if (document.getElementById('nav-toggle') || document.querySelector('.reveal')) {
-        console.log('--- Paseillo Web Initialized ---');
-        initWebInteractions();
     }
     
     // 4. LUCIDE ICONS (Global fallback)
