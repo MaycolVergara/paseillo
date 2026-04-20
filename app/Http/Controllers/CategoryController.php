@@ -24,27 +24,41 @@ class CategoryController extends Controller // Antes CategoriaController
             'name' => 'required'
         ]);
 
-        $category = new CategoryModel();
-        $category->name = $request->name;
-        $category->stores_id = $request->stores_id ?: null;
-        $category->save();
+        try {
+            $category = new CategoryModel();
+            $category->name = $request->name;
+            
+            $val = $request->input('stores_id');
+            $category->stores_id = empty($val) ? null : (int)$val;
+            
+            $category->save();
 
-        return redirect()->back()->with('success', 'Categoría creada con éxito');
+            return redirect()->back()->with('success', 'Categoría creada con éxito');
+        } catch (\Exception $e) {
+            dd("ERROR DETECTADO AL CREAR: " . $e->getMessage());
+        }
     }
 
     // 3. Busca una categoría por ID y actualiza su nombre.
     public function update(Request $request, $id)
     {
-        $category = CategoryModel::find($id);
+        try {
+            $category = CategoryModel::find($id);
 
-        if (!$category) {
-            return redirect('/dashboard/categoryRegistration')->with('error', 'Categoría no encontrada.');
+            if (!$category) {
+                return redirect('/dashboard/categoryRegistration')->with('error', 'Categoría no encontrada.');
+            }
+
+            $category->name = $request->name;
+            
+            $val = $request->input('stores_id');
+            $category->stores_id = empty($val) ? null : (int)$val;
+            
+            $category->save();
+            return redirect('/dashboard/categoryRegistration')->with('success', 'Categoría actualizada con éxito');
+        } catch (\Exception $e) {
+            dd("ERROR DETECTADO AL ACTUALIZAR: " . $e->getMessage());
         }
-
-        $category->name = $request->name;
-        $category->stores_id = $request->stores_id ?: null;
-        $category->save();
-        return redirect('/dashboard/categoryRegistration')->with('success', 'Categoría actualizada con éxito');
     }
 
     // 4. Elimina la categoría seleccionada de la base de datos.
