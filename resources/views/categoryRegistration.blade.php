@@ -152,7 +152,7 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col gap-3">
+                <div class="flex flex-col gap-3 mt-3">
                     <button type="submit" id="cat-btn-submit"
                         class="w-full flex justify-center items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-orange-500 to-red-600 text-white text-sm font-black rounded-xl shadow-lg shadow-orange-500/25 hover:scale-[1.02] active:scale-95 transition-all">
                         Guardar Categoría

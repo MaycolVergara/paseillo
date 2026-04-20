@@ -82,6 +82,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         // Inicio y Reportes
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/saleDetails', [SaleController::class, 'index']);
+        Route::post('/tableView/{id}/toggle-status', [TableController::class, 'toggleStatus'])->name('tables.toggle-status');
 
         // Reportes de Ventas Avanzados
         Route::get('/reports/sales/weekly', [SaleReportController::class, 'weekly'])->name('reports.sales.weekly');

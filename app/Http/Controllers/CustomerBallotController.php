@@ -15,11 +15,15 @@ class CustomerBallotController extends Controller
         return view('customerList',compact('customer'));
     }
 
-    public function showBallot($table_id)
+    public function showBallot(Request $request, $table_id)
     {
         try {
-            // Buscamos la venta sin importar si es 'Pending' o 'pending'
-            $sale = SaleModel::where('table_id', $table_id)
+            // Detectar si viene de Delivery o Salón
+            $isDelivery = $request->query('type') === 'delivery';
+            $searchColumn = $isDelivery ? 'table_delivery_id' : 'table_id';
+
+            // Buscamos la venta por la columna correcta
+            $sale = SaleModel::where($searchColumn, $table_id)
                 ->whereIn('status', ['Pending', 'pending', 'active', 'Active'])
                 ->latest()
                 ->first();
@@ -33,7 +37,7 @@ class CustomerBallotController extends Controller
                 ->where('sale_id', $sale->id)
                 ->get();
 
-            return view('customerBallot', compact('sale', 'saleDetails', 'table_id'));
+            return view('customerBallot', compact('sale', 'saleDetails', 'table_id', 'isDelivery'));
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Error al cargar la boleta: ' . $e->getMessage());
         }
@@ -150,13 +154,16 @@ class CustomerBallotController extends Controller
             // 3. Generar PDF
             $pdf = $this->generatePDF($sale, $saleDetails, $customer, $request->print_format);
 
-            // 4. Obtener table_id para redirigir
-            $table_id = $sale->table_id;
+            // 4. Obtener table_id y definir redirección
+            $isDelivery = !empty($sale->table_delivery_id);
+            $redirectUrl = $isDelivery 
+                ? '/dashboard/tableOrderDetailsDelyvery/' . $sale->table_delivery_id
+                : '/dashboard/tableOrderDetails/' . $sale->table_id;
 
             // 5. Retornar PDF para descargar directamente (sin guardar en disco)
             $filename = 'boleta_' . $customer->dni . '_' . now()->format('YmdHis') . '.pdf';
             return $pdf->download($filename)
-                ->header('X-Redirect-To', '/dashboard/tableOrderDetails/' . $table_id);
+                ->header('X-Redirect-To', $redirectUrl);
 
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al guardar: ' . $e->getMessage());
@@ -179,6 +186,8 @@ class CustomerBallotController extends Controller
     private function generateHTMLBoleta($sale, $saleDetails, $customer, $format)
     {
         $total = $saleDetails->sum('subtotal');
+        $baseImponible = round($total / 1.18, 2);
+        $igv = round($total - $baseImponible, 2);
 
         $productosHTML = '';
 
@@ -276,10 +285,10 @@ class CustomerBallotController extends Controller
 
             <div class='totals'>
                 <div class='totals-row'>
-                    <span><strong>Subtotal:</strong> S/ " . number_format($total, 2) . "</span>
+                    <span><strong>Base Imponible:</strong> S/ " . number_format($baseImponible, 2) . "</span>
                 </div>
                 <div class='totals-row'>
-                    <span><strong>IGV (0%):</strong> S/ 0.00</span>
+                    <span><strong>IGV (18%):</strong> S/ " . number_format($igv, 2) . "</span>
                 </div>
                 <div class='totals-row total-amount'>
                     <span><strong>TOTAL A PAGAR: S/ " . number_format($total, 2) . "</strong></span>

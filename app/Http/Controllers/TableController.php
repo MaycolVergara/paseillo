@@ -75,4 +75,27 @@ class TableController extends Controller
 
         return redirect('/dashboard/tableRegistration')->with('success', 'Salón de Paseillo actualizado con éxito.');
     }
+
+    /**
+     * Alternar estado de la mesa (disponible / inhabilitada).
+     */
+    public function toggleStatus($id)
+    {
+        $table = TableModel::findOrFail($id);
+
+        if ($table->status == 'ocupado') {
+            return redirect()->back()->with('error', 'No se puede inhabilitar una mesa que está ocupada.');
+        }
+
+        if ($table->status == 'mesasInhabilitada') {
+            $table->status = 'disponible';
+            $message = 'Mesa habilitada correctamente.';
+        } else {
+            $table->status = 'mesasInhabilitada';
+            $message = 'Mesa inhabilitada correctamente.';
+        }
+
+        $table->save();
+        return redirect()->back()->with('success', $message);
+    }
 }

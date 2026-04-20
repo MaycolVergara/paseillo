@@ -120,10 +120,10 @@
                                             <form action="{{ url('/dashboard/products/' . $product->id . '/delete') }}"
                                                 method="POST" class="block">
                                                 @csrf @method('DELETE')
-                                                <button type="submit" onclick="return confirm('¿Eliminar producto?')"
+                                                <button type="submit" onclick="return confirm('¿Estás seguro de inhabilitar este producto? Dejará de salir en la carta, pero se mantendrá en los reportes de ventas.')"
                                                     class="flex items-center gap-2.5 w-full px-3 py-2 text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-all text-left">
-                                                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                                                    Eliminar
+                                                    <i data-lucide="eye-off" class="w-3.5 h-3.5"></i>
+                                                    Deshabilitar
                                                 </button>
                                             </form>
                                         </div>

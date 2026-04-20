@@ -6,7 +6,7 @@
         <form action="{{ url('/dashboard/customerBallot/store') }}" method="POST">
             @csrf
             {{-- Vínculo vital con la venta actual --}}
-            <input type="hidden" name="sale_id" value="{{ $sale->id }}" data-table-id="{{ $sale->table_id }}">
+            <input type="hidden" name="sale_id" value="{{ $sale->id }}" data-table-id="{{ $table_id }}" data-is-delivery="{{ $isDelivery ? '1' : '0' }}">
 
             <div
                 class="bg-white dark:bg-gray-900 shadow-2xl rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800">
@@ -20,7 +20,7 @@
                         </h3>
                         <span
                             class="bg-white/20 text-white text-xs font-bold px-4 py-1 rounded-full backdrop-blur-md border border-white/30">
-                            Mesa #{{ $sale->table_number ?? 'S/N' }}
+                            {{ $isDelivery ? 'Delivery' : 'Mesa' }} #{{ $sale->table_number ?? 'S/N' }}
                         </span>
                     </div>
                 </div>
@@ -177,22 +177,27 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                {{-- TOTALES --}}
+                                {{-- TOTALES con IGV 18% --}}
+                                @php
+                                    $totalVenta = $sale->total;
+                                    $baseImponible = round($totalVenta / 1.18, 2);
+                                    $igv = round($totalVenta - $baseImponible, 2);
+                                @endphp
                                 <div class="space-y-2 pt-4 border-t-2 border-dashed border-gray-200 dark:border-gray-700">
                                     <div class="flex justify-between text-gray-400 font-bold text-[10px] uppercase">
-                                        <span>Subtotal</span>
-                                        <span>S/ {{ number_format($sale->total, 2) }}</span>
+                                        <span>Base Imponible</span>
+                                        <span>S/ {{ number_format($baseImponible, 2) }}</span>
                                     </div>
                                     <div class="flex justify-between text-gray-400 font-bold text-[10px] uppercase">
-                                        <span>IGV (0%)</span>
-                                        <span>S/ 0.00</span>
+                                        <span>IGV (18%)</span>
+                                        <span>S/ {{ number_format($igv, 2) }}</span>
                                     </div>
                                     <div class="flex justify-between items-center pt-2">
                                         <span
                                             class="text-sm font-black text-gray-800 dark:text-white uppercase tracking-tighter">Total
                                             a Pagar</span>
                                         <span class="text-2xl font-black text-orange-500">S/
-                                            {{ number_format($sale->total, 2) }}</span>
+                                            {{ number_format($totalVenta, 2) }}</span>
                                     </div>
                                 </div>
 
@@ -415,9 +420,12 @@
             document.body.appendChild(form);
             form.submit();
 
-            // Redirigir después de 3 segundos
+            // Redirigir después de 3 segundos al origen correcto
+            const isDelivery = document.querySelector('input[name="sale_id"]').dataset.isDelivery === '1';
             setTimeout(() => {
-                window.location.href = '/dashboard/tableOrderDetails/' + tableId;
+                window.location.href = isDelivery
+                    ? '/dashboard/tableOrderDetailsDelyvery/' + tableId
+                    : '/dashboard/tableOrderDetails/' + tableId;
                 document.body.removeChild(form);
             }, 3000);
 

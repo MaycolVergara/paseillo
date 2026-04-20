@@ -50,7 +50,10 @@
                     @foreach($table_config as $table)
                         @php
                             // Determinar el color según el estado y quién atiende
-                            if ($table->status == 'disponible') {
+                            if ($table->status == 'mesasInhabilitada') {
+                                $cardClass = 'border-yellow-300 bg-yellow-50 text-yellow-600 dark:border-yellow-900 dark:bg-yellow-950/30 dark:text-yellow-400 opacity-80';
+                                $labelText = 'Inactiva';
+                            } elseif ($table->status == 'disponible') {
                                 $cardClass = 'border-emerald-100 bg-emerald-50 text-emerald-600 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-400';
                                 $labelText = 'Libre';
                             } elseif ($table->servingUser && $table->servingUser->role_id == 2) {
@@ -60,13 +63,44 @@
                                 $cardClass = 'border-red-100 bg-red-50 text-red-600 dark:border-red-900 dark:bg-red-950/30 dark:text-red-400';
                                 $labelText = $table->servingUser ? $table->servingUser->name : 'Ocupado';
                             }
+                            
+                            $isDisabled = $table->status == 'mesasInhabilitada';
+                            $isAdmin = Auth::user()->role_id == 1;
                         @endphp
 
-                        <a href="{{ url('/dashboard/tableOrderDetails/'.$table->table_number) }}"
-                           class="aspect-[0.85/1] flex flex-col items-center justify-center gap-1.5 p-3 rounded-2xl border-4 {{ $cardClass }} hover:scale-105 transition-all shadow-lg">
-                            <span class="text-2xl sm:text-3xl lg:text-5xl font-black tracking-tighter leading-none">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
-                            <span class="text-[9px] font-black uppercase tracking-wider text-center leading-tight truncate w-full px-1">{{ $labelText }}</span>
-                        </a>
+                        <div class="relative group/table">
+                            @if($isDisabled)
+                                <div class="aspect-[0.85/1] flex flex-col items-center justify-center gap-1.5 p-3 rounded-2xl border-4 {{ $cardClass }} cursor-not-allowed shadow-md">
+                                    <span class="text-2xl sm:text-3xl lg:text-5xl font-black tracking-tighter leading-none">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+                                    <span class="text-[9px] font-black uppercase tracking-wider text-center leading-tight truncate w-full px-1">{{ $labelText }}</span>
+                                </div>
+                            @else
+                                <a href="{{ url('/dashboard/tableOrderDetails/'.$table->table_number) }}"
+                                   class="aspect-[0.85/1] flex flex-col items-center justify-center gap-1.5 p-3 rounded-2xl border-4 {{ $cardClass }} hover:scale-105 transition-all shadow-lg block">
+                                    <span class="text-2xl sm:text-3xl lg:text-5xl font-black tracking-tighter leading-none">{{ str_pad($table->table_number, 2, '0', STR_PAD_LEFT) }}</span>
+                                    <span class="text-[9px] font-black uppercase tracking-wider text-center leading-tight truncate w-full px-1">{{ $labelText }}</span>
+                                </a>
+                            @endif
+
+                            @if($isAdmin)
+                                <!-- Tres puntos para el Admin -->
+                                <div class="absolute top-2 right-2">
+                                    <button type="button" class="p-1 rounded-lg text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors dropdown-table-btn" onclick="toggleDropdownMesa(event, {{ $table->id }})">
+                                        <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                                    </button>
+                                    
+                                    <!-- Dropdown menu -->
+                                    <div id="dropdown-mesa-{{ $table->id }}" class="dropdown-mesa-menu hidden absolute z-50 right-0 mt-1 w-28 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-xl overflow-hidden">
+                                        <form action="{{ route('tables.toggle-status', $table->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="w-full text-left px-3 py-2 text-[10px] font-black uppercase tracking-wider {{ $isDisabled ? 'text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30' : 'text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-900/30' }} transition-colors">
+                                                {{ $isDisabled ? 'Habilitar' : 'Inhabilitar' }}
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
                     @endforeach
                     @else
                         <div class="col-span-5 flex flex-col items-center justify-center py-20 text-gray-400">
@@ -77,4 +111,30 @@
             </div>
         @endif
     </div>
+    <script>
+        function toggleDropdownMesa(event, tableId) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            // Hide all other dropdowns
+            document.querySelectorAll('.dropdown-mesa-menu').forEach(menu => {
+                if (menu.id !== 'dropdown-mesa-' + tableId) {
+                    menu.classList.add('hidden');
+                }
+            });
+            
+            // Toggle the clicked one
+            const dropdown = document.getElementById('dropdown-mesa-' + tableId);
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Close dropdowns if click outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown-table-btn')) {
+                document.querySelectorAll('.dropdown-mesa-menu').forEach(menu => {
+                    menu.classList.add('hidden');
+                });
+            }
+        });
+    </script>
 @endsection
