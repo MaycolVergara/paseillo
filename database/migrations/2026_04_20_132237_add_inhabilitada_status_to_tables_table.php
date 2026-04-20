@@ -12,8 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // MySQL enum modification - add 'mesasInhabilitada' status
-        DB::statement("ALTER TABLE `tables` MODIFY COLUMN `status` ENUM('disponible', 'ocupado', 'mesasInhabilitada', 'mesasNoExistentes') DEFAULT 'disponible'");
+        $driver = DB::connection()->getDriverName();
+        
+        if ($driver === 'mysql' || $driver === 'mariadb') {
+            DB::statement("ALTER TABLE `tables` MODIFY COLUMN `status` ENUM('disponible', 'ocupado', 'mesasInhabilitada', 'mesasNoExistentes') DEFAULT 'disponible'");
+        } elseif ($driver === 'pgsql') {
+            DB::statement("ALTER TABLE tables DROP CONSTRAINT IF EXISTS tables_status_check");
+            DB::statement("ALTER TABLE tables ADD CONSTRAINT tables_status_check CHECK (status::text = ANY (ARRAY['disponible'::character varying, 'ocupado'::character varying, 'mesasInhabilitada'::character varying, 'mesasNoExistentes'::character varying]::text[]))");
+        }
     }
 
     /**
@@ -21,6 +27,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement("ALTER TABLE `tables` MODIFY COLUMN `status` ENUM('disponible', 'ocupado', 'mesasNoExistentes') DEFAULT 'disponible'");
+        $driver = DB::connection()->getDriverName();
+        
+        if ($driver === 'mysql' || $driver === 'mariadb') {
+            DB::statement("ALTER TABLE `tables` MODIFY COLUMN `status` ENUM('disponible', 'ocupado', 'mesasNoExistentes') DEFAULT 'disponible'");
+        } elseif ($driver === 'pgsql') {
+            DB::statement("ALTER TABLE tables DROP CONSTRAINT IF EXISTS tables_status_check");
+            DB::statement("ALTER TABLE tables ADD CONSTRAINT tables_status_check CHECK (status::text = ANY (ARRAY['disponible'::character varying, 'ocupado'::character varying, 'mesasNoExistentes'::character varying]::text[]))");
+        }
     }
 };
