@@ -276,15 +276,21 @@
                                         <div
                                             class="bg-gray-50 dark:bg-gray-800/40 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
                                             <div
-                                                class="px-4 py-2.5 bg-gray-100/70 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                                                <p class="text-[11px] font-black uppercase tracking-widest text-gray-500">
-                                                    Productos
-                                                    del pedidos
+                                                class="px-4 py-2.5 bg-gray-100/70 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+
+                                                <p
+                                                    class="text-[11px] font-black uppercase tracking-widest text-gray-500 m-0">
+                                                    Productos del pedido
                                                 </p>
+
                                                 <a href="{{ route('customerBallot.reprint', $sale->id) }}"
-                                                    class="px-4 py-2.5 text-right text-[14px] font-black text-orange-600 hover:text-orange-700 transition-colors">
+                                                    class="bg-[#155dfc] hover:bg-[#0f4ac9] text-white text-xs font-bold py-1.5 px-3 rounded-lg shadow-sm transition-colors duration-300 flex items-center gap-1.5">
+
+                                                    <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+
                                                     Generar Boleta
                                                 </a>
+
                                             </div>
                                             <div class="overflow-x-auto">
                                                 <table class="w-full text-left min-w-[600px]">
