@@ -25,6 +25,19 @@
             </a>
         </div>
 
+        @if (session('error'))
+            <div class="mb-6 px-4 py-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm font-bold flex items-center gap-2">
+                <i data-lucide="alert-triangle" class="w-5 h-5 text-red-500"></i>
+                {{ session('error') }}
+            </div>
+        @endif
+        @if (session('success'))
+            <div class="mb-6 px-4 py-3 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl text-sm font-bold flex items-center gap-2">
+                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500"></i>
+                {{ session('success') }}
+            </div>
+        @endif
+
         {{-- Buscador de Productos (Dropdown) --}}
         <form action="{{ url('/dashboard/saveOrderDelivery/' . $id) }}" method="POST">
             @csrf

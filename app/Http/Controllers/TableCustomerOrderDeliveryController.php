@@ -52,7 +52,17 @@ class TableCustomerOrderDeliveryController extends Controller
             'delivery_address' => 'nullable|string|max:255'
         ]);
 
-        $product = ProductModel::find($request->product_id);
+        $product = ProductModel::with('category')->find($request->product_id);
+        
+        // Verificación de stock antes de registrar la venta delivery
+        $storeId = $product->stores_id ?? ($product->category ? $product->category->stores_id : null);
+        if ($storeId) {
+            $store = StoreModel::find($storeId);
+            if ($store && $request->quantity > $store->current_stock) {
+                return redirect()->back()->with('error', "No tienes suficiente insumo para hacer esta venta. Stock actual de {$store->name}: {$store->current_stock}");
+            }
+        }
+
         $unit_price = $product->price;
         $subtotal = $unit_price * $request->quantity;
 
