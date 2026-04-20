@@ -19,7 +19,7 @@
             <div class="flex flex-1 max-w-md items-center gap-3">
                 <div class="relative w-full">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    <i data-lucide="search" class="w-4 h-4"></i>
+                        <i data-lucide="search" class="w-4 h-4"></i>
                     </span>
                     <input type="text" id="searchInput" placeholder="Buscar pizza, burger..."
                         class="w-full pl-9 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all outline-none dark:text-white">
@@ -56,7 +56,8 @@
                 <tbody id="tabla-paginada" class="divide-y divide-gray-50 dark:divide-gray-800">
                     {{-- $productos -> $products --}}
                     @foreach ($products as $product)
-                        <tr class="group hover:bg-orange-50/30 dark:hover:bg-orange-900/5 transition-all fila-paginada {{ $product->trashed() ? 'bg-gray-50/50 dark:bg-gray-800/30' : '' }}">
+                        <tr
+                            class="group hover:bg-orange-50/30 dark:hover:bg-orange-900/5 transition-all fila-paginada {{ $product->trashed() ? 'bg-gray-50/50 dark:bg-gray-800/30' : '' }}">
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
                                     <div
@@ -71,10 +72,13 @@
                                     </div>
                                     <div>
                                         {{-- nombre_producto -> name --}}
-                                        <p class="text-sm font-bold text-gray-900 dark:text-white texto-buscar flex items-center gap-2">
+                                        <p
+                                            class="text-sm font-bold text-gray-900 
+                                        dark:text-white texto-buscar flex items-center gap-2">
                                             {{ $product->name }}
-                                            @if($product->trashed())
-                                                <span class="px-2 py-0.5 bg-red-100 text-red-600 dark:bg-red-900/30 text-[10px] rounded-lg tracking-wider uppercase font-black">Inactivo</span>
+                                            @if ($product->trashed())
+                                                <span
+                                                    class="px-2 py-0.5 bg-red-100 text-red-600 dark:bg-red-900/30 text-[10px] rounded-lg tracking-wider uppercase font-black">Inactivo</span>
                                             @endif
                                         </p>
                                         {{-- descripcion_producto -> description --}}
@@ -114,10 +118,13 @@
                                     <div
                                         class="absolute right-0 top-full mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl z-50 invisible group-hover/menu:visible opacity-0 group-hover/menu:opacity-100 transition-all duration-200 transform origin-top-right scale-95 group-hover/menu:scale-100 overflow-hidden">
                                         <div class="p-1.5 space-y-1">
-                                            @if($product->trashed())
-                                                <form action="{{ url('/dashboard/products/' . $product->id . '/restore') }}" method="POST" class="block">
+                                            @if ($product->trashed())
+                                                <form
+                                                    action="{{ url('/dashboard/products/' . $product->id . '/restore') }}"
+                                                    method="POST" class="block">
                                                     @csrf
-                                                    <button type="submit" onclick="return confirm('¿Estás seguro de volver a habilitar este producto para que aparezca en la carta?')"
+                                                    <button type="submit"
+                                                        onclick="return confirm('¿Estás seguro de volver a habilitar este producto para que aparezca en la carta?')"
                                                         class="flex items-center gap-2.5 w-full px-3 py-2 text-xs font-bold text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 rounded-xl transition-all text-left">
                                                         <i data-lucide="eye" class="w-3.5 h-3.5"></i>
                                                         Habilitar
@@ -132,7 +139,8 @@
                                                 <form action="{{ url('/dashboard/products/' . $product->id . '/delete') }}"
                                                     method="POST" class="block">
                                                     @csrf @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('¿Estás seguro de inhabilitar este producto? Dejará de salir en la carta, pero se mantendrá en los reportes de ventas.')"
+                                                    <button type="submit"
+                                                        onclick="return confirm('¿Estás seguro de inhabilitar este producto? Dejará de salir en la carta, pero se mantendrá en los reportes de ventas.')"
                                                         class="flex items-center gap-2.5 w-full px-3 py-2 text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-all text-left">
                                                         <i data-lucide="eye-off" class="w-3.5 h-3.5"></i>
                                                         Deshabilitar
