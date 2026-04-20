@@ -44,18 +44,7 @@ Route::get('/login', function () {
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/fix-sequence', function () {
-    if (DB::connection()->getDriverName() === 'pgsql') {
-        $tables = ['categories', 'products', 'staff', 'users', 'roles', 'sales', 'sale_details', 'stores', 'tables', 'table_delivery', 'customer_ballot', 'inventory_entries'];
-        foreach ($tables as $table) {
-            try {
-                DB::statement("SELECT setval('{$table}_id_seq', COALESCE((SELECT MAX(id)+1 FROM {$table}), 1), false)");
-            } catch (\Exception $e) {}
-        }
-        return "¡Secuencias de PostgreSQL sincronizadas correctamente!";
-    }
-    return "No estás en PostgreSQL (probablemente estás en MySQL local), así que esto no es necesario.";
-});
+
 
 // ==========================================================
 // PANEL DE ADMINISTRACION Y VENTAS (DASHBOARD)
