@@ -30,13 +30,13 @@ class StaffController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'surname' => 'required|string|max:50',
-            'dni' => 'required|string|max:15|unique:staff,dni', // Evita DNIs duplicados
+            'dni' => 'required|digits:8|unique:staff,dni', // Evita DNIs duplicados
             'salary' => 'required|numeric|min:0',
             'position' => 'required|string',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'nullable|digits:9',
             'email' => 'nullable|email|max:100', // Validamos que sea un correo real
-            'address'     => 'nullable|string|max:100',
-            'hire_date'   => 'nullable|date',
+            'address' => 'nullable|string|max:100',
+            'hire_date' => 'nullable|date',
             'payment_day' => 'nullable|integer|min:1|max:31',
             'advance_payment' => 'nullable|numeric|min:0',
         ], [
@@ -48,17 +48,17 @@ class StaffController extends Controller
         // 2. Intento de creación
         try {
             StaffModel::create([
-                'name'        => $request->name,
-                'surname'     => $request->surname,
-                'dni'         => $request->dni,
-                'salary'      => $request->salary,
-                'position'    => $request->position,
-                'phone'       => $request->phone,
-                'email'       => $request->email,
-                'address'     => $request->address,
-                'hire_date'   => $request->hire_date,
+                'name' => $request->name,
+                'surname' => $request->surname,
+                'dni' => $request->dni,
+                'salary' => $request->salary,
+                'position' => $request->position,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'address' => $request->address,
+                'hire_date' => $request->hire_date,
                 'payment_day' => $request->payment_day,
-                'is_active'   => true,
+                'is_active' => true,
             ]);
 
             return redirect('/dashboard/staffList')->with('success', 'Trabajador registrado con éxito.');
@@ -84,15 +84,15 @@ class StaffController extends Controller
 
         // 1. Validamos también los campos nuevos
         $request->validate([
-            'name'        => 'required|string|max:50',
-            'surname'     => 'required|string|max:50',
-            'dni'         => 'required|string|max:15|unique:staff,dni,' . $id,
-            'salary'      => 'required|numeric|min:0',
-            'position'    => 'required|string',
-            'phone'       => 'nullable|string|max:20',
-            'email'       => 'nullable|email|max:100',
-            'address'     => 'nullable|string|max:100', // Agregado
-            'hire_date'   => 'nullable|date',           // Agregado
+            'name' => 'required|string|max:50',
+            'surname' => 'required|string|max:50',
+            'dni' => 'required|digits:8|unique:staff,dni,' . $id,
+            'salary' => 'required|numeric|min:0',
+            'position' => 'required|string',
+            'phone' => 'nullable|digits:9',
+            'email' => 'nullable|email|max:100',
+            'address' => 'nullable|string|max:100', // Agregado
+            'hire_date' => 'nullable|date',           // Agregado
             'payment_day' => 'nullable|integer|min:1|max:31', // Agregado
             'advance_payment' => 'nullable|numeric|min:0',
         ], [
@@ -102,15 +102,15 @@ class StaffController extends Controller
 
         // 2. Guardamos TODOS los campos
         $staff->update([
-            'name'        => $request->name,
-            'surname'     => $request->surname,
-            'dni'         => $request->dni,
-            'salary'      => $request->salary,
-            'position'    => $request->position,
-            'phone'       => $request->phone,
-            'email'       => $request->email,
-            'address'     => $request->address,     // Agregado
-            'hire_date'   => $request->hire_date,   // Agregado
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'dni' => $request->dni,
+            'salary' => $request->salary,
+            'position' => $request->position,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'address' => $request->address,     // Agregado
+            'hire_date' => $request->hire_date,   // Agregado
             'payment_day' => $request->payment_day, // Agregado
         ]);
 

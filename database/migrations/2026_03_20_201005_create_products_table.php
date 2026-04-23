@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->increments('id'); // id_producto
             $table->string('name', 100)->nullable(); // nombre_producto
             $table->decimal('price', 10, 2); // precio
-            $table->string('description', 100)->nullable(); // descripcion_producto
-            $table->dateTime('delivery_date')->nullable(); // fecha_entrega
+            $table->text('description')->nullable(); // descripcion_producto
+            $table->dateTime('dexlivery_date')->nullable(); // fecha_entrega
             $table->string('image', 250)->nullable(); // imagen_producto
             $table->unsignedInteger('category_id')->nullable(); // id_categoria
             $table->unsignedBigInteger('stores_id')->nullable();

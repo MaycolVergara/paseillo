@@ -75,7 +75,7 @@
                             <i data-lucide="id-card" class="w-[18px] h-[18px]"></i>
                         </div>
                         <input type="text" name="dni" required value="{{ old('dni') }}" placeholder="8 dígitos"
-                            maxlength="8" oninput="this.value = this.value.replace(/[^0-8]/g, '').slice(0, 8)"
+                            maxlength="8" minlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 8)"
                             class="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all dark:text-white font-medium">
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                             <i data-lucide="phone" class="w-4 h-4"></i>
                         </div>
                         <input type="text" name="phone" value="{{ old('phone') }}" placeholder="987 654 321"
-                            maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 9)"
+                            maxlength="9" minlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 9)"
                             class="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all dark:text-white font-medium">
                     </div>
                 </div>

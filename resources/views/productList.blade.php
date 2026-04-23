@@ -44,6 +44,7 @@
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">Producto</th>
 
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">Precio</th>
+                        <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">Descripcion</th>
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400 text-center">
                             Categoría
                         </th>
@@ -73,12 +74,13 @@
                                     <div>
                                         {{-- nombre_producto -> name --}}
                                         <p
-                                            class="text-sm font-bold text-gray-900 
+                                            class="text-sm font-bold text-gray-900
                                         dark:text-white texto-buscar flex items-center gap-2">
                                             {{ $product->name }}
                                             @if ($product->trashed())
                                                 <span
-                                                    class="px-2 py-0.5 bg-red-100 text-red-600 dark:bg-red-900/30 text-[10px] rounded-lg tracking-wider uppercase font-black">Inactivo</span>
+                                                    class="px-2 py-0.5 bg-red-100 text-red-600 dark:bg-red-900/30 text-[10px]
+                                                    rounded-lg tracking-wider uppercase font-black">Inactivo</span>
                                             @endif
                                         </p>
                                         {{-- descripcion_producto -> description --}}
@@ -97,6 +99,12 @@
                                 <span
                                     class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider {{ $product->category ? 'bg-orange-100 text-orange-600 dark:bg-orange-900/30' : 'bg-gray-100 text-gray-500' }}">
                                     {{ $product->category ? $product->category->name : 'Sin Categoria' }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider {{ $product->category ? 'bg-orange-100 text-orange-600 dark:bg-orange-900/30' : 'bg-gray-100 text-gray-500' }}">
+                                    {{ $product->description}}
                                 </span>
                             </td>
                             <td class="px-6 py-4">

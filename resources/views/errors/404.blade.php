@@ -43,7 +43,7 @@
     <h2>¡Ups! Parece que no encontraste lo que buscabas .</h2>
     <p>No hemos podido encontrar la página que buscas en nuestra cocina.</p>
     <p>¿Quizás te gustaría volver al menú principal?</p>
-    <a href="/" class="btn">Volver a la Mesa</a>
+    <a href="/" class="btn">Volver a Login</a>
 </div>
 </body>
 </html>
