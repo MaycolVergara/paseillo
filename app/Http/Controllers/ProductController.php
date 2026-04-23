@@ -42,7 +42,7 @@ class ProductController extends Controller
         ]);
 
         $product = new ProductModel();
-        $product->name = $request->name;
+        $product->name = mb_strtoupper($request->name, 'UTF-8');
         $product->price = $request->price;
         $product->delivery_date = $request->delivery_date;
         $product->description = $request->description;
@@ -79,7 +79,7 @@ class ProductController extends Controller
 
         $product = ProductModel::find($id);
 
-        $product->name = $request->name;
+        $product->name = mb_strtoupper($request->name, 'UTF-8');
         $product->price = $request->price;
         $product->delivery_date = $request->delivery_date;
         $product->description = $request->description;

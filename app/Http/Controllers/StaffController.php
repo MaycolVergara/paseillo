@@ -48,8 +48,8 @@ class StaffController extends Controller
         // 2. Intento de creación
         try {
             StaffModel::create([
-                'name' => $request->name,
-                'surname' => $request->surname,
+                'name' => mb_strtoupper($request->name, 'UTF-8'),
+                'surname' => mb_strtoupper($request->surname, 'UTF-8'),
                 'dni' => $request->dni,
                 'salary' => $request->salary,
                 'position' => $request->position,
@@ -102,8 +102,8 @@ class StaffController extends Controller
 
         // 2. Guardamos TODOS los campos
         $staff->update([
-            'name' => $request->name,
-            'surname' => $request->surname,
+            'name' => mb_strtoupper($request->name, 'UTF-8'),
+            'surname' => mb_strtoupper($request->surname, 'UTF-8'),
             'dni' => $request->dni,
             'salary' => $request->salary,
             'position' => $request->position,

@@ -26,7 +26,7 @@ class CategoryController extends Controller // Antes CategoriaController
 
         try {
             $category = new CategoryModel();
-            $category->name = $request->name;
+            $category->name = mb_strtoupper($request->name, 'UTF-8');
             
             $val = $request->input('stores_id');
             $category->stores_id = empty($val) ? null : (int)$val;
@@ -49,7 +49,7 @@ class CategoryController extends Controller // Antes CategoriaController
                 return redirect('/dashboard/categoryRegistration')->with('error', 'Categoría no encontrada.');
             }
 
-            $category->name = $request->name;
+            $category->name = mb_strtoupper($request->name, 'UTF-8');
             
             $val = $request->input('stores_id');
             $category->stores_id = empty($val) ? null : (int)$val;

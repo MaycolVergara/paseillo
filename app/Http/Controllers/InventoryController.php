@@ -65,8 +65,9 @@ class InventoryController extends Controller
             'current_stock' => 'required|numeric|min:0',
             'minimum_stock' => 'required|numeric|min:0',
         ]);
-
-        StoreModel::create($request->all());
+        $data = $request->all();
+        $data['name'] = mb_strtoupper($data['name'], 'UTF-8');
+        StoreModel::create($data);
 
         return redirect()->back()->with('success', 'Nuevo insumo registrado correctamente.');
     }
