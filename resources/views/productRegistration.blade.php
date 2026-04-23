@@ -40,7 +40,7 @@
             <h3 class="text-lg font-black text-gray-800 dark:text-white">Información del Nuevo Producto</h3>
             <p class="text-sm text-gray-500 mt-1">Completa los datos requeridos para registrar el plato en el sistema.</p>
         </div>
-        
+
         @if ($errors->any())
             <div class="px-8 py-4 bg-red-50 border-b border-red-100">
                 <ul class="list-disc list-inside">
@@ -115,7 +115,12 @@
                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Descripción e
                         Ingredientes</label>
                     <textarea name="description" rows="4" placeholder="Detalla los ingredientes..."
-                        class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all dark:text-white resize-none"></textarea>
+                        class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 
+                        border border-gray-200 dark:border-gray-700 
+                        rounded-xl text-sm focus:ring-2 
+                        focus:ring-orange-500/20 focus:border-orange-500 
+                        outline-none transition-all dark:text-white 
+                        resize-none"></textarea>
                 </div>
             </div>
 
