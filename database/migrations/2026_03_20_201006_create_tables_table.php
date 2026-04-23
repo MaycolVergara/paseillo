@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('tables', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('table_number');
-            $table->enum('status', ['disponible', 'ocupado', 'mesasNoExistentes'])->default('disponible');
+            $table->enum('status', ['disponible', 'ocupado', 'mesasInhabilitada', 'mesasNoExistentes'])->default('disponible');
 
             // CONEXIÓN HACIA LOS USUARIOS (Mozos/Admins)
             $table->unsignedInteger('serving_user_id')->nullable();

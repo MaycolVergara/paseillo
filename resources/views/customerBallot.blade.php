@@ -250,7 +250,7 @@
             const selectFormat = document.getElementById('print_format_select');
             const tableDetailed = document.getElementById('ticket_detailed');
             const tableConsumption = document.getElementById('ticket_consumption');
-            
+
             const inputDni = document.getElementById("customer_dni");
             const inputNombre = document.getElementById("customer_name");
             const inputApellido = document.getElementById("customer_surname");
@@ -275,10 +275,10 @@
                         inputDni.value = "00000000";
                         inputNombre.value = "CLIENTES VARIOS";
                         inputApellido.value = "-";
-                        
+
                         displayName.innerText = "CLIENTES VARIOS";
                         displayDni.innerText = "00000000";
-                        
+
                         document.getElementById("btnBuscar").disabled = true;
                         inputDni.readOnly = true;
                     } else {
@@ -316,39 +316,46 @@
             inputNombre.value = "Buscando...";
             inputApellido.value = "Buscando...";
 
-            const token = "9ab0c3b3b29b50a04d673ba8061795f130fec7d90be8e8625bc4a48db0274fb0";
-            const urlDni = "https://api.consultasperu.com/api/v1/query";
-            // const urlRuc is not needed because they use the same endpoint, we just pass tipoDocumento
-            
-            fetch(urlDni, {
+            // Token de apiperu.dev (DEBES CAMBIARLO POR TU TOKEN REAL)
+            const token = "997f6eccf7017fc3814a1a038e5cb6c1dabb146b340aa62106ffdde6b5118a5c";
+
+            const urlApi = tipoDocumento === "dni" ?
+                "https://apiperu.dev/api/dni" :
+                "https://apiperu.dev/api/ruc";
+
+            const bodyData = tipoDocumento === "dni" ? {
+                dni: dni
+            } : {
+                ruc: dni
+            };
+
+            fetch(urlApi, {
                     method: "POST",
                     headers: {
+                        "Accept": "application/json",
                         "Content-Type": "application/json",
-                        "Accept": "application/json"
+                        "Authorization": "Bearer " + token
                     },
-                    body: JSON.stringify({
-                        "token": token,
-                        "type_document": tipoDocumento,
-                        "document_number": dni
-                    })
+                    body: JSON.stringify(bodyData)
                 })
                 .then(response => response.json())
                 .then(datos => {
                     if (datos.success && datos.data) {
                         if (tipoDocumento === "dni") {
-                            inputNombre.value = datos.data.name;
-                            inputApellido.value = datos.data.surname;
-                            displayName.innerText = datos.data.name + " " + datos.data.surname;
+                            inputNombre.value = datos.data.nombres;
+                            inputApellido.value = datos.data.apellido_paterno + " " + (datos.data.apellido_materno ||
+                                "");
+                            displayName.innerText = datos.data.nombres + " " + datos.data.apellido_paterno;
                         } else {
                             // RUC
-                            const razonSocial = datos.data.nombre_o_razon_social || datos.data.razon_social || datos.data.name;
+                            const razonSocial = datos.data.nombre_o_razon_social;
                             inputNombre.value = razonSocial;
                             inputApellido.value = "-"; // RUC no tiene apellidos separados
                             displayName.innerText = razonSocial;
                         }
                         displayDni.innerText = dni;
                     } else {
-                        alert("Documento no encontrado o API no autorizada");
+                        alert("Documento no encontrado o credenciales inválidas en APIPeru.");
                         inputNombre.value = "";
                         inputApellido.value = "";
                         displayName.innerText = "---";
@@ -357,9 +364,11 @@
                 })
                 .catch(error => {
                     console.error("Error:", error);
-                    alert("Error de conexión. Revisa la consola.");
+                    alert("Error de conexión con la API. Revisa la consola.");
                     inputNombre.value = "";
                     inputApellido.value = "";
+                    displayName.innerText = "---";
+                    displayDni.innerText = "---";
                 });
         }
 
