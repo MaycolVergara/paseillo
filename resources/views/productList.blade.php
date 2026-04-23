@@ -44,9 +44,9 @@
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">Producto</th>
 
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">Precio</th>
-                        <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">Descripcion</th>
+                        <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">Categoria</th>
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400 text-center">
-                            Categoría
+                            Descripcion
                         </th>
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400">Estado</th>
                         <th class="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-gray-400 text-right">
@@ -104,7 +104,7 @@
                             <td class="px-6 py-4 text-center">
                                 <span
                                     class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider {{ $product->category ? 'bg-orange-100 text-orange-600 dark:bg-orange-900/30' : 'bg-gray-100 text-gray-500' }}">
-                                    {{ $product->description}}
+                                    {{ $product->description }}
                                 </span>
                             </td>
                             <td class="px-6 py-4">
