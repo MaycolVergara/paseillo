@@ -64,12 +64,17 @@
                     </thead>
                     <tbody id="tabla-paginada" class="divide-y divide-gray-50 dark:divide-gray-800">
                         @php
-                            $sysUsers = $staffMembers->filter(fn($s) => in_array($s->position, ['Administrador', 'Mozo']) || $s->user)->sortBy('name');
-                            $otherUsers = $staffMembers->reject(fn($s) => in_array($s->position, ['Administrador', 'Mozo']) || $s->user)->sortBy('name');
+                            $sysUsers = $staffMembers
+                                ->filter(fn($s) => in_array($s->position, ['Administrador', 'Mozo']) || $s->user)
+                                ->sortBy('name');
+                            $otherUsers = $staffMembers
+                                ->reject(fn($s) => in_array($s->position, ['Administrador', 'Mozo']) || $s->user)
+                                ->sortBy('name');
                             $sortedStaffMembers = $sysUsers->concat($otherUsers);
                         @endphp
                         @foreach ($sortedStaffMembers as $staff)
-                            <tr class="group transition-all fila-paginada {{ $loop->iteration <= 10 ? 'transform scale-[1.01] bg-gray-50/40 dark:bg-gray-800/20 shadow-sm' : 'hover:bg-orange-50/30 dark:hover:bg-orange-900/5' }}">
+                            <tr
+                                class="group transition-all fila-paginada {{ $loop->iteration <= 10 ? 'transform scale-[1.01] bg-gray-50/40 dark:bg-gray-800/20 shadow-sm' : 'hover:bg-orange-50/30 dark:hover:bg-orange-900/5' }}">
                                 <td class="px-6 {{ $loop->iteration <= 10 ? 'py-5' : 'py-4' }}">
                                     <div class="flex items-center gap-3">
                                         <div
@@ -96,7 +101,8 @@
                                     </div>
                                 </td>
                                 <td
-                                    class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 italic texto-buscar">
+                                    class="px-6 py-4 text-sm font-medium text-gray-600 
+                                    dark:text-gray-400 italic texto-buscar">
                                     {{ $staff->dni }}
                                 </td>
                                 <td class="px-6 py-4 text-center">
