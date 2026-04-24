@@ -51,10 +51,10 @@
                         </tr>
                     </thead>
                     <tbody id="tabla-paginada" class="divide-y divide-gray-100 dark:divide-gray-800">
-                        @foreach ($categories as $categorie)
-                            <tr class="group hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-all fila-paginada">
-                                <td class="px-6 py-5">
-                                    <p class="text-[15px] font-extrabold text-gray-900 dark:text-white">
+                        @foreach ($categories->sortBy('name') as $categorie)
+                            <tr class="group hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-all fila-paginada {{ $loop->iteration <= 10 ? 'transform scale-[1.01] bg-gray-50/30 dark:bg-gray-800/30' : '' }}">
+                                <td class="px-6 {{ $loop->iteration <= 10 ? 'py-6' : 'py-5' }}">
+                                    <p class="{{ $loop->iteration <= 10 ? 'text-[16px]' : 'text-[15px]' }} font-extrabold text-gray-900 dark:text-white">
                                         {{ $categorie->name }}</p>
                                 </td>
                                 <td class="px-6 py-5">

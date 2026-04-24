@@ -67,16 +67,16 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50 dark:divide-gray-800">
-                                @foreach ($supplies as $supply)
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
-                                        <td class="px-6 py-4">
+                                @foreach ($supplies->sortBy('name') as $supply)
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors {{ $loop->iteration <= 10 ? 'transform scale-[1.01] bg-gray-50/40 dark:bg-gray-800/40' : '' }}">
+                                        <td class="px-6 {{ $loop->iteration <= 10 ? 'py-5' : 'py-4' }}">
                                             <div class="flex items-center gap-3">
                                                 <div
-                                                    class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                                                    class="{{ $loop->iteration <= 10 ? 'w-10 h-10' : 'w-8 h-8' }} rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
                                                     <i data-lucide="package" class="w-4 h-4 text-gray-500"></i>
                                                 </div>
                                                 <div>
-                                                    <p class="text-sm font-bold text-gray-900 dark:text-white">
+                                                    <p class="{{ $loop->iteration <= 10 ? 'text-[15px]' : 'text-sm' }} font-bold text-gray-900 dark:text-white">
                                                         {{ $supply->name }}</p>
                                                 </div>
                                             </div>
