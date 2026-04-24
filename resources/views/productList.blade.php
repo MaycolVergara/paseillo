@@ -55,8 +55,8 @@
                     </tr>
                 </thead>
                 <tbody id="tabla-paginada" class="divide-y divide-gray-50 dark:divide-gray-800">
-                    {{-- $productos -> $products --}}
-                    @foreach ($products as $product)
+                    {{-- Ordenar la colección de productos alfabéticamente por 'name' (A-Z) en la vista --}}
+                    @foreach ($products->sortBy('name') as $product)
                         <tr
                             class="group hover:bg-orange-50/30 dark:hover:bg-orange-900/5 transition-all fila-paginada {{ $product->trashed() ? 'bg-gray-50/50 dark:bg-gray-800/30' : '' }}">
                             <td class="px-6 py-4">
