@@ -11,7 +11,7 @@
                     <i data-lucide="shopping-bag" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Catálogo</h2>
+                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight italic">Productos</h2>
                     <p class="text-xs font-semibold text-gray-400 mt-0.5 uppercase tracking-widest">Menú Paseillo</p>
                 </div>
             </div>
