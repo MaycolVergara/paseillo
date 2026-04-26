@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->increments('id');
             $table->string('name', 50);
             $table->string('surname', 50);
-            $table->string('phone', 15)->nullable();
+            $table->string('phone', 9)->nullable();
             $table->string('dni', 8)->unique();
             $table->string('email', 100)->nullable();
             $table->string('address', 100)->nullable();

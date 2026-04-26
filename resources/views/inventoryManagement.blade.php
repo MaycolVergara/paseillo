@@ -68,7 +68,7 @@
                             </thead>
                             <tbody class="divide-y divide-gray-50 dark:divide-gray-800">
                                 @foreach ($supplies->sortBy('name') as $supply)
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors {{ $loop->iteration <= 10 ? 'transform scale-[1.01] bg-gray-50/40 dark:bg-gray-800/40' : '' }}">
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors {{ $loop->iteration <= 10 ? 'bg-gray-50/40 dark:bg-gray-800/40' : '' }}">
                                         <td class="px-6 {{ $loop->iteration <= 10 ? 'py-5' : 'py-4' }}">
                                             <div class="flex items-center gap-3">
                                                 <div
