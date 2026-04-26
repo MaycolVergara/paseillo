@@ -45,7 +45,7 @@
         @endif
 
         {{-- Contenedor de la tabla con scroll horizontal para móviles --}}
-        <div class="overflow-x-auto w-full">
+        <div class="overflow-x-auto w-full min-h-[350px]">
             <table class="w-full text-left border-collapse table-auto border-spacing-0 min-w-[800px] md:min-w-full">
                 <thead>
                     <tr class="bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">

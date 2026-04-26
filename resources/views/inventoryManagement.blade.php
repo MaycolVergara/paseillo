@@ -49,7 +49,7 @@
                             class="text-[10px] font-black bg-blue-100 text-blue-600 px-2 py-0.5 rounded-md uppercase tracking-widest">{{ $supplies->count() }}
                             Total</span>
                     </div>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto min-h-[350px]">
                         <table class="w-full text-left">
                             <thead>
                                 <tr class="bg-gray-50 dark:bg-gray-800/50">

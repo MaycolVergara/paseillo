@@ -32,7 +32,7 @@
         {{-- TABLA DE CATEGORÍAS --}}
         <div
             class="lg:col-span-2 animate-in delay-2 bg-white dark:bg-gray-900 rounded-3xl shadow-card border border-gray-100/80 dark:border-gray-800 overflow-hidden">
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto min-h-[350px]">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
