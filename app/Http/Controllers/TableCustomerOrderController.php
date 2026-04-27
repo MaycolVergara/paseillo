@@ -100,7 +100,7 @@ class TableCustomerOrderController extends Controller
             $currentTable->save();
         }
 
-        return redirect()->back()->with('success', 'ProductModel added to the table');
+        return redirect()->back()->with('success', 'Producto agregado a la mesa');
     }
 
     /**
@@ -164,7 +164,7 @@ class TableCustomerOrderController extends Controller
                 $table->save();
             }
         }
-        return redirect('/dashboard/tableView')->with('success', 'SaleModel finalized and table cleared');
+        return redirect('/dashboard/tableView')->with('success', 'Venta finalizada y mesa liberada');
     }
 
     /**
@@ -186,6 +186,6 @@ class TableCustomerOrderController extends Controller
             $detail->delete();
         }
 
-        return redirect()->back()->with('success', 'ProductModel removed from order');
+        return redirect()->back()->with('success', 'Producto eliminado de la orden');
     }
 }
