@@ -104,7 +104,7 @@
                 <div>
                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Fecha de Entrega
                         (Opcional)</label>
-                    <input type="date" name="delivery_date"
+                    <input type="date" name="date"
                         class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all dark:text-white font-medium cursor-pointer">
                 </div>
 
@@ -115,11 +115,11 @@
                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Descripción e
                         Ingredientes</label>
                     <textarea name="description" rows="4" placeholder="Detalla los ingredientes..."
-                        class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 
-                        border border-gray-200 dark:border-gray-700 
-                        rounded-xl text-sm focus:ring-2 
-                        focus:ring-orange-500/20 focus:border-orange-500 
-                        outline-none transition-all dark:text-white 
+                        class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800
+                        border border-gray-200 dark:border-gray-700
+                        rounded-xl text-sm focus:ring-2
+                        focus:ring-orange-500/20 focus:border-orange-500
+                        outline-none transition-all dark:text-white
                         resize-none"></textarea>
                 </div>
             </div>

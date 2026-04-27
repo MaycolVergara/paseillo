@@ -35,7 +35,6 @@
             @include('partials.menus.gestion_stock')
             @include('partials.menus.gestion_cliente')
 
-
         @endif
 
         {{-- Mozo: solo ve su área de mesas, sin acceso al dashboard admin --}}

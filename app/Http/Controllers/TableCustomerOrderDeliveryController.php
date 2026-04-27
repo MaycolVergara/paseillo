@@ -105,7 +105,6 @@ class TableCustomerOrderDeliveryController extends Controller
         $currentTable = TableDeliveryModel::find($table_id);
         if ($currentTable) {
             $currentTable->status = 'ocupado';
-            $currentTable->serving_user_id = Auth::user()->id;
             $currentTable->save();
         }
 
@@ -150,7 +149,6 @@ class TableCustomerOrderDeliveryController extends Controller
             $table = TableDeliveryModel::find($table_id);
             if ($table) {
                 $table->status = 'disponible';
-                $table->serving_user_id = null;
                 $table->save();
             }
         }

@@ -97,7 +97,6 @@ class TableCustomerOrderController extends Controller
         $currentTable = TableModel::find($table_id);
         if ($currentTable) {
             $currentTable->status = 'ocupado';
-            $currentTable->serving_user_id = Auth::user()->id;
             $currentTable->save();
         }
 
@@ -162,7 +161,6 @@ class TableCustomerOrderController extends Controller
             $table = TableModel::find($table_id);
             if ($table) {
                 $table->status = 'disponible';
-                $table->serving_user_id = null;
                 $table->save();
             }
         }

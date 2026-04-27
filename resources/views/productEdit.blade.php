@@ -32,7 +32,7 @@
             <h3 class="text-lg font-black text-gray-800 dark:text-white">Información del Producto</h3>
             <p class="text-sm text-gray-500 mt-1">Actualiza los datos requeridos en el sistema.</p>
         </div>
-        
+
         @if ($errors->any())
             <div class="px-8 py-4 bg-red-50 border-b border-red-100">
                 <ul class="list-disc list-inside">
@@ -107,7 +107,7 @@
                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Fecha de Entrega
                         (Opcional)</label>
                     {{-- fecha_entrega -> delivery_date --}}
-                    <input type="date" name="delivery_date" value="{{$product->delivery_date}}"
+                    <input type="date" name="date" value="{{$product->date}}"
                            class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all dark:text-white text-gray-600 font-medium cursor-pointer">
                 </div>
 

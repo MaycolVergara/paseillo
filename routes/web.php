@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 // 1. Dashboard (Nombres actualizados a Inglés)
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableCustomerOrderController;
@@ -154,6 +155,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         // Accesos y Credenciales (Usuarios)
         Route::get('/staff/{id}/credentials', [UserController::class, 'createCredentials']);
         Route::post('/staff/{id}/credentials', [UserController::class, 'storeCredentials']);
+
 
     });
 

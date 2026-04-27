@@ -37,7 +37,7 @@ class ProductController extends Controller
     public function insertProduct(Request $request)
     {
         $request->validate([
-            
+
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
         ]);
@@ -45,7 +45,7 @@ class ProductController extends Controller
         $product = new ProductModel();
         $product->name = mb_strtoupper($request->name, 'UTF-8');
         $product->price = $request->price;
-        $product->delivery_date = $request->delivery_date;
+        $product->date = $request->date;
         $product->description = $request->description;
         $product->category_id = $request->category_id;
         $product->save();
@@ -82,7 +82,7 @@ class ProductController extends Controller
 
         $product->name = mb_strtoupper($request->name, 'UTF-8');
         $product->price = $request->price;
-        $product->delivery_date = $request->delivery_date;
+        $product->date = $request->date;
         $product->description = $request->description;
         $product->category_id = $request->category_id;
         $product->save();

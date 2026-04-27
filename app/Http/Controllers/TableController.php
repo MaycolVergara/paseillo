@@ -14,8 +14,7 @@ class TableController extends Controller
      */
     public function index()
     {
-        $table_config = TableModel::with('servingUser')
-            ->where('status', '!=', 'mesasNoExistentes')
+        $table_config = TableModel::where('status', '!=', 'mesasNoExistentes')
             ->orderBy('table_number', 'asc')->get();
         $table_view = TableModel::all();
         return view('tableView', compact('table_config', 'table_view'));

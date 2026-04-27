@@ -16,12 +16,12 @@ class TableModel extends Model
     protected $fillable = [
         'table_number',
         'status',
-        'serving_user_id'
+
     ];
 
     // Relación: quién está atendiendo esta mesa
-    public function servingUser()
+    /*public function servingUser()
     {
         return $this->belongsTo(UserModel::class, 'serving_user_id', 'id');
-    }
+    }*/
 }

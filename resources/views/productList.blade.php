@@ -111,9 +111,9 @@
                                 <div class="flex items-center gap-2">
                                     {{-- fecha_entrega -> delivery_date --}}
                                     <span
-                                        class="w-1.5 h-1.5 rounded-full {{ $product->delivery_date ? 'bg-blue-500' : 'bg-amber-500' }}"></span>
+                                        class="w-1.5 h-1.5 rounded-full {{ $product->date ? 'bg-blue-500' : 'bg-amber-500' }}"></span>
                                     <p class="text-[10px] font-bold text-gray-500 dark:text-gray-400">
-                                        {{ $product->delivery_date ?? 'Inmediata' }}</p>
+                                        {{ $product->date ?? 'Inmediata' }}</p>
                                 </div>
                             </td>
                             <td class="px-6 py-4 text-right relative">

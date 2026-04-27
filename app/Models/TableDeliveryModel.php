@@ -13,6 +13,5 @@ class TableDeliveryModel extends Model
     protected $fillable = [
         'table_number',
         'status',
-        'serving_user_id'
     ];
 }
