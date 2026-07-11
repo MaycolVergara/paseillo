@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // 1. Proceso de entrada: Valida que el usuario y la clave coincidan con la BD.
+    // 1. Proceso de entrada -> Valida que el usuario y la clave coincidan con la BD.
     public function login(Request $request)
     {
         $request->validate([

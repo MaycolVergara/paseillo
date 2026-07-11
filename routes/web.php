@@ -91,6 +91,8 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
         Route::get('/reports/sales/weekly', [SaleReportController::class, 'weekly'])->name('reports.sales.weekly');
         Route::get('/reports/sales/monthly', [SaleReportController::class, 'monthly'])->name('reports.sales.monthly');
         Route::get('/reports/sales/annual', [SaleReportController::class, 'annual'])->name('reports.sales.annual');
+        // Productos Eliminados
+        Route::get('/listadoProductosEliminados', [SaleReportController::class, 'deletedProductsList']);
 
         // Configuración del Sistema (Branding)
         Route::get('/setting', [SettingController::class, 'index'])->name('settings.index');

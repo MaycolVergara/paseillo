@@ -19,14 +19,5 @@ class UserSeeder extends Seeder
                 'role_id'  => 1, // Admin
             ]
         );
-
-        // 2. Mozo Ejemplar
-        UserModel::updateOrCreate(
-            ['username' => 'mozo1'],
-            [
-                'password' => Hash::make('mozo123'),
-                'role_id'  => 2, // Mozo
-            ]
-        );
     }
 }

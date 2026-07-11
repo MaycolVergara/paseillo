@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SaleModel;
 use App\Models\SaleDetailModel;
-use App\Models\ProductModel;    
+use App\Models\ProductModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -64,7 +64,7 @@ class SaleReportController extends Controller
     {
         $year = $request->year ?? Carbon::now()->year;
         $month = $request->month ?? Carbon::now()->month;
-        
+
         $startOfMonth = Carbon::createFromDate($year, $month, 1)->startOfMonth();
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
 
@@ -149,5 +149,31 @@ class SaleReportController extends Controller
         $subtitle = "Periodo " . $year;
 
         return view('salesReport', compact('chartLabels', 'chartData', 'totalRevenue', 'orderCount', 'avgTicket', 'topProduct', 'title', 'subtitle', 'year'));
+    }
+
+    /**
+     * Listado de Productos Eliminados de Ventas.
+     */
+    public function deletedProductsList(Request $request)
+    {
+        // 1. Atrapa las fechas que pones en el calendario o define hoy por defecto
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        // Si no hay fechas, definimos el rango de HOY (00:00 a 23:59)
+        if (!$start_date || !$end_date) {
+            $filterStart = \Carbon\Carbon::today()->startOfDay()->toDateTimeString();
+            $filterEnd = \Carbon\Carbon::today()->endOfDay()->toDateTimeString();
+        } else {
+            $filterStart = str_replace('T', ' ', $start_date) . ':00';
+            $filterEnd = str_replace('T', ' ', $end_date) . ':59';
+        }
+
+        $deletedDetails = SaleDetailModel::onlyTrashed()
+            ->with(['product', 'sale'])
+            ->whereBetween('deleted_at', [$filterStart, $filterEnd])
+            ->get();
+
+        return view('deletedProductsList', compact('deletedDetails', 'start_date', 'end_date'));
     }
 }
