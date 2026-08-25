@@ -237,42 +237,207 @@
 
 
 
-                {{-- Formulario que agrupa Pago y Finalizar --}}
+                {{-- Botón Cobrar (Abre el Modal) --}}
                 @if (Auth::user()->role_id == 1)
-                    <form action="{{ url('/dashboard/finalizeSale/' . $id) }}" method="POST"
-                          class="flex flex-col md:flex-row items-end gap-4 w-full md:w-auto"
-                          onsubmit="return confirm('Seguro que deseas cobrar esta cuenta y liberar la mesa?')">
-                        @csrf
-
-                        {{-- Selector de Método de Pago --}}
-                        <div class="w-full md:w-48">
-                            <label
-                                class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5 ml-1">Método
-                                de Pago</label>
-                            <div class="relative">
-                                <select name="payment_method" required
-                                        class="w-full appearance-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 rounded-xl px-4 py-2.5 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all cursor-pointer font-bold text-sm h-[46px]">
-                                    <option value="cash" selected>Efectivo</option>
-                                    <option value="yape">Yape</option>
-                                    <option value="card">Tarjeta (POS)</option>
-                                </select>
-                                <div
-                                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-                                    <i data-lucide="chevron-down" class="h-4 w-4"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Botón Finalizar Venta --}}
-                        <button type="submit"
-                                class="w-full md:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95 whitespace-nowrap h-[46px]">
-                            Finalizar Venta
-                        </button>
-                    </form>
+                    <button type="button" onclick="openModal('modalCobrar')"
+                            class="w-full md:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-black rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95 whitespace-nowrap h-[46px] flex items-center justify-center gap-2">
+                        <i data-lucide="wallet" class="w-4 h-4"></i>
+                        Cobrar
+                    </button>
                 @endif
             </div>
         </div>
 
-
     </div>
+
+    {{-- MODAL: Cobrar Cuenta --}}
+    @if (Auth::user()->role_id == 1)
+    <div id="modalCobrar"
+        class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div
+            class="bg-white dark:bg-gray-900 w-full max-w-md rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in duration-300 border border-gray-100 dark:border-gray-800">
+            {{-- Header --}}
+            <div
+                class="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-950/50 text-emerald-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="receipt" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-gray-900 dark:text-white uppercase tracking-tight text-base">Cobrar Cuenta</h3>
+                        <p class="text-xs font-bold text-gray-400">Mesa {{ $id }}</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeModal('modalCobrar')"
+                    class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition-all">
+                    <i data-lucide="x" class="w-5 h-5 text-gray-400"></i>
+                </button>
+            </div>
+
+            {{-- Formulario --}}
+            <form action="{{ url('/dashboard/finalizeSale/' . $id) }}" method="POST" class="p-6 space-y-4">
+                @csrf
+
+                {{-- Resumen Total --}}
+                <div class="bg-gray-50 dark:bg-gray-800/40 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 text-center">
+                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">Monto Total a Cobrar</span>
+                    <span class="text-3xl font-black text-emerald-600 dark:text-emerald-400 italic">
+                        S/ {{ number_format($overallTotal ?? 0, 2) }}
+                    </span>
+                </div>
+
+                {{-- Selector de Método de Pago --}}
+                <div>
+                    <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+                        Método de Pago
+                    </label>
+                    <div class="relative">
+                        <select name="payment_method" required
+                            class="w-full appearance-none px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-bold text-gray-800 dark:text-white focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer">
+                            <option value="cash" selected>💵 Efectivo</option>
+                            <option value="yape">📱 Yape / Plin</option>
+                            <option value="card">💳 Tarjeta (POS)</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                            <i data-lucide="chevron-down" class="h-4 w-4"></i>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Calculadora de Vuelto --}}
+                <div class="space-y-2.5 pt-1">
+                    <div>
+                        <label class="block text-[11px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+                            ¿Con cuánto paga el cliente? (S/)
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center font-bold text-gray-400 text-sm">S/</span>
+                            <input type="number" step="any" min="0" id="input-pago-cliente" oninput="calcularVuelto()"
+                                class="w-full pl-9 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-base font-black text-gray-800 dark:text-white focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all"
+                                placeholder="0.00">
+                        </div>
+                    </div>
+
+                    {{-- Botones rápidos de pago común --}}
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                        <button type="button" onclick="setMontoPago({{ floatval($overallTotal ?? 0) }})"
+                            class="px-2.5 py-1 text-xs font-bold bg-gray-100 dark:bg-gray-800 hover:bg-emerald-100 hover:text-emerald-700 dark:hover:bg-emerald-900/40 text-gray-600 dark:text-gray-300 rounded-lg transition-all border border-gray-200 dark:border-gray-700">
+                            Exacto
+                        </button>
+                        <button type="button" onclick="setMontoPago(20)"
+                            class="px-2.5 py-1 text-xs font-bold bg-gray-100 dark:bg-gray-800 hover:bg-emerald-100 hover:text-emerald-700 dark:hover:bg-emerald-900/40 text-gray-600 dark:text-gray-300 rounded-lg transition-all border border-gray-200 dark:border-gray-700">
+                            S/ 20
+                        </button>
+                        <button type="button" onclick="setMontoPago(50)"
+                            class="px-2.5 py-1 text-xs font-bold bg-gray-100 dark:bg-gray-800 hover:bg-emerald-100 hover:text-emerald-700 dark:hover:bg-emerald-900/40 text-gray-600 dark:text-gray-300 rounded-lg transition-all border border-gray-200 dark:border-gray-700">
+                            S/ 50
+                        </button>
+                        <button type="button" onclick="setMontoPago(100)"
+                            class="px-2.5 py-1 text-xs font-bold bg-gray-100 dark:bg-gray-800 hover:bg-emerald-100 hover:text-emerald-700 dark:hover:bg-emerald-900/40 text-gray-600 dark:text-gray-300 rounded-lg transition-all border border-gray-200 dark:border-gray-700">
+                            S/ 100
+                        </button>
+                    </div>
+
+                    {{-- Caja del Vuelto Calculado --}}
+                    <div id="container-vuelto" class="bg-gray-50 dark:bg-gray-800/40 p-3 rounded-2xl border border-gray-100 dark:border-gray-800 text-center transition-all">
+                        <span id="label-vuelto" class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-0.5">Vuelto a entregar</span>
+                        <span id="display-vuelto" class="text-2xl font-black text-gray-400 dark:text-gray-500 italic">
+                            S/ 0.00
+                        </span>
+                    </div>
+                </div>
+
+                {{-- Advertencia / Aclaración --}}
+                <p class="text-[11px] text-gray-400 text-center">
+                    Al confirmar el cobro se descontará el stock y la <b>Mesa {{ $id }}</b> volverá a estar disponible.
+                </p>
+
+                {{-- Botones de Acción --}}
+                <div class="grid grid-cols-2 gap-3 pt-1">
+                    <button type="button" onclick="closeModal('modalCobrar')"
+                        class="w-full py-3.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-all text-gray-700 dark:text-gray-300 font-bold rounded-2xl text-xs uppercase tracking-wider">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                        class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 transition-all text-white font-black rounded-2xl shadow-lg shadow-emerald-500/30 text-xs uppercase tracking-wider">
+                        Confirmar Cobro
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endif
+
+    <script>
+        const totalOrden = {{ floatval($overallTotal ?? 0) }};
+
+        function calcularVuelto() {
+            const inputPago = document.getElementById('input-pago-cliente');
+            const displayVuelto = document.getElementById('display-vuelto');
+            const labelVuelto = document.getElementById('label-vuelto');
+            const containerVuelto = document.getElementById('container-vuelto');
+
+            if (!inputPago || !displayVuelto) return;
+
+            const pagoStr = inputPago.value.trim();
+            if (pagoStr === '') {
+                displayVuelto.textContent = 'S/ 0.00';
+                displayVuelto.className = 'text-2xl font-black text-gray-400 dark:text-gray-500 italic';
+                labelVuelto.textContent = 'Vuelto a entregar';
+                labelVuelto.className = 'text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-0.5';
+                containerVuelto.className = 'bg-gray-50 dark:bg-gray-800/40 p-3 rounded-2xl border border-gray-100 dark:border-gray-800 text-center transition-all';
+                return;
+            }
+
+            const pago = parseFloat(pagoStr);
+            if (isNaN(pago)) return;
+
+            const diferencia = pago - totalOrden;
+
+            if (diferencia >= 0) {
+                displayVuelto.textContent = 'S/ ' + diferencia.toFixed(2);
+                displayVuelto.className = 'text-2xl font-black text-emerald-600 dark:text-emerald-400 italic';
+                labelVuelto.textContent = 'Vuelto a entregar';
+                labelVuelto.className = 'text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest block mb-0.5';
+                containerVuelto.className = 'bg-emerald-50/60 dark:bg-emerald-950/30 p-3 rounded-2xl border border-emerald-200 dark:border-emerald-800/50 text-center transition-all';
+            } else {
+                const falta = Math.abs(diferencia);
+                displayVuelto.textContent = 'Faltan S/ ' + falta.toFixed(2);
+                displayVuelto.className = 'text-xl font-black text-red-600 dark:text-red-400 italic';
+                labelVuelto.textContent = 'Monto insuficiente';
+                labelVuelto.className = 'text-[10px] font-black text-red-500 uppercase tracking-widest block mb-0.5';
+                containerVuelto.className = 'bg-red-50/60 dark:bg-red-950/30 p-3 rounded-2xl border border-red-200 dark:border-red-800/50 text-center transition-all';
+            }
+        }
+
+        function setMontoPago(monto) {
+            const inputPago = document.getElementById('input-pago-cliente');
+            if (inputPago) {
+                inputPago.value = monto;
+                calcularVuelto();
+            }
+        }
+
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('hidden');
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+                // Reset/focus input de pago al abrir
+                const inputPago = document.getElementById('input-pago-cliente');
+                if (inputPago) {
+                    setTimeout(() => inputPago.focus(), 100);
+                }
+            }
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+    </script>
 @endsection

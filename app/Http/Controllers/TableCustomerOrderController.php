@@ -22,7 +22,9 @@ class TableCustomerOrderController extends Controller
         $products = ProductModel::all();
         $categories = CategoryModel::all();
 
-        $activeSale = SaleModel::where('table_id', $id)
+        $activeSale = SaleModel::where(function($q) use ($id) {
+                $q->where('table_id', $id)->orWhere('table_number', $id);
+            })
             ->where('status', 'Pending')
             ->first();
 
@@ -65,16 +67,18 @@ class TableCustomerOrderController extends Controller
         $unit_price = $product->price;
         $subtotal = $unit_price * $request->quantity;
 
-        $sale = SaleModel::where('table_id', $table_id)
+        $sale = SaleModel::where(function($q) use ($table_id) {
+                $q->where('table_id', $table_id)->orWhere('table_number', $table_id);
+            })
             ->where('status', 'Pending')
             ->first();
 
         if (!$sale) {
-            $tableInfo = TableModel::find($table_id);
+            $tableInfo = TableModel::where('table_number', $table_id)->first() ?? TableModel::find($table_id);
 
             $sale = new SaleModel();
             $sale->user_id = Auth::user()->id;
-            $sale->table_id = $table_id;
+            $sale->table_id = $tableInfo ? $tableInfo->id : $table_id;
             $sale->table_number = $tableInfo ? $tableInfo->table_number : $table_id;
             $sale->date = now();
             $sale->status = 'Pending';
@@ -94,7 +98,7 @@ class TableCustomerOrderController extends Controller
         $sale->total = SaleDetailModel::where('sale_id', $sale->id)->sum('subtotal');
         $sale->save();
 
-        $currentTable = TableModel::find($table_id);
+        $currentTable = TableModel::where('table_number', $table_id)->first() ?? TableModel::find($table_id);
         if ($currentTable) {
             $currentTable->status = 'ocupado';
             $currentTable->save();
@@ -109,17 +113,20 @@ class TableCustomerOrderController extends Controller
      */
     public function generateReceipt($table_id)
     {
-        $sale = SaleModel::where('table_id', $table_id)->where('status', 'Pending')->first();
+        $sale = SaleModel::where(function($q) use ($table_id) {
+                $q->where('table_id', $table_id)->orWhere('table_number', $table_id);
+            })
+            ->where('status', 'Pending')
+            ->first();
 
         if (!$sale) {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'No hay cuenta activa para emitir ticket');
         }
 
         $saleDetails = SaleDetailModel::with('product')->where('sale_id', $sale->id)->get();
         $products = ProductModel::all();
 
-        return view('issueReceipt',
-            compact('sale', 'saleDetails', 'products'));
+        return view('issueReceipt', compact('sale', 'saleDetails', 'products'));
     }
 
     /**
@@ -128,7 +135,11 @@ class TableCustomerOrderController extends Controller
      */
     public function finalizeSale(Request $request, $table_id)
     {
-        $sale = SaleModel::where('table_id', $table_id)->where('status', 'Pending')->first();
+        $sale = SaleModel::where(function($q) use ($table_id) {
+                $q->where('table_id', $table_id)->orWhere('table_number', $table_id);
+            })
+            ->where('status', 'Pending')
+            ->first();
 
         if ($sale) {
             $sale->status = 'Finalizado';
@@ -158,7 +169,7 @@ class TableCustomerOrderController extends Controller
             }
             // ------------------------------------------------
 
-            $table = TableModel::find($table_id);
+            $table = TableModel::where('table_number', $table_id)->first() ?? TableModel::find($table_id);
             if ($table) {
                 $table->status = 'disponible';
                 $table->save();

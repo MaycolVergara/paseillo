@@ -25,9 +25,15 @@ class SaleModel extends Model
         'print_format'
     ];
 
-    // conexión: Una venta pertenece a un cliente
+    // Conexión: Una venta pertenece a un cliente
     public function customer()
     {
         return $this->belongsTo(CustomerBallotModel::class, 'customer_id');
+    }
+
+    // Conexión: Una venta fue registrada por un usuario (Admin o Mozo)
+    public function user()
+    {
+        return $this->belongsTo(UserModel::class, 'user_id');
     }
 }

@@ -19,9 +19,19 @@ class TableModel extends Model
 
     ];
 
-    // Relación: quién está atendiendo esta mesa
-    /*public function servingUser()
+    // Relación / Accesor: quién está atendiendo esta mesa
+    public function getServingUserAttribute()
     {
-        return $this->belongsTo(UserModel::class, 'serving_user_id', 'id');
-    }*/
+        $sale = SaleModel::with('user.staff')
+            ->where('status', 'Pending')
+            ->where(function($query) {
+                $query->where('table_number', $this->table_number)
+                      ->orWhere('table_id', $this->table_number)
+                      ->orWhere('table_id', $this->id);
+            })
+            ->latest('id')
+            ->first();
+
+        return $sale ? $sale->user : null;
+    }
 }

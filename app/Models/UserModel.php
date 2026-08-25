@@ -20,6 +20,19 @@ class UserModel extends Authenticatable
         return $this->belongsTo(StaffModel::class, 'staff_id');
     }
 
+    public function role()
+    {
+        return $this->belongsTo(RoleModel::class, 'role_id');
+    }
+
+    public function getNameAttribute()
+    {
+        if ($this->staff && $this->staff->name) {
+            return $this->staff->name;
+        }
+        return $this->username;
+    }
+
     // Esto le dice a Laravel que usaremos 'username' para el login en vez de 'email'
     public function username()
     {

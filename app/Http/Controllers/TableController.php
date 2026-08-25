@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TableModel;
+use App\Models\SaleModel;
 use Illuminate\Database\QueryException;
 
 class TableController extends Controller
@@ -16,6 +17,21 @@ class TableController extends Controller
     {
         $table_config = TableModel::where('status', '!=', 'mesasNoExistentes')
             ->orderBy('table_number', 'asc')->get();
+
+        // Precargamos las ventas pendientes para identificar si atiende un Mozo (role_id 2) o Admin (role_id 1)
+        $pendingSales = SaleModel::with('user.staff')
+            ->where('status', 'Pending')
+            ->get();
+
+        foreach ($table_config as $table) {
+            $matchingSale = $pendingSales->first(function($sale) use ($table) {
+                return $sale->table_number == $table->table_number ||
+                       $sale->table_id == $table->table_number ||
+                       $sale->table_id == $table->id;
+            });
+            $table->serving_user = $matchingSale ? $matchingSale->user : null;
+        }
+
         $table_view = TableModel::all();
         return view('tableView', compact('table_config', 'table_view'));
     }

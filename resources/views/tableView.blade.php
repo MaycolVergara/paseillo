@@ -49,6 +49,8 @@
                 <div id="contenedor-mesas" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-3 sm:gap-4 lg:gap-6">
                     @foreach($table_config as $table)
                         @php
+                            $userServing = $table->serving_user ?? $table->servingUser;
+
                             // Determinar el color según el estado y quién atiende
                             if ($table->status == 'mesasInhabilitada') {
                                 $cardClass = 'border-yellow-300 bg-yellow-50 text-yellow-600 dark:border-yellow-900 dark:bg-yellow-950/30 dark:text-yellow-400 opacity-80';
@@ -56,12 +58,14 @@
                             } elseif ($table->status == 'disponible') {
                                 $cardClass = 'border-emerald-100 bg-emerald-50 text-emerald-600 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-400';
                                 $labelText = 'Libre';
-                            } elseif ($table->servingUser && $table->servingUser->role_id == 2) {
-                                $cardClass = 'border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-900 dark:bg-blue-950/30 dark:text-blue-400';
-                                $labelText = $table->servingUser->name;
+                            } elseif ($userServing && $userServing->role_id == 2) {
+                                // Mozo -> AZUL
+                                $cardClass = 'border-blue-300 bg-blue-50 text-blue-600 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-400 shadow-blue-500/10';
+                                $labelText = $userServing->name ?? $userServing->username ?? 'Mozo';
                             } else {
-                                $cardClass = 'border-red-100 bg-red-50 text-red-600 dark:border-red-900 dark:bg-red-950/30 dark:text-red-400';
-                                $labelText = $table->servingUser ? $table->servingUser->name : 'Ocupado';
+                                // Admin (role_id 1) o cualquier otro usuario -> ROJO
+                                $cardClass = 'border-red-200 bg-red-50 text-red-600 dark:border-red-900 dark:bg-red-950/30 dark:text-red-400 shadow-red-500/10';
+                                $labelText = $userServing ? ($userServing->name ?? $userServing->username) : 'Admin';
                             }
                             
                             $isDisabled = $table->status == 'mesasInhabilitada';
