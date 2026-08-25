@@ -253,9 +253,11 @@
     {{-- MODAL: Cobrar Cuenta --}}
     @if (Auth::user()->role_id == 1)
     <div id="modalCobrar"
-        class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm
+        flex items-center justify-center p-4">
         <div
-            class="bg-white dark:bg-gray-900 w-full max-w-md rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in duration-300 border border-gray-100 dark:border-gray-800">
+            class="bg-white dark:bg-gray-900 w-full max-w-md
+            rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in duration-300 border border-gray-100 dark:border-gray-800">
             {{-- Header --}}
             <div
                 class="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">
